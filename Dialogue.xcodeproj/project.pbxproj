@@ -14,6 +14,11 @@
 		617D003A295F8B3E00A7D2A5 /* DialogueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617D0039295F8B3E00A7D2A5 /* DialogueTests.swift */; };
 		617D0044295F8B3E00A7D2A5 /* DialogueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617D0043295F8B3E00A7D2A5 /* DialogueUITests.swift */; };
 		617D0046295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617D0045295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift */; };
+		617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */; };
+		617D0054295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */; };
+		617D0059295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
+		617D005A295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
+		617D005B295FAA4800A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,8 @@
 		617D003F295F8B3E00A7D2A5 /* DialogueUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DialogueUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		617D0043295F8B3E00A7D2A5 /* DialogueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueUITests.swift; sourceTree = "<group>"; };
 		617D0045295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRequestHandler.swift; sourceTree = "<group>"; };
+		617D0055295FA14600A7D2A5 /* apikey.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = apikey.env; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +104,8 @@
 			children = (
 				617D0027295F8B3D00A7D2A5 /* DialogueApp.swift */,
 				617D0029295F8B3D00A7D2A5 /* ContentView.swift */,
+				617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */,
+				617D0055295FA14600A7D2A5 /* apikey.env */,
 				617D002B295F8B3D00A7D2A5 /* Assets.xcassets */,
 				617D002D295F8B3D00A7D2A5 /* Dialogue.entitlements */,
 				617D002E295F8B3D00A7D2A5 /* Preview Content */,
@@ -234,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				617D0030295F8B3D00A7D2A5 /* Preview Assets.xcassets in Resources */,
+				617D0059295FAA4700A7D2A5 /* apikey.env in Resources */,
 				617D002C295F8B3D00A7D2A5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				617D005A295FAA4700A7D2A5 /* apikey.env in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +260,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				617D005B295FAA4800A7D2A5 /* apikey.env in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +273,7 @@
 			files = (
 				617D002A295F8B3D00A7D2A5 /* ContentView.swift in Sources */,
 				617D0028295F8B3D00A7D2A5 /* DialogueApp.swift in Sources */,
+				617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				617D0054295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 				617D003A295F8B3E00A7D2A5 /* DialogueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

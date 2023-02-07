@@ -22,6 +22,9 @@ struct PersistenceController {
             newItem.timestamp = Date().addingTimeInterval(-Double(i+1) * 60.0 * 5.0)
             newItem.text = "\(i) \(i % 2 == 0 ? userText : serverText)"
             newItem.fromUser = i % 2 == 0
+            if i == 3 || i == 7 {
+                newItem.endThread = true
+            }
         }
         do {
             try viewContext.save()

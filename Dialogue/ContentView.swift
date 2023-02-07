@@ -32,39 +32,25 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: deleteAllChats) {
                         Text("Clear")
                     }
-                    .foregroundColor(Color("Clear"))
+                    .foregroundColor(Color("UserAccent"))
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: toggleEndThread) {
+                        Label("End Thread", systemImage: "circle.and.line.horizontal.fill")
+                    }
+                    .foregroundColor(Color("ServerAccent"))
                 }
             }
         }
     }
     
     
-    @ViewBuilder
-    private func DataDeleteButton() -> some View {
-        Button("Delete All") { deleteAllChats() }
-            .buttonStyle(PopStyle(color: .red))
-            .frame(width: 130, height: 54)
-    }
-    
-
-    private func deleteChats(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { allChats[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
     private func deleteAllChats() {
+        completeHaptic()
         allChats.forEach(viewContext.delete)
         
         do {
@@ -72,6 +58,21 @@ struct ContentView: View {
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    private func toggleEndThread() {
+        guard allChats.count > 0 else { return }
+        completeHaptic()
+        withAnimation {
+            allChats.last!.endThread.toggle()
+            
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }

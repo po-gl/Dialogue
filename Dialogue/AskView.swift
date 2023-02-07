@@ -26,6 +26,7 @@ struct AskView: View {
                 
                 Button(action: {
                     guard inputText != "" else { return }
+                    basicHaptic()
                     withAnimation {
                         waiting = true
                     }
@@ -58,6 +59,7 @@ struct AskView: View {
     
     
     private func handleResponse() {
+        completeHaptic()
         if let data = apiRequestHandler.responseData {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 if let choices = json["choices"] as? [[String: Any]] {

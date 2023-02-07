@@ -22,6 +22,18 @@
 		617D0059295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 		617D005A295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 		617D005B295FAA4800A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
+		61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
+		61CA0F112992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
+		61CA0F122992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
+		61CA0F142992D11200BFC448 /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F132992D11200BFC448 /* View+if.swift */; };
+		61CA0F152992D11200BFC448 /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F132992D11200BFC448 /* View+if.swift */; };
+		61CA0F162992D11200BFC448 /* View+if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F132992D11200BFC448 /* View+if.swift */; };
+		61CA0F182992DB7600BFC448 /* ChatLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F172992DB7600BFC448 /* ChatLog.swift */; };
+		61CA0F192992DB7600BFC448 /* ChatLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F172992DB7600BFC448 /* ChatLog.swift */; };
+		61CA0F1A2992DB7600BFC448 /* ChatLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F172992DB7600BFC448 /* ChatLog.swift */; };
+		61CA0F1C2992DC2D00BFC448 /* AskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F1B2992DC2D00BFC448 /* AskView.swift */; };
+		61CA0F1D2992DC2D00BFC448 /* AskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F1B2992DC2D00BFC448 /* AskView.swift */; };
+		61CA0F1E2992DC2D00BFC448 /* AskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F1B2992DC2D00BFC448 /* AskView.swift */; };
 		61F21DDE299236B400C3DACC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F21DDD299236B400C3DACC /* Persistence.swift */; };
 		61F21DDF299236B400C3DACC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F21DDD299236B400C3DACC /* Persistence.swift */; };
 		61F21DE0299236B400C3DACC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F21DDD299236B400C3DACC /* Persistence.swift */; };
@@ -74,6 +86,10 @@
 		617D0045295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRequestHandler.swift; sourceTree = "<group>"; };
 		617D0055295FA14600A7D2A5 /* apikey.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = apikey.env; sourceTree = "<group>"; };
+		61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+keyboardAdaptive.swift"; sourceTree = "<group>"; };
+		61CA0F132992D11200BFC448 /* View+if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+if.swift"; sourceTree = "<group>"; };
+		61CA0F172992DB7600BFC448 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
+		61CA0F1B2992DC2D00BFC448 /* AskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskView.swift; sourceTree = "<group>"; };
 		61F21DDD299236B400C3DACC /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		61F21DE22992377800C3DACC /* Dialogue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dialogue.xcdatamodel; sourceTree = "<group>"; };
 		61F21DE629923B7400C3DACC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -135,6 +151,8 @@
 				617D0027295F8B3D00A7D2A5 /* DialogueApp.swift */,
 				617D0029295F8B3D00A7D2A5 /* ContentView.swift */,
 				61F21DFD29924AA100C3DACC /* ChatView.swift */,
+				61CA0F172992DB7600BFC448 /* ChatLog.swift */,
+				61CA0F1B2992DC2D00BFC448 /* AskView.swift */,
 				617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */,
 				61F21DE7299240B300C3DACC /* Helpers */,
 				61F21DEC2992452C00C3DACC /* Extensions */,
@@ -187,6 +205,8 @@
 			children = (
 				61F21DED2992454700C3DACC /* Color+isDark.swift */,
 				61F21DF1299245CE00C3DACC /* Color+hex.swift */,
+				61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */,
+				61CA0F132992D11200BFC448 /* View+if.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -326,13 +346,17 @@
 			files = (
 				617D002A295F8B3D00A7D2A5 /* ContentView.swift in Sources */,
 				61F21DF2299245CE00C3DACC /* Color+hex.swift in Sources */,
+				61CA0F182992DB7600BFC448 /* ChatLog.swift in Sources */,
 				61F21DFE29924AA100C3DACC /* ChatView.swift in Sources */,
 				61F21DE9299240E100C3DACC /* PopStyle.swift in Sources */,
 				61F21DDE299236B400C3DACC /* Persistence.swift in Sources */,
+				61CA0F142992D11200BFC448 /* View+if.swift in Sources */,
 				61F21DE32992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
 				61F21DEE2992454700C3DACC /* Color+isDark.swift in Sources */,
 				6153E7C52992A2E400427F85 /* WaitingIndicator.swift in Sources */,
+				61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */,
 				617D0028295F8B3D00A7D2A5 /* DialogueApp.swift in Sources */,
+				61CA0F1C2992DC2D00BFC448 /* AskView.swift in Sources */,
 				617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,9 +366,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				61F21DDF299236B400C3DACC /* Persistence.swift in Sources */,
+				61CA0F112992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */,
 				617D0054295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 				61F21DEA299240E100C3DACC /* PopStyle.swift in Sources */,
 				617D003A295F8B3E00A7D2A5 /* DialogueTests.swift in Sources */,
+				61CA0F1D2992DC2D00BFC448 /* AskView.swift in Sources */,
+				61CA0F152992D11200BFC448 /* View+if.swift in Sources */,
+				61CA0F192992DB7600BFC448 /* ChatLog.swift in Sources */,
 				61F21DFF29924AA100C3DACC /* ChatView.swift in Sources */,
 				6153E7C72992A2EA00427F85 /* WaitingIndicator.swift in Sources */,
 				61F21DE42992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
@@ -358,9 +386,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				61F21DE0299236B400C3DACC /* Persistence.swift in Sources */,
+				61CA0F122992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */,
 				617D0046295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift in Sources */,
 				61F21DEB299240E100C3DACC /* PopStyle.swift in Sources */,
 				617D0044295F8B3E00A7D2A5 /* DialogueUITests.swift in Sources */,
+				61CA0F1E2992DC2D00BFC448 /* AskView.swift in Sources */,
+				61CA0F162992D11200BFC448 /* View+if.swift in Sources */,
+				61CA0F1A2992DB7600BFC448 /* ChatLog.swift in Sources */,
 				61F21E0029924AA100C3DACC /* ChatView.swift in Sources */,
 				6153E7C62992A2E400427F85 /* WaitingIndicator.swift in Sources */,
 				61F21DE52992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
@@ -502,14 +534,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Dialogue/Dialogue.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Dialogue/Preview Content\"";
-				DEVELOPMENT_TEAM = 53572NHTYS;
+				DEVELOPMENT_TEAM = B5RQ2EJVKL;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -531,6 +561,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.po-gl-dev.Dialogue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -545,14 +576,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Dialogue/Dialogue.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Dialogue/Preview Content\"";
-				DEVELOPMENT_TEAM = 53572NHTYS;
+				DEVELOPMENT_TEAM = B5RQ2EJVKL;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -574,6 +603,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.po-gl-dev.Dialogue";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;

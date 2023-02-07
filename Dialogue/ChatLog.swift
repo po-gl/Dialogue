@@ -22,7 +22,7 @@ struct ChatLog: View {
                         ForEach(allChats, id: \.id) { chat in
                             ChatView(chat: chat, geometry: geometry)
                                 .padding(.top, 10)
-                                .padding(.bottom, chat.id == allChats.last!.id ? 80 + keyboardHeight : 10)
+                                .padding(.bottom, chat.id == allChats.last!.id ? 100 + keyboardHeight : 10)
                                 .id(chat.id)
                         }
                         .onChange(of: allChats.count) { _ in

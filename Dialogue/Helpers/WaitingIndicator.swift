@@ -16,19 +16,21 @@ struct WaitingIndicator: View {
             DotView(delay: 0.8)
         }
         .foregroundColor(Color("Gray"))
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: 30).foregroundStyle(.ultraThinMaterial))
     }
     
     
     struct DotView: View {
         var delay: Double = 0
-        @State var opacity: Double = 1
+        @State var opacity: Double = 0.1
         var body: some View {
             Circle()
                 .frame(width: 10)
                 .opacity(opacity)
                 .animation(.easeInOut(duration: 1.0).repeatForever().delay(delay), value: opacity)
                 .onAppear {
-                    self.opacity = 0.0
+                    self.opacity = 1.0
                 }
         }
     }

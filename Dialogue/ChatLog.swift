@@ -39,7 +39,7 @@ struct ChatLog: View {
                         }
                     }
                 }
-                .scrollDismissesKeyboard(.interactively)
+                .scrollDismissesKeyboard(.immediately)
             }
         }
         .ignoresSafeArea(.keyboard)

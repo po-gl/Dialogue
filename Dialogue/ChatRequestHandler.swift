@@ -14,7 +14,10 @@ class ChatRequestHandler: ObservableObject {
     @Published var responseData: Data?
     @Published var responseError: Error?
     
-    func makeRequest(text: String) {
+    var session = URLSession.shared
+    
+    func makeRequest(text: String) async {
+        print("Input text: \(text)")
         let apiKey = getApiKey("apikey.env")
         let model = "text-davinci-003"
         let prompt = text
@@ -44,20 +47,14 @@ class ChatRequestHandler: ObservableObject {
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        URLSession.shared
-            .dataTaskPublisher(for: request)
-            .map { $0.data }
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let err):
-                    self.responseError = err
-                default:
-                    break
-                }
-            }, receiveValue: { data in
-                self.responseData = data
-            })
-            .store(in: &self.cancellables)
+        do {
+            let (responseData, _) = try await session.upload(for: request, from: jsonData!)
+            await MainActor.run {
+                self.responseData = responseData
+            }
+        } catch {
+            print("Error loading openai url: \(error.localizedDescription)")
+        }
     }
     
     

@@ -12,15 +12,15 @@ struct AskView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var apiRequestHandler = ChatRequestHandler()
-    
     @State private var inputText: String = ""
-    
     @Binding var waiting: Bool
+    
+    private let askPhrases = ["How", "Why", "What", "Who", "Nothing", "Anything", "Something"]
     
     var body: some View {
         VStack (spacing: 0) {
             HStack {
-                TextField("Ask ChatGPT...", text: $inputText, axis: .vertical)
+                TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
                     .tint(Color("ServerAccent"))
                     .padding(11)
                 

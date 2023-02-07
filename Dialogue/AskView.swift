@@ -49,7 +49,6 @@ struct AskView: View {
                 .frame(width: 35, height: 35)
                 .padding(.trailing, 5)
             }
-            .background(RoundedRectangle(cornerRadius: 26).fill(.ultraThinMaterial))
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: 2)).opacity(0.5))
             .padding(.vertical, 5)
             .padding(.horizontal, 10)

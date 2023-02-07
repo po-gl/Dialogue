@@ -12,6 +12,8 @@ struct ChatLog: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
     
+    @State private var keyboardHeight: CGFloat = 0
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
@@ -20,23 +22,21 @@ struct ChatLog: View {
                         ForEach(allChats, id: \.id) { chat in
                             ChatView(chat: chat, geometry: geometry)
                                 .padding(.top, 10)
-                                .padding(.bottom, chat.id == allChats.last!.id ? 80 : 10)
+                                .padding(.bottom, chat.id == allChats.last!.id ? 80 + keyboardHeight : 10)
                                 .id(chat.id)
-                                .if(chat.id == allChats.last!.id) { view in
-                                    view.keyboardAdaptive(minus: -40)
-                                }
                         }
                         .onChange(of: allChats.count) { _ in
                             withAnimation {
-                                scroll.scrollTo(allChats.last?.id, anchor: .bottom)
+                                scroll.scrollTo(allChats.last?.id)
                             }
                         }
                         .onAppear() {
                             scroll.scrollTo(allChats.last?.id)
                         }
-                        .onReceive(Publishers.keyboardOpened) { _ in
+                        .onReceive(Publishers.keyboardHeight) { height in
+                            self.keyboardHeight = height == 0 ? 0 : height - 30
                             withAnimation {
-                                scroll.scrollTo(allChats.last?.id, anchor: .bottom)
+                                scroll.scrollTo(allChats.last?.id)
                             }
                         }
                     }

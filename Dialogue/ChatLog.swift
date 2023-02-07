@@ -26,18 +26,16 @@ struct ChatLog: View {
                                 .id(chat.id)
                         }
                         .onChange(of: allChats.count) { _ in
-                            withAnimation {
-                                scroll.scrollTo(allChats.last?.id)
-                            }
+                            withAnimation { scroll.scrollTo(allChats.last?.id) }
                         }
                         .onAppear() {
                             scroll.scrollTo(allChats.last?.id)
                         }
                         .onReceive(Publishers.keyboardHeight) { height in
                             self.keyboardHeight = height == 0 ? 0 : height - 30
-                            withAnimation {
-                                scroll.scrollTo(allChats.last?.id)
-                            }
+                        }
+                        .onReceive(Publishers.keyboardOpened) { _ in
+                            withAnimation { scroll.scrollTo(allChats.last?.id) }
                         }
                     }
                 }
@@ -46,5 +44,7 @@ struct ChatLog: View {
         }
         .ignoresSafeArea(.keyboard)
     }
+    
+    
 }
 

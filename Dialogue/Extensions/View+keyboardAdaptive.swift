@@ -42,15 +42,6 @@ extension Publishers {
             .eraseToAnyPublisher()
     }
     
-    static var keyboardOpened: AnyPublisher<CGFloat, Never> {
-        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
-            .map { $0.keyboardHeight }
-        
-        return willShow
-            .eraseToAnyPublisher()
-    }
-    
-    
     static var keyboardReadable: AnyPublisher<Bool, Never> {
         Publishers.Merge(
             NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)

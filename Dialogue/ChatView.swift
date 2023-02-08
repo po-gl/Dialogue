@@ -17,21 +17,6 @@ struct ChatView: View {
     private var colorAccent: Color { return chat.fromUser ? Color("UserAccent") : Color("ServerAccent") }
     private var maxWidth: Double { return chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/9 }
     
-    private var chatGradient: LinearGradient {
-        return chat.fromUser ?
-        LinearGradient(stops: [.init(color: Color(hex: 0xFFDEBB), location: 0.0),
-                               .init(color: color, location: 0.2),
-                               .init(color: color, location: 0.5),
-                               .init(color: color, location: 0.85),
-                               .init(color: Color(hex: 0xBAE1E5), location: 1.0)],
-                       startPoint: .top, endPoint: .bottom) :
-        LinearGradient(stops: [.init(color: Color(hex: 0xFF7676), location: 0.0),
-                               .init(color: color, location: 0.1),
-                               .init(color: color, location: 0.5),
-                               .init(color: color, location: 0.9),
-                               .init(color: Color(hex: 0x90D794), location: 1.0)],
-                       startPoint: .top, endPoint: .bottom)
-    }
     
     var body: some View {
         VStack {

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.undoManager) private var undoManager
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
@@ -42,6 +43,9 @@ struct ContentView: View {
                 }
             }
             .background(Color("Background"))
+            .onAppear {
+                viewContext.undoManager = undoManager
+            }
         }
     }
     

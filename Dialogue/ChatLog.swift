@@ -53,47 +53,5 @@ struct ChatLog: View {
         .ignoresSafeArea(.keyboard)
     }
     
-    @ViewBuilder
-    private func ChatDivider() -> some View {
-        let onTop = false // Bool.random()
-        let gradientLength: Double = 35
-        
-        let topGradient = LinearGradient(stops: [
-            .init(color: .clear, location: 0.0),
-            .init(color: Color("User"), location: 1.0)
-        ], startPoint: .top, endPoint: .bottom)
-        
-        let bottomStops: [Gradient.Stop] = Bool.random() ? [
-            .init(color: Color("Server"), location: -0.1),
-            .init(color: Color("ServerAccent").opacity(0.6), location: 0.4),
-            .init(color: .clear, location: 1.0)
-        ] : [
-            .init(color: Color("User"), location: 0.0),
-            .init(color: Color("UserAccent").opacity(0.2), location: 0.8),
-            .init(color: .clear, location: 1.0)
-        ]
-        let bottomGradient = LinearGradient(stops: bottomStops, startPoint: .top, endPoint: .bottom)
-        
-        VStack (spacing: 0) {
-            Rectangle()
-                .frame(height: 1)
-                .scaleEffect(x: 1, y: gradientLength, anchor: .bottom)
-                .opacity(onTop ? 1 : 0)
-                .foregroundStyle(topGradient)
-                .brightness(0.10)
-                .saturation(1.15)
-            Rectangle()
-                .frame(height: 3)
-                .foregroundColor(Color("Outline"))
-            Rectangle()
-                .frame(height: 1)
-                .scaleEffect(x: 1, y: gradientLength, anchor: .top)
-                .opacity(onTop ? 0 : 1)
-                .foregroundStyle(bottomGradient)
-                .brightness(0.10)
-                .saturation(1.15)
-        }
-            .frame(height: 5)
-    }
 }
 

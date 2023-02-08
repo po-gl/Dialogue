@@ -35,7 +35,7 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem() {
                     Button(action: deleteAllChats) {
                         Text("Clear")
                     }

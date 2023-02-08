@@ -23,7 +23,9 @@ struct ChatView: View {
         VStack {
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
                 ChatText()
+#if os(iOS)
                     .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
+#endif
                     .compositingGroup()
                     .contextMenu { ChatContextMenu() }
                 Bubble()
@@ -63,7 +65,7 @@ struct ChatView: View {
     private func ChatContextMenu() -> some View {
         Button(action: {
             basicHaptic()
-            UIPasteboard.general.string = chat.text
+            saveToClipboard()
         }) {
             Label("Copy", systemImage: "doc.on.doc")
         }
@@ -73,6 +75,14 @@ struct ChatView: View {
         Button(action: deleteChat) {
             Label("Remove", systemImage: "trash")
         }
+    }
+    
+    private func saveToClipboard() {
+        #if os(iOS)
+        UIPasteboard.general.string = chat.text
+        #elseif os(OSX)
+        
+        #endif
     }
     
     private func deleteChat() {

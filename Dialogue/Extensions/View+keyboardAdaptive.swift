@@ -29,7 +29,7 @@ struct KeyboardAdaptive: ViewModifier {
     }
 }
 
-
+#if os(iOS)
 extension Publishers {
     static var keyboardHeight: AnyPublisher<CGFloat, Never> {
         let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
@@ -69,3 +69,17 @@ extension Notification {
     }
 }
 
+#elseif os(OSX)
+
+extension Publishers {
+    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
+    }
+    static var keyboardOpened: AnyPublisher<CGFloat, Never> {
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
+    }
+    static var keyboardReadable: AnyPublisher<Bool, Never> {
+        return Empty(completeImmediately: false).eraseToAnyPublisher()
+    }
+}
+#endif

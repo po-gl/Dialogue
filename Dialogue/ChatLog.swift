@@ -25,7 +25,7 @@ struct ChatLog: View {
                                     .padding(.bottom, 10)
                                     .padding(.bottom, chat.endThread ? 15 : 0)
                                     .overlay(alignment: .bottom) { ChatDivider().opacity(chat.endThread ? 1 : 0) }
-                                    .padding(.bottom, chat.endThread ? 15 : -2)
+                                    .padding(.bottom, chat.endThread ? 15 : -5)
                                     .padding(.bottom, chat.id == allChats.last!.id ? 100 + keyboardHeight : 0)
                                     .id(chat.id)
                         }
@@ -55,9 +55,41 @@ struct ChatLog: View {
     
     @ViewBuilder
     private func ChatDivider() -> some View {
-        Rectangle()
-            .frame(height: 2)
-            .foregroundColor(Color("Outline"))
+        let onTop = false // Bool.random()
+        let gradientLength: Double = 35
+        
+        let topGradient = LinearGradient(stops: [
+            .init(color: Color("Background"), location: 0.0),
+            .init(color: Color("User"), location: 1.0)
+        ], startPoint: .top, endPoint: .bottom)
+        
+        let bottomStops: [Gradient.Stop] = Bool.random() ? [
+            .init(color: Color("Server"), location: 0.0),
+            .init(color: Color("ServerAccent").opacity(0.6), location: 0.4),
+            .init(color: Color("Background"), location: 1.0)
+        ] : [
+            .init(color: Color("User"), location: 0.0),
+            .init(color: Color("ServerAccent").opacity(0.3), location: 0.7),
+            .init(color: Color("Background"), location: 1.0)
+        ]
+        let bottomGradient = LinearGradient(stops: bottomStops, startPoint: .top, endPoint: .bottom)
+        
+        VStack (spacing: 0) {
+            Rectangle()
+                .frame(height: 1)
+                .scaleEffect(x: 1, y: gradientLength, anchor: .bottom)
+                .opacity(onTop ? 1 : 0)
+                .foregroundStyle(topGradient)
+            Rectangle()
+                .frame(height: 3)
+                .foregroundColor(Color("Outline"))
+            Rectangle()
+                .frame(height: 1)
+                .scaleEffect(x: 1, y: gradientLength, anchor: .top)
+                .opacity(onTop ? 0 : 1)
+                .foregroundStyle(bottomGradient)
+        }
+            .frame(height: 5)
     }
 }
 

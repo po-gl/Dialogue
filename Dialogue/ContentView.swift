@@ -15,11 +15,13 @@ struct ContentView: View {
     
     @State private var waiting: Bool = false
     
+    private let titleEmoji = ["🤖", "🔮", "🌞", "👁️"]
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 ChatLog()
-                    .navigationTitle("Dialogue")
+                    .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
 #if os(iOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif

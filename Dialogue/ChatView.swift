@@ -60,9 +60,13 @@ struct ChatView: View {
     @ViewBuilder
     private func ChatContextMenu() -> some View {
         Button(action: {
+            basicHaptic()
             UIPasteboard.general.string = chat.text
         }) {
             Label("Copy", systemImage: "doc.on.doc")
+        }
+        Button(action: toggleEndThread) {
+            Label(chat.endThread ? "Open Thread" : "Close Thread", systemImage: "circle.and.line.horizontal")
         }
         Button(action: deleteChat) {
             Label("Remove", systemImage: "trash")
@@ -70,6 +74,7 @@ struct ChatView: View {
     }
     
     private func deleteChat() {
+        basicHaptic()
         viewContext.delete(chat)
         
         do {
@@ -77,6 +82,23 @@ struct ChatView: View {
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    private func toggleEndThread() {
+        basicHaptic()
+        withAnimation {
+            chat.endThread.toggle()
+            if chat.endThread {
+                chat.endThreadDividerColor = ChatDivider.colors.randomElement()
+            }
+            
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }

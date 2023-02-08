@@ -80,6 +80,7 @@ struct ChatLog: View {
                 .scaleEffect(x: 1, y: gradientLength, anchor: .bottom)
                 .opacity(onTop ? 1 : 0)
                 .foregroundStyle(topGradient)
+                .saturation(1.15)
             Rectangle()
                 .frame(height: 3)
                 .foregroundColor(Color("Outline"))
@@ -88,6 +89,7 @@ struct ChatLog: View {
                 .scaleEffect(x: 1, y: gradientLength, anchor: .top)
                 .opacity(onTop ? 0 : 1)
                 .foregroundStyle(bottomGradient)
+                .saturation(1.15)
         }
             .frame(height: 5)
     }

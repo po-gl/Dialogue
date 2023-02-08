@@ -37,6 +37,7 @@ struct ChatView: View {
         VStack {
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
                 ChatText()
+                    .contextMenu { ChatContextMenu() }
                 Bubble()
                     .offset(x: chat.fromUser ? 8 : -8, y: 8)
             }
@@ -51,7 +52,6 @@ struct ChatView: View {
     private func ChatText() -> some View {
         VStack (alignment: chat.fromUser ? .trailing : .leading ,spacing: 5) {
             Text("\(chat.text!)")
-                .textSelection(.enabled)
             Text("\(chat.timestamp!, formatter: timeFormatter)")
                 .font(.system(size: 12, design: .monospaced))
                 .opacity(0.7)
@@ -69,6 +69,15 @@ struct ChatView: View {
             .fill(colorAccent)
             .overlay(Circle().stroke(Color("Outline"), lineWidth: 2))
             .frame(width: 12, height: 12)
+    }
+    
+    @ViewBuilder
+    private func ChatContextMenu() -> some View {
+        Button(action: {
+            UIPasteboard.general.string = chat.text
+        }) {
+            Label("Copy", systemImage: "doc.on.doc")
+        }
     }
 }
 

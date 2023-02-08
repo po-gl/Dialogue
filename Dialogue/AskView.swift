@@ -11,6 +11,9 @@ struct AskView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     
+    @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
+    private var allChats: FetchedResults<Chat>
+    
     @ObservedObject var apiRequestHandler = ChatRequestHandler()
     @State private var inputText: String = ""
     @Binding var waiting: Bool
@@ -20,36 +23,44 @@ struct AskView: View {
     var body: some View {
         VStack (spacing: 0) {
             HStack {
-                TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
-                    .tint(Color("ServerAccent"))
-                    .padding(11)
-                
-                Button(action: {
-                    guard inputText != "" else { return }
-                    basicHaptic()
-                    withAnimation {
-                        waiting = true
-                    }
-                    let tempText = inputText
-                    Task {
-                        await self.apiRequestHandler.makeRequest(text: tempText)
-                        handleResponse()
+                Button(action: toggleEndThread) {
+                    Image(systemName: "circle.and.line.horizontal.fill")
+                        .font(.system(size: 26))
+                        .foregroundColor(Color("ServerAccent"))
+                }
+                HStack {
+                    
+                    TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
+                        .tint(Color("ServerAccent"))
+                        .padding(11)
+                    
+                    Button(action: {
+                        guard inputText != "" else { return }
+                        basicHaptic()
                         withAnimation {
-                            waiting = false
+                            waiting = true
                         }
-                    }
-                    addUserChat()
-                    inputText = ""
-                }, label: {
-                    Image(systemName: "paperplane")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                })
-                .buttonStyle(PopStyle(color: Color("ServerAccent"), radius: 50))
-                .frame(width: 35, height: 35)
-                .padding(.trailing, 5)
+                        let tempText = inputText
+                        Task {
+                            await self.apiRequestHandler.makeRequest(text: tempText)
+                            handleResponse()
+                            withAnimation {
+                                waiting = false
+                            }
+                        }
+                        addUserChat()
+                        inputText = ""
+                    }, label: {
+                        Image(systemName: "paperplane")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                    })
+                    .buttonStyle(PopStyle(color: Color("ServerAccent"), radius: 50))
+                    .frame(width: 35, height: 35)
+                    .padding(.trailing, 5)
+                }
+                .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: 2)).opacity(0.5))
             }
-            .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: 2)).opacity(0.5))
             .padding(.vertical, 5)
             .padding(.horizontal, 10)
         }
@@ -108,6 +119,21 @@ struct AskView: View {
             } catch {
                 let nsError = error as NSError
                 fatalError("CoreData error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    private func toggleEndThread() {
+        guard allChats.count > 0 else { return }
+        completeHaptic()
+        withAnimation {
+            allChats.last!.endThread.toggle()
+            
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }

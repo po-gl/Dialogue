@@ -32,17 +32,11 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: deleteAllChats) {
                         Text("Clear")
                     }
                     .foregroundColor(Color("UserAccent"))
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: toggleEndThread) {
-                        Label("End Thread", systemImage: "circle.and.line.horizontal.fill")
-                    }
-                    .foregroundColor(Color("ServerAccent"))
                 }
             }
         }
@@ -58,21 +52,6 @@ struct ContentView: View {
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-    }
-    
-    private func toggleEndThread() {
-        guard allChats.count > 0 else { return }
-        completeHaptic()
-        withAnimation {
-            allChats.last!.endThread.toggle()
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
         }
     }
 }

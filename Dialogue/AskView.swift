@@ -20,38 +20,82 @@ struct AskView: View {
     
     private let askPhrases = ["How", "Why", "What", "Who", "Nothing", "Anything", "Something"]
     
+#if os(iOS)
+    private let toggleButtonFontSize: Double = 26
+    private let chatTextPadding: Double = 11
+    private let borderWidth: Double = 2
+#elseif os(OSX)
+    private let toggleButtonFontSize: Double = 20
+    private let chatTextPadding: Double = 7
+    private let borderWidth: Double = 1
+    
+    @FocusState private var focus: Bool
+#endif
+    
     var body: some View {
         VStack (spacing: 0) {
             HStack {
-                Button(action: toggleEndThread) {
-                    Image(systemName: "circle.and.line.horizontal.fill")
-                        .font(.system(size: 26))
-                        .foregroundColor(Color("ServerAccent"))
-                }
+                ToggleThreadButton()
                 HStack {
-                    TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
-                        .tint(Color("ServerAccent"))
-                        .padding(11)
-                    
-                    Button(action: handleSendPressed) {
-                        Image(systemName: "paperplane")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                    }
-                    .buttonStyle(PopStyle(color: Color("ServerAccent"), radius: 50))
-                    .frame(width: 35, height: 35)
-                    .padding(.trailing, 5)
+                    ChatInput()
+#if os(iOS)
+                    SendButton()
+#endif
                 }
-                .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: 2)).opacity(0.5))
+                .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.5))
             }
             .padding(.vertical, 5)
             .padding(.horizontal, 10)
         }
+#if os(OSX)
+        .padding(.top, 5)
+        .padding([.trailing, .bottom], 10)
+#endif
         .background(.ultraThinMaterial)
     }
     
+    @ViewBuilder
+    private func ToggleThreadButton() -> some View {
+        Button(action: toggleEndThread) {
+            Image(systemName: "circle.and.line.horizontal.fill")
+                .foregroundColor(Color("ServerAccent"))
+                .font(.system(size: toggleButtonFontSize))
+        }
+        .buttonStyle(.plain)
+    }
     
-    private func handleSendPressed() {
+    @ViewBuilder
+    private func ChatInput() -> some View {
+        TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
+            .textFieldStyle(.plain)
+            .tint(Color("ServerAccent"))
+            .padding(chatTextPadding)
+#if os(OSX)
+            .padding(.horizontal, 5)
+            .focused($focus)
+            .onAppear {
+                focus = true
+            }
+            .onSubmit {
+                sendRequest()
+            }
+#endif
+    }
+    
+    @ViewBuilder
+    private func SendButton() -> some View {
+        Button(action: sendRequest) {
+            Image(systemName: "paperplane")
+                .resizable()
+                .frame(width: 20, height: 20)
+        }
+        .buttonStyle(PopStyle(color: Color("ServerAccent"), radius: 50))
+        .frame(width: 35, height: 35)
+        .padding(.trailing, 5)
+    }
+    
+    
+    private func sendRequest() {
         guard inputText != "" else { return }
         basicHaptic()
         withAnimation { waiting = true }

@@ -24,7 +24,7 @@ struct ChatLog: View {
                                     .padding(.vertical, 10)
                                     .padding(.bottom, 10)
                                     .padding(.bottom, chat.endThread ? 15 : 0)
-                                    .overlay(alignment: .bottom) { Rectangle().frame(height: 2).opacity(chat.endThread ? 1 : 0) }
+                                    .overlay(alignment: .bottom) { ChatDivider().opacity(chat.endThread ? 1 : 0) }
                                     .padding(.bottom, chat.endThread ? 15 : -2)
                                     .padding(.bottom, chat.id == allChats.last!.id ? 100 + keyboardHeight : 0)
                                     .id(chat.id)
@@ -57,7 +57,7 @@ struct ChatLog: View {
     private func ChatDivider() -> some View {
         Rectangle()
             .frame(height: 2)
-            .padding(.vertical, 15)
+            .foregroundColor(Color("Outline"))
     }
 }
 

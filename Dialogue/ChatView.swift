@@ -60,14 +60,14 @@ struct ChatView: View {
         .padding([.top, .horizontal])
         .padding(.bottom, 10)
         .background(RoundedRectangle(cornerRadius: 20).fill(color))
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(colorScheme == .dark ? .white : .black, lineWidth: 2))
+        .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color("Outline"), lineWidth: 2))
     }
     
     @ViewBuilder
     private func Bubble() -> some View {
         Circle()
             .fill(colorAccent)
-            .overlay(Circle().stroke(colorScheme == .dark ? .white : .black, lineWidth: 2))
+            .overlay(Circle().stroke(Color("Outline"), lineWidth: 2))
             .frame(width: 12, height: 12)
     }
 }

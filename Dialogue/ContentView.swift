@@ -42,10 +42,15 @@ struct ContentView: View {
                     .foregroundColor(Color("UserAccent"))
                 }
             }
-            .background(Color("Background"))
             .onAppear {
                 viewContext.undoManager = undoManager
             }
+#if os(iOS)
+            .background(Color("Background"))
+#elseif os(OSX)
+            .background(Color("BackgroundMacOS"))
+#endif
+            
         }
     }
     

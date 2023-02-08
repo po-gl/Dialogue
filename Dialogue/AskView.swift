@@ -129,6 +129,9 @@ struct AskView: View {
         completeHaptic()
         withAnimation {
             allChats.last!.endThread.toggle()
+            if allChats.last!.endThread {
+                allChats.last!.endThreadDividerColor = ChatDivider.colors.randomElement()
+            }
             
             do {
                 try viewContext.save()

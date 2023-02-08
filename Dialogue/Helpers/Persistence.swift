@@ -24,6 +24,7 @@ struct PersistenceController {
             newItem.fromUser = i % 2 == 0
             if i == 3 || i == 7 {
                 newItem.endThread = true
+                newItem.endThreadDividerColor = ChatDivider.colors.randomElement()
             }
         }
         do {

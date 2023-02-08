@@ -8,23 +8,30 @@
 import SwiftUI
 
 struct ChatDivider: View {
-    private var onTop = false
-    private var gradientLength: Double = 35
+    public var colorString: String
     
-    private let topGradient = LinearGradient(stops: [
+    static var colors = ["UserStyle", "ServerStyle"]
+    
+    var onTop = false
+    var gradientLength: Double = 35
+    
+    let topGradient = LinearGradient(stops: [
         .init(color: .clear, location: 0.0),
         .init(color: Color("User"), location: 1.0)
     ], startPoint: .top, endPoint: .bottom)
     
-    private let bottomStops: [Gradient.Stop] = Bool.random() ? [
-        .init(color: Color("Server"), location: -0.1),
-        .init(color: Color("ServerAccent").opacity(0.6), location: 0.4),
-        .init(color: .clear, location: 1.0)
-    ] : [
-        .init(color: Color("User"), location: 0.0),
-        .init(color: Color("UserAccent").opacity(0.2), location: 0.8),
-        .init(color: .clear, location: 1.0)
-    ]
+    var bottomStops: [Gradient.Stop] {
+        switch colorString {
+        case ChatDivider.colors[1]:
+            return [ .init(color: Color("User"), location: 0.0),
+                     .init(color: Color("UserAccent").opacity(0.2), location: 0.8),
+                     .init(color: .clear, location: 1.0) ]
+        default:
+            return [ .init(color: Color("Server"), location: -0.1),
+                     .init(color: Color("ServerAccent").opacity(0.6), location: 0.4),
+                     .init(color: .clear, location: 1.0) ]
+        }
+    }
     
     var body: some View {
         let bottomGradient = LinearGradient(stops: bottomStops, startPoint: .top, endPoint: .bottom)
@@ -49,11 +56,5 @@ struct ChatDivider: View {
                 .saturation(1.15)
         }
             .frame(height: 5)
-    }
-}
-
-struct ChatDivider_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatDivider()
     }
 }

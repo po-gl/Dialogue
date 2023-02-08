@@ -42,6 +42,7 @@ struct ChatView: View {
     private func ChatText() -> some View {
         VStack (alignment: chat.fromUser ? .trailing : .leading ,spacing: 5) {
             Text("\(chat.text!)")
+                .textSelection(.enabled)
             Text("\(chat.timestamp!, formatter: timeFormatter)")
                 .font(.system(size: 12, design: .monospaced))
                 .opacity(0.5)

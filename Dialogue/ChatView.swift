@@ -39,7 +39,7 @@ struct ChatView: View {
             Text("\(chat.text!)")
             Text("\(chat.timestamp!, formatter: timeFormatter)")
                 .font(.system(size: 12, design: .monospaced))
-                .opacity(0.7)
+                .opacity(0.5)
         }
         .foregroundColor(color.isDarkColor ? .white : .black)
         .padding([.top, .horizontal])

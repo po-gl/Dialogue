@@ -24,6 +24,7 @@ struct ChatView: View {
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
                 ChatText()
                     .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
+                    .compositingGroup()
                     .contextMenu { ChatContextMenu() }
                 Bubble()
                     .offset(x: chat.fromUser ? 8 : -8, y: 8)

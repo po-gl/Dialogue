@@ -12,15 +12,17 @@ class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var responseData: Data?
-    @Published var responseError: Error?
     
     var session = URLSession.shared
     
-    func makeRequest(text: String) async {
-        print("Input text: \(text)")
+    func makeRequest(texts: [String], firstIsHuman: Bool = true) async {
+        let preprompt = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\n"
+        let postprompt = "AI:"
+        let textsWithStops = insertStops(texts: texts, firstIsHuman: firstIsHuman).reversed()
+        
         let apiKey = getApiKey("apikey.env")
         let model = "text-davinci-003"
-        let prompt = text
+        let prompt = ([preprompt] + textsWithStops + [postprompt]).joined()
         let temperature = 0.9
         let maxTokens = 150
         let topP = 1
@@ -47,10 +49,13 @@ class ChatRequestHandler: ObservableObject {
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
+        print("Input prompt: \(String(reflecting: prompt))")
+        
         do {
             let (responseData, _) = try await session.upload(for: request, from: jsonData!)
             await MainActor.run {
                 self.responseData = responseData
+                print("URLResponseData:\(String(data:responseData, encoding: .utf8) ?? "")")
             }
         } catch {
             print("Error loading openai url: \(error.localizedDescription)")
@@ -67,5 +72,15 @@ class ChatRequestHandler: ObservableObject {
             }
         }
         return ""
+    }
+    
+    private func insertStops(texts: [String], firstIsHuman: Bool) -> [String] {
+        var toggle = firstIsHuman
+        let textsWithStops: [String] = texts.map {
+            let actor = toggle ? "Human: " : "AI: "
+            toggle.toggle()
+            return actor + $0 + "\n"
+        }
+        return textsWithStops
     }
 }

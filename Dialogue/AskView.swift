@@ -54,16 +54,11 @@ struct AskView: View {
     private func handleSendPressed() {
         guard inputText != "" else { return }
         basicHaptic()
-        withAnimation {
-            waiting = true
-        }
-        let tempText = inputText
+        withAnimation { waiting = true }
         Task {
-            await self.apiRequestHandler.makeRequest(text: tempText)
+            await self.apiRequestHandler.makeRequest(texts: getLastCoupleChats())
             handleResponse()
-            withAnimation {
-                waiting = false
-            }
+            withAnimation { waiting = false }
         }
         addUserChat()
         inputText = ""
@@ -75,18 +70,27 @@ struct AskView: View {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 if let choices = json["choices"] as? [[String: Any]] {
                     if let text = choices[0]["text"] as? String {
-                        print("Response: \(text)")
+                        print("Response: \(String(reflecting: text))")
                         addServerChat(text.trimmingCharacters(in: .whitespacesAndNewlines))
                     }
                 } else {
-                    let text = String(data: apiRequestHandler.responseData!, encoding: .utf8) ?? ""
-                    print("Response data: \(text)")
-                    addServerChat(text.trimmingCharacters(in: .whitespacesAndNewlines))
+                    addServerChat("There was an error processing the request, try again.")
                 }
             }
-        } else if apiRequestHandler.responseError != nil {
-            print("Response error: \(apiRequestHandler.responseError!.localizedDescription)")
         }
+    }
+    
+    
+    private func getLastCoupleChats() -> [String] {
+        var texts: [String] = []
+        for i in 0..<3 {
+            guard allChats.endIndex-1 - i >= 0 else { break }
+            let chat = allChats[allChats.endIndex-1 - i]
+            
+            if chat.endThread { break }
+            texts.append(chat.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
+        }
+        return texts
     }
     
     

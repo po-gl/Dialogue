@@ -29,32 +29,15 @@ struct AskView: View {
                         .foregroundColor(Color("ServerAccent"))
                 }
                 HStack {
-                    
                     TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
                         .tint(Color("ServerAccent"))
                         .padding(11)
                     
-                    Button(action: {
-                        guard inputText != "" else { return }
-                        basicHaptic()
-                        withAnimation {
-                            waiting = true
-                        }
-                        let tempText = inputText
-                        Task {
-                            await self.apiRequestHandler.makeRequest(text: tempText)
-                            handleResponse()
-                            withAnimation {
-                                waiting = false
-                            }
-                        }
-                        addUserChat()
-                        inputText = ""
-                    }, label: {
+                    Button(action: handleSendPressed) {
                         Image(systemName: "paperplane")
                             .resizable()
                             .frame(width: 20, height: 20)
-                    })
+                    }
                     .buttonStyle(PopStyle(color: Color("ServerAccent"), radius: 50))
                     .frame(width: 35, height: 35)
                     .padding(.trailing, 5)
@@ -67,6 +50,24 @@ struct AskView: View {
         .background(.ultraThinMaterial)
     }
     
+    
+    private func handleSendPressed() {
+        guard inputText != "" else { return }
+        basicHaptic()
+        withAnimation {
+            waiting = true
+        }
+        let tempText = inputText
+        Task {
+            await self.apiRequestHandler.makeRequest(text: tempText)
+            handleResponse()
+            withAnimation {
+                waiting = false
+            }
+        }
+        addUserChat()
+        inputText = ""
+    }
     
     private func handleResponse() {
         completeHaptic()

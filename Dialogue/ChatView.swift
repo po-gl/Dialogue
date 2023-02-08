@@ -11,6 +11,7 @@ struct ChatView: View {
     var chat: Chat
     var geometry: GeometryProxy
     
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
     private var color: Color { return chat.fromUser ? Color("User") : Color("Server") }
@@ -62,6 +63,20 @@ struct ChatView: View {
             UIPasteboard.general.string = chat.text
         }) {
             Label("Copy", systemImage: "doc.on.doc")
+        }
+        Button(action: deleteChat) {
+            Label("Remove", systemImage: "trash")
+        }
+    }
+    
+    private func deleteChat() {
+        viewContext.delete(chat)
+        
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }

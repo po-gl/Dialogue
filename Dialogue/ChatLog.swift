@@ -64,12 +64,12 @@ struct ChatLog: View {
         ], startPoint: .top, endPoint: .bottom)
         
         let bottomStops: [Gradient.Stop] = Bool.random() ? [
-            .init(color: Color("Server"), location: 0.0),
+            .init(color: Color("Server"), location: -0.1),
             .init(color: Color("ServerAccent").opacity(0.6), location: 0.4),
             .init(color: .clear, location: 1.0)
         ] : [
             .init(color: Color("User"), location: 0.0),
-            .init(color: Color("ServerAccent").opacity(0.3), location: 0.7),
+            .init(color: Color("UserAccent").opacity(0.2), location: 0.8),
             .init(color: .clear, location: 1.0)
         ]
         let bottomGradient = LinearGradient(stops: bottomStops, startPoint: .top, endPoint: .bottom)

@@ -39,12 +39,14 @@ struct ChatLog: View {
                         .onAppear {
                             scroll.scrollTo(allChats.last?.id)
                         }
+#if os(iOS)
                         .onReceive(Publishers.keyboardHeight) { height in
                             self.keyboardHeight = height == 0 ? 0 : height - 30
                         }
                         .onReceive(Publishers.keyboardOpened) { _ in
                             withAnimation { scroll.scrollTo(allChats.last?.id) }
                         }
+#endif
                     }
                 }
                 .scrollDismissesKeyboard(.immediately)

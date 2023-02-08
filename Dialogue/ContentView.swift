@@ -39,6 +39,7 @@ struct ContentView: View {
                     .foregroundColor(Color("UserAccent"))
                 }
             }
+            .background(Color("Background"))
         }
     }
     

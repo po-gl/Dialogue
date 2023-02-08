@@ -23,6 +23,7 @@ struct ChatView: View {
         VStack {
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
                 ChatText()
+                    .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
                     .contextMenu { ChatContextMenu() }
                 Bubble()
                     .offset(x: chat.fromUser ? 8 : -8, y: 8)
@@ -46,7 +47,7 @@ struct ChatView: View {
         .padding([.top, .horizontal])
         .padding(.bottom, 10)
         .background(RoundedRectangle(cornerRadius: 20).fill(color))
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color("Outline"), lineWidth: 2))
+        .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color("Outline"), lineWidth: 2))
     }
     
     @ViewBuilder

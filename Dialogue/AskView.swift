@@ -62,6 +62,25 @@ struct AskView: View {
         .buttonStyle(.plain)
     }
     
+    private func toggleEndThread() {
+        guard allChats.count > 0 else { return }
+        completeHaptic()
+        withAnimation(.interpolatingSpring(stiffness: 170, damping: 10)) {
+            allChats.last!.endThread.toggle()
+            if allChats.last!.endThread {
+                allChats.last!.endThreadDividerColor = ChatDivider.colors.randomElement()
+            }
+            
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    
     @ViewBuilder
     private func ChatInput() -> some View {
         TextField("Ask ChatGPT \(askPhrases.randomElement()!.lowercased())...", text: $inputText, axis: .vertical)
@@ -166,24 +185,6 @@ struct AskView: View {
             } catch {
                 let nsError = error as NSError
                 fatalError("CoreData error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    private func toggleEndThread() {
-        guard allChats.count > 0 else { return }
-        completeHaptic()
-        withAnimation {
-            allChats.last!.endThread.toggle()
-            if allChats.last!.endThread {
-                allChats.last!.endThreadDividerColor = ChatDivider.colors.randomElement()
-            }
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }

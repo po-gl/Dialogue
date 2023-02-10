@@ -20,7 +20,9 @@ struct ChatLog: View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
                 ScrollView {
-                    Chats(geometry)
+                    LazyVStack (spacing: 0){
+                        Chats(geometry)
+                    }
                     .onChange(of: allChats.count) { _ in
                         withAnimation { scroll.scrollTo(allChats.last?.id) }
                     }

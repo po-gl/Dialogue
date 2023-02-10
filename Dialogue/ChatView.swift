@@ -22,6 +22,7 @@ struct ChatView: View {
     
     var body: some View {
         Chat()
+            .fixContextFlicker()
             .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
             .onAppear {
                 animate = false

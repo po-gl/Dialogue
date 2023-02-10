@@ -28,7 +28,7 @@ struct ChatLog: View {
                                 .padding(.bottom, chat.endThread ? 15 : 0)
                                 .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0) }
                                 .padding(.bottom, chat.endThread ? 15 : -5)
-                                .padding(.bottom, chat.id == allChats.last!.id ? 100 + keyboardHeight : 0)
+                                .padding(.bottom, chat.id == allChats.last!.id ? 130 + keyboardHeight : 0)
                                 .id(chat.id)
                         }
                         .onChange(of: allChats.count) { _ in

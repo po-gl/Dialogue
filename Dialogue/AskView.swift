@@ -33,25 +33,23 @@ struct AskView: View {
 #endif
     
     var body: some View {
-        VStack (spacing: 0) {
+        HStack {
+            ToggleThreadButton()
             HStack {
-                ToggleThreadButton()
-                HStack {
-                    ChatInput()
+                ChatInput()
 #if os(iOS)
-                    SendButton()
+                SendButton()
 #endif
-                }
-                .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.5))
             }
-            .padding(.vertical, 5)
-            .padding(.horizontal, 10)
+            .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.5))
         }
+        .padding(.vertical, 5)
+        .padding(.horizontal, 10)
+        .background(.ultraThinMaterial)
 #if os(OSX)
         .padding(.top, 5)
         .padding([.trailing, .bottom], 10)
 #endif
-        .background(.ultraThinMaterial)
     }
     
     @ViewBuilder

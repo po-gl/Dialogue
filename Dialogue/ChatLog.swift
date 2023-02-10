@@ -48,6 +48,7 @@ struct ChatLog: View {
                         }
 #endif
                     }
+                    .frame(width: geometry.size.width)
                 }
                 .scrollDismissesKeyboard(.immediately)
             }

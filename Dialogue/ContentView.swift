@@ -22,10 +22,6 @@ struct ContentView: View {
         NavigationStack {
             ZStack {
                 ChatLog()
-                    .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
-#if os(iOS)
-                    .navigationBarTitleDisplayMode(.inline)
-#endif
                 VStack (spacing: 0) {
                     Spacer()
                     WaitingIndicator()
@@ -45,7 +41,9 @@ struct ContentView: View {
             .onAppear {
                 viewContext.undoManager = undoManager
             }
+            .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
 #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
             .background(Color("Background"))
 #elseif os(OSX)
             .background(Color("BackgroundMacOS"))

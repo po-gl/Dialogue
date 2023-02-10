@@ -21,6 +21,15 @@ struct ChatView: View {
     
     
     var body: some View {
+        Chat()
+            .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
+            .onAppear {
+                animate = false
+            }
+    }
+    
+    @ViewBuilder
+    private func Chat() -> some View {
         VStack {
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
                 ChatText()
@@ -37,17 +46,15 @@ struct ChatView: View {
             .offset(y: animate ? 0 : 20)
         }
         .frame(width: geometry.size.width, alignment: chat.fromUser ? .trailing : .leading)
-        .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
-        .onAppear {
-            animate = false
-        }
     }
     
     @ViewBuilder
     private func ChatText() -> some View {
         VStack (alignment: chat.fromUser ? .trailing : .leading ,spacing: 5) {
             Text("\(chat.text!)")
+#if os(OSX)
                 .textSelection(.enabled)
+#endif
             Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
                 .font(.system(size: 12, design: .monospaced))
                 .opacity(0.5)

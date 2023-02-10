@@ -43,7 +43,7 @@ struct ChatView: View {
         VStack (alignment: chat.fromUser ? .trailing : .leading ,spacing: 5) {
             Text("\(chat.text!)")
                 .textSelection(.enabled)
-            Text("\(chat.timestamp!, formatter: timeFormatter)")
+            Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
                 .font(.system(size: 12, design: .monospaced))
                 .opacity(0.5)
         }
@@ -120,6 +120,12 @@ struct ChatView: View {
 private let timeFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
+    formatter.timeStyle = .short
+    return formatter
+}()
+
+private let shortTimeFormatter: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.timeStyle = .short
     return formatter
 }()

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatView: View {
     var chat: Chat
+    @State var animate: Bool
     var geometry: GeometryProxy
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -32,10 +33,14 @@ struct ChatView: View {
                     .offset(x: chat.fromUser ? 8 : -8, y: 8)
             }
             .padding(.horizontal)
-            .frame(maxWidth: maxWidth,
-                   alignment: chat.fromUser ? .trailing : .leading)
+            .frame(maxWidth: maxWidth, alignment: chat.fromUser ? .trailing : .leading)
+            .offset(y: animate ? 0 : 20)
         }
         .frame(width: geometry.size.width, alignment: chat.fromUser ? .trailing : .leading)
+        .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
+        .onAppear {
+            animate = false
+        }
     }
     
     @ViewBuilder
@@ -88,13 +93,15 @@ struct ChatView: View {
     
     private func deleteChat() {
         basicHaptic()
-        viewContext.delete(chat)
-        
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        withAnimation {
+            viewContext.delete(chat)
+            
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
     
@@ -148,7 +155,7 @@ struct ChatView_Previews: PreviewProvider {
         
         var body: some View {
             GeometryReader { geometry in
-                ChatView(chat: lastChat, geometry: geometry)
+                ChatView(chat: lastChat, animate: true, geometry: geometry)
             }
         }
     }

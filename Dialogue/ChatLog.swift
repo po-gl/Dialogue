@@ -14,20 +14,22 @@ struct ChatLog: View {
     
     @State private var keyboardHeight: CGFloat = 0
     
+    @State private var animate = false
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
                 ScrollView {
                     VStack (spacing: 0) {
                         ForEach(allChats, id: \.id) { chat in
-                                ChatView(chat: chat, geometry: geometry)
-                                    .padding(.vertical, 10)
-                                    .padding(.bottom, 10)
-                                    .padding(.bottom, chat.endThread ? 15 : 0)
-                                    .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0) }
-                                    .padding(.bottom, chat.endThread ? 15 : -5)
-                                    .padding(.bottom, chat.id == allChats.last!.id ? 100 + keyboardHeight : 0)
-                                    .id(chat.id)
+                            ChatView(chat: chat, animate: animate, geometry: geometry)
+                                .padding(.vertical, 10)
+                                .padding(.bottom, 10)
+                                .padding(.bottom, chat.endThread ? 15 : 0)
+                                .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0) }
+                                .padding(.bottom, chat.endThread ? 15 : -5)
+                                .padding(.bottom, chat.id == allChats.last!.id ? 100 + keyboardHeight : 0)
+                                .id(chat.id)
                         }
                         .onChange(of: allChats.count) { _ in
                             withAnimation { scroll.scrollTo(allChats.last?.id) }
@@ -49,6 +51,9 @@ struct ChatLog: View {
 #endif
                     }
                     .frame(width: geometry.size.width)
+                    .onAppear {
+                        animate = true
+                    }
                 }
                 .scrollDismissesKeyboard(.immediately)
             }

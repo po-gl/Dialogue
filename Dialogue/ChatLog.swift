@@ -31,25 +31,25 @@ struct ChatLog: View {
                                 .padding(.bottom, chat.id == allChats.last!.id ? 130 + keyboardHeight : 0)
                                 .id(chat.id)
                         }
-                        .onChange(of: allChats.count) { _ in
-                            withAnimation { scroll.scrollTo(allChats.last?.id) }
-                        }
-                        .onChange(of: allChats.last?.endThread) { _ in
-                            guard allChats.last?.endThread == true else { return }
-                            withAnimation { scroll.scrollTo(allChats.last?.id) }
-                        }
-                        .onAppear {
-                            scroll.scrollTo(allChats.last?.id)
-                        }
-#if os(iOS)
-                        .onReceive(Publishers.keyboardHeight) { height in
-                            self.keyboardHeight = height == 0 ? 0 : height - 30
-                        }
-                        .onReceive(Publishers.keyboardOpened) { _ in
-                            withAnimation { scroll.scrollTo(allChats.last?.id) }
-                        }
-#endif
                     }
+                    .onChange(of: allChats.count) { _ in
+                        withAnimation { scroll.scrollTo(allChats.last?.id) }
+                    }
+                    .onChange(of: allChats.last?.endThread) { _ in
+                        guard allChats.last?.endThread == true else { return }
+                        withAnimation { scroll.scrollTo(allChats.last?.id) }
+                    }
+                    .onAppear {
+                        scroll.scrollTo(allChats.last?.id)
+                    }
+#if os(iOS)
+                    .onReceive(Publishers.keyboardHeight) { height in
+                        self.keyboardHeight = height == 0 ? 0 : height - 30
+                    }
+                    .onReceive(Publishers.keyboardOpened) { _ in
+                        withAnimation { scroll.scrollTo(allChats.last?.id) }
+                    }
+#endif
                     .frame(width: geometry.size.width)
                     .onAppear {
                         animate = true

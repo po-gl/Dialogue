@@ -58,13 +58,15 @@ struct ContentView: View {
     
     private func deleteAllChats() {
         completeHaptic()
-        allChats.forEach(viewContext.delete)
-        
-        do {
-            try viewContext.save()
-        } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        withAnimation {
+            allChats.forEach(viewContext.delete)
+            
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }

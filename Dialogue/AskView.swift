@@ -96,6 +96,10 @@ struct AskView: View {
             .onSubmit {
                 sendRequest()
             }
+            .touchBar {
+                ToggleThreadButton()
+                    .padding(20)
+            }
 #endif
     }
     

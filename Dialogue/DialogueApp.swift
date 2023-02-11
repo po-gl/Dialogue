@@ -10,6 +10,9 @@ import SwiftUI
 @main
 struct DialogueApp: App {
     let persistenceController = PersistenceController.shared
+#if os(OSX)
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+#endif
     
     var body: some Scene {
         WindowGroup {

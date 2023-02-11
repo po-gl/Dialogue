@@ -22,11 +22,13 @@ struct ChatView: View {
     
     var body: some View {
         Chat()
-            .fixContextFlicker()
             .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
             .onAppear {
                 animate = false
             }
+#if os(iOS)
+            .fixContextFlicker()
+#endif
     }
     
     @ViewBuilder
@@ -75,6 +77,7 @@ struct ChatView: View {
             .frame(width: 12, height: 12)
     }
     
+    
     @ViewBuilder
     private func ChatContextMenu() -> some View {
         Button(action: {
@@ -95,7 +98,8 @@ struct ChatView: View {
         #if os(iOS)
         UIPasteboard.general.string = chat.text
         #elseif os(OSX)
-        
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(chat.text!, forType: .string)
         #endif
     }
     

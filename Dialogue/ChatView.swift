@@ -58,9 +58,13 @@ struct ChatView: View {
 #if os(OSX)
                 .textSelection(.enabled)
 #endif
-            Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
-                .font(.system(size: 12, design: .monospaced))
-                .opacity(0.5)
+            if chat.text!.count > 8 {
+                Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
+                    .font(.system(size: 12, design: .monospaced))
+                    .opacity(0.5)
+            } else {
+                Rectangle().fill(.clear).frame(width: 0, height: 0)
+            }
         }
         .foregroundColor(color.isDarkColor ? .white : .black)
         .padding([.top, .horizontal])

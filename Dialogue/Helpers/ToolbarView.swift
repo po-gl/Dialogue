@@ -27,7 +27,7 @@ struct ToolbarView: ToolbarContent {
                 
             } label: {
                 Image(systemName: "ellipsis.circle")
-                    .foregroundColor(Color("UserAccent"))
+                    .foregroundColor(Color("Toolbar"))
             }
             .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
                 Button(role: .destructive, action: deleteAllChats) {

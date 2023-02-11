@@ -59,9 +59,10 @@ struct ChatLog: View {
             ChatView(chat: chat, animate: animate, geometry: geometry)
                 .padding(.vertical, 10)
                 .padding(.bottom, 10)
-                .padding(.bottom, chat.endThread ? 15 : 0)
-                .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0) }
-                .padding(.bottom, chat.endThread ? 15 : -5)
+            
+                .padding(.bottom, chat.endThread ? 30 : 0)
+                .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0).offset(y: 5) }
+            
                 .padding(.bottom, chat.id == allChats.last!.id ? 130 + keyboardHeight : 0)
                 .id(chat.id)
         }

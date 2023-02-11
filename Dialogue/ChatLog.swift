@@ -24,11 +24,11 @@ struct ChatLog: View {
                         Chats(geometry)
                     }
                     .onChange(of: allChats.count) { _ in
-                        withAnimation { scroll.scrollTo(allChats.last?.id) }
+                        scrollToLastChat(scroll: scroll)
                     }
                     .onChange(of: allChats.last?.endThread) { _ in
                         guard allChats.last?.endThread == true else { return }
-                        withAnimation { scroll.scrollTo(allChats.last?.id) }
+                        scrollToLastChat(scroll: scroll)
                     }
                     .onAppear {
                         scroll.scrollTo(allChats.last?.id)
@@ -38,7 +38,7 @@ struct ChatLog: View {
                         self.keyboardHeight = height == 0 ? 0 : height - 30
                     }
                     .onReceive(Publishers.keyboardOpened) { _ in
-                        withAnimation { scroll.scrollTo(allChats.last?.id) }
+                        scrollToLastChat(scroll: scroll)
                     }
 #endif
                     .frame(width: geometry.size.width)
@@ -67,5 +67,14 @@ struct ChatLog: View {
         }
     }
     
+    private func scrollToLastChat(scroll: ScrollViewProxy) {
+        #if os(iOS)
+        withAnimation { scroll.scrollTo(allChats.last?.id) }
+        #elseif os(OSX)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            withAnimation { scroll.scrollTo(allChats.last?.id) }
+        }
+        #endif
+    }
 }
 

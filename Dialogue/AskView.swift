@@ -45,11 +45,11 @@ struct AskView: View {
         }
         .padding(.vertical, 5)
         .padding(.horizontal, 10)
-        .background(.ultraThinMaterial)
 #if os(OSX)
         .padding(.top, 5)
         .padding([.trailing, .bottom], 10)
 #endif
+        .background(.ultraThinMaterial)
     }
     
     @ViewBuilder

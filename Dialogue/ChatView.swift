@@ -86,7 +86,7 @@ struct ChatView: View {
         Button(action: toggleEndThread) {
             Label(chat.endThread ? "Open Thread" : "Close Thread", systemImage: "circle.and.line.horizontal")
         }
-        Button(action: deleteChat) {
+        Button(role: .destructive, action: deleteChat) {
             Label("Remove", systemImage: "trash")
         }
     }

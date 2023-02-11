@@ -11,12 +11,9 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.undoManager) private var undoManager
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
-    private var allChats: FetchedResults<Chat>
-    
     @State private var waiting: Bool = false
-    
     private let titleEmoji = ["🤖", "🔮", "🌞", "👁️"]
+    
     
     var body: some View {
         NavigationStack {
@@ -31,12 +28,7 @@ struct ContentView: View {
                 }
             }
             .toolbar {
-                ToolbarItem() {
-                    Button(action: deleteAllChats) {
-                        Text("Clear")
-                    }
-                    .foregroundColor(Color("UserAccent"))
-                }
+                ToolbarView()
             }
             .onAppear {
                 viewContext.undoManager = undoManager
@@ -50,21 +42,6 @@ struct ContentView: View {
             .frame(minWidth: 400, idealWidth: 600, minHeight: 450, idealHeight: 800)
 #endif
             
-        }
-    }
-    
-    
-    private func deleteAllChats() {
-        completeHaptic()
-        withAnimation {
-            allChats.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
         }
     }
 }

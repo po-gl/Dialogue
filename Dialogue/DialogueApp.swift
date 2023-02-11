@@ -18,6 +18,8 @@ struct DialogueApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        } .commands {
+            CommandGroup(replacing: .newItem, addition: {})
         }
     }
 }

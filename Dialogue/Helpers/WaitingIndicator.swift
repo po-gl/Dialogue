@@ -11,9 +11,9 @@ struct WaitingIndicator: View {
     
     var body: some View {
         HStack (spacing: 5) {
-            DotView()
-            DotView(delay: 0.4)
-            DotView(delay: 0.8)
+            DotView(delay: 0.2)
+            DotView(delay: 0.6)
+            DotView(delay: 1.0)
         }
         .foregroundColor(Color("Gray"))
         .padding(10)

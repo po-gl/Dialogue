@@ -11,7 +11,7 @@ struct InfoPage: View {
     var body: some View {
         VStack (spacing: 0) {
             RoundedRectangle(cornerRadius: 30)
-                .frame(width: 50, height: 10)
+                .frame(width: 50, height: 5)
                 .opacity(0.2)
                 .padding(20)
             ScrollView {

@@ -32,7 +32,7 @@ struct InfoPage: View {
                     Text("**ChatGPT can't search the internet.** It has no external capabilities, so ChatGPT can't verify information, search websites, or provide links. ChatGPT generates answers based only on its internal knowledge.")
                     
                     GroupBox {
-                        Text("_Note there are more powerful version of ChatGPT, such as Microsoft's Bing chat, that do use up-to-date information and external capabilities._")
+                        Text("_Note there are more powerful version of ChatGPT, such as Microsoft's Bing chat, that do use up-to-date information and have external capabilities._")
                     }
                 }
                 .padding([.leading, .trailing, .bottom], 25)

@@ -13,6 +13,7 @@ struct ToolbarView: ToolbarContent {
     private var allChats: FetchedResults<Chat>
     
     @State private var isPresentingAboutPage = false
+    @State private var isPresentingModelSettings = false
     @State private var isPresentingRemoveAllConfirm = false
     
     var body: some ToolbarContent {
@@ -20,6 +21,10 @@ struct ToolbarView: ToolbarContent {
             Menu {
                 Button(action: { isPresentingAboutPage = true }) {
                     Label("About ChatGPT", systemImage: "info.circle")
+                }
+                
+                Button(action: { isPresentingModelSettings = true}) {
+                    Label("Model Settings", systemImage: "slider.horizontal.3")
                 }
                 
                 Button(role: .destructive, action: { isPresentingRemoveAllConfirm = true }) {
@@ -41,6 +46,10 @@ struct ToolbarView: ToolbarContent {
             
             .sheet(isPresented: $isPresentingAboutPage) {
                 InfoPage()
+            }
+            
+            .sheet(isPresented: $isPresentingModelSettings) {
+                ModelSettingsView()
             }
         }
     }

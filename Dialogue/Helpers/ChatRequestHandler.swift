@@ -5,13 +5,15 @@
 //  Created by Porter Glines on 12/30/22.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var responseData: Data?
+    
+    @AppStorage("maxTokens") var maxTokens: Double = 150
     
     var session = URLSession.shared
     
@@ -24,7 +26,7 @@ class ChatRequestHandler: ObservableObject {
         let model = "text-davinci-003"
         let prompt = ([preprompt] + textsWithStops + [postprompt]).joined()
         let temperature = 0.9
-        let maxTokens = 150
+        let maxTokens = Int(self.maxTokens)
         let topP = 1
         let frequencyPenalty = 0.0
         let presencePenalty = 0.6

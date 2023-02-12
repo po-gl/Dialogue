@@ -14,6 +14,8 @@ struct AskView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
     
+    @AppStorage("messageMemory") private var messageMemory: Double = 2
+    
     @ObservedObject var apiRequestHandler = ChatRequestHandler()
     @State private var inputText: String = ""
     @Binding var waiting: Bool
@@ -148,7 +150,7 @@ struct AskView: View {
     
     private func getLastCoupleChats() -> [String] {
         var texts: [String] = []
-        for i in 0..<3 {
+        for i in 0..<Int(messageMemory)+1 {
             guard allChats.endIndex-1 - i >= 0 else { break }
             let chat = allChats[allChats.endIndex-1 - i]
             

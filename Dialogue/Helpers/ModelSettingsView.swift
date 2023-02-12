@@ -13,6 +13,10 @@ struct ModelSettingsView: View {
     
     var body: some View {
         VStack (spacing: 10) {
+            RoundedRectangle(cornerRadius: 30)
+                .frame(width: 50, height: 5)
+                .opacity(0.2)
+                .padding(5)
             GroupBox {
                 VStack (alignment: .leading, spacing: 0) {
                     HStack (spacing: 0) {

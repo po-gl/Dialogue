@@ -12,12 +12,13 @@ struct ToolbarView: ToolbarContent {
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
     
+    @State private var isPresentingAboutPage = false
     @State private var isPresentingRemoveAllConfirm = false
     
     var body: some ToolbarContent {
         ToolbarItem() {
             Menu {
-                Button(action: { }) {
+                Button(action: { isPresentingAboutPage = true }) {
                     Label("About ChatGPT", systemImage: "info.circle")
                 }
                 
@@ -29,12 +30,17 @@ struct ToolbarView: ToolbarContent {
                 Image(systemName: "ellipsis.circle")
                     .foregroundColor(Color("Toolbar"))
             }
+            
             .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
                 Button(role: .destructive, action: deleteAllChats) {
                     Text("Delete all messages")
                 }
             } message: {
                 Text("You cannot undo this action.")
+            }
+            
+            .sheet(isPresented: $isPresentingAboutPage) {
+                InfoPage()
             }
         }
     }

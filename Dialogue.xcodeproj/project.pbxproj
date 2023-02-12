@@ -16,6 +16,7 @@
 		614DA2BD2997F25D00EFC91C /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614DA2BC2997F25D00EFC91C /* ToolbarView.swift */; };
 		614DA2BE2997F25D00EFC91C /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614DA2BC2997F25D00EFC91C /* ToolbarView.swift */; };
 		614DA2BF2997F25D00EFC91C /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614DA2BC2997F25D00EFC91C /* ToolbarView.swift */; };
+		614DA2CB2998586E00EFC91C /* InfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614DA2CA2998586E00EFC91C /* InfoPage.swift */; };
 		6153E7C52992A2E400427F85 /* WaitingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153E7C42992A2E400427F85 /* WaitingIndicator.swift */; };
 		6153E7C62992A2E400427F85 /* WaitingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153E7C42992A2E400427F85 /* WaitingIndicator.swift */; };
 		6153E7C72992A2EA00427F85 /* WaitingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153E7C42992A2E400427F85 /* WaitingIndicator.swift */; };
@@ -87,6 +88,7 @@
 		611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+fixContextFlicker.swift"; sourceTree = "<group>"; };
 		614DA2B82997DBDF00EFC91C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		614DA2BC2997F25D00EFC91C /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		614DA2CA2998586E00EFC91C /* InfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPage.swift; sourceTree = "<group>"; };
 		6153E7C42992A2E400427F85 /* WaitingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingIndicator.swift; sourceTree = "<group>"; };
 		617D0024295F8B3D00A7D2A5 /* Dialogue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dialogue.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		617D0027295F8B3D00A7D2A5 /* DialogueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueApp.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				614DA2BC2997F25D00EFC91C /* ToolbarView.swift */,
+				614DA2CA2998586E00EFC91C /* InfoPage.swift */,
 				6153E7C42992A2E400427F85 /* WaitingIndicator.swift */,
 				61E369912993A201005210B1 /* ChatDivider.swift */,
 				61F21DE8299240E100C3DACC /* PopStyle.swift */,
@@ -379,6 +382,7 @@
 				614DA2B92997DBDF00EFC91C /* AppDelegate.swift in Sources */,
 				61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */,
 				617D0028295F8B3D00A7D2A5 /* DialogueApp.swift in Sources */,
+				614DA2CB2998586E00EFC91C /* InfoPage.swift in Sources */,
 				61CA0F1C2992DC2D00BFC448 /* AskView.swift in Sources */,
 				617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 				611A5FAE29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,

@@ -20,6 +20,10 @@ struct ChatLog: View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
                 ScrollView {
+                    if allChats.isEmpty {
+                        EmptyChat()
+                            .padding(.top, 250)
+                    }
                     LazyVStack (spacing: 0){
                         Chats(geometry)
                     }

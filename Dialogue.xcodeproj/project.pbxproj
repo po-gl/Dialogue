@@ -35,6 +35,9 @@
 		617D0059295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 		617D005A295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 		617D005B295FAA4800A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
+		61B91324299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
+		61B91325299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
+		61B91326299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
 		61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
 		61CA0F112992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
 		61CA0F122992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
@@ -107,6 +110,7 @@
 		617D0045295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRequestHandler.swift; sourceTree = "<group>"; };
 		617D0055295FA14600A7D2A5 /* apikey.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = apikey.env; sourceTree = "<group>"; };
+		61B91323299AD835009B8E7A /* EmptyChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyChat.swift; sourceTree = "<group>"; };
 		61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+keyboardAdaptive.swift"; sourceTree = "<group>"; };
 		61CA0F172992DB7600BFC448 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
 		61CA0F1B2992DC2D00BFC448 /* AskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskView.swift; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 				614DA2CC29987A8A00EFC91C /* ModelSettingsView.swift */,
 				614DA2CA2998586E00EFC91C /* InfoPage.swift */,
 				6153E7C42992A2E400427F85 /* WaitingIndicator.swift */,
+				61B91323299AD835009B8E7A /* EmptyChat.swift */,
 				61E369912993A201005210B1 /* ChatDivider.swift */,
 				61F21DE8299240E100C3DACC /* PopStyle.swift */,
 				61F21DDD299236B400C3DACC /* Persistence.swift */,
@@ -380,6 +385,7 @@
 				61CA0F182992DB7600BFC448 /* ChatLog.swift in Sources */,
 				61F21DFE29924AA100C3DACC /* ChatView.swift in Sources */,
 				61F21DE9299240E100C3DACC /* PopStyle.swift in Sources */,
+				61B91324299AD835009B8E7A /* EmptyChat.swift in Sources */,
 				61F21DDE299236B400C3DACC /* Persistence.swift in Sources */,
 				61F21DE32992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
 				61F21DEE2992454700C3DACC /* Color+isDark.swift in Sources */,
@@ -408,6 +414,7 @@
 				617D003A295F8B3E00A7D2A5 /* DialogueTests.swift in Sources */,
 				61CA0F1D2992DC2D00BFC448 /* AskView.swift in Sources */,
 				61CA0F192992DB7600BFC448 /* ChatLog.swift in Sources */,
+				61B91325299AD835009B8E7A /* EmptyChat.swift in Sources */,
 				61CA0F212992E2FA00BFC448 /* Haptics.swift in Sources */,
 				611A5FAF29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,
 				614DA2CE29987A8A00EFC91C /* ModelSettingsView.swift in Sources */,
@@ -433,6 +440,7 @@
 				617D0044295F8B3E00A7D2A5 /* DialogueUITests.swift in Sources */,
 				61CA0F1E2992DC2D00BFC448 /* AskView.swift in Sources */,
 				61CA0F1A2992DB7600BFC448 /* ChatLog.swift in Sources */,
+				61B91326299AD835009B8E7A /* EmptyChat.swift in Sources */,
 				61CA0F222992E2FA00BFC448 /* Haptics.swift in Sources */,
 				611A5FB029967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,
 				614DA2CF29987A8A00EFC91C /* ModelSettingsView.swift in Sources */,

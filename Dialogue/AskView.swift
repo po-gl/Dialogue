@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AskView: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -26,6 +27,7 @@ struct AskView: View {
     private let toggleButtonFontSize: Double = 26
     private let chatTextPadding: Double = 11
     private let borderWidth: Double = 2
+    @State private var bottomPadding: Double = 40
 #elseif os(OSX)
     private let toggleButtonFontSize: Double = 20
     private let chatTextPadding: Double = 7
@@ -50,8 +52,16 @@ struct AskView: View {
 #if os(OSX)
         .padding(.top, 5)
         .padding([.trailing, .bottom], 10)
+        .background(Rectangle().fill(.ultraThinMaterial).brightness(colorScheme == .dark ? -0.03 : 0.012))
+#elseif os(iOS)
+        .padding(.bottom, bottomPadding)
+        .onReceive(Publishers.keyboardReadable) { opened in
+            withAnimation {
+                bottomPadding = opened ? 0 : 40
+            }
+        }
+        .background(Rectangle().fill(.ultraThinMaterial).brightness(colorScheme == .dark ? -0.1 : 0.012))
 #endif
-        .background(.ultraThinMaterial)
     }
     
     @ViewBuilder

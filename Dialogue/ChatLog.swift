@@ -14,6 +14,12 @@ struct ChatLog: View {
     
     @State private var keyboardHeight: CGFloat = 0
     
+#if os(iOS)
+    private let keyboardOffset: CGFloat = 140
+#elseif os(OSX)
+    private let keyboardOffset: CGFloat = 100
+#endif
+    
     @State private var animate = false
     
     var body: some View {
@@ -39,7 +45,7 @@ struct ChatLog: View {
                     }
 #if os(iOS)
                     .onReceive(Publishers.keyboardHeight) { height in
-                        self.keyboardHeight = height == 0 ? 0 : height - 30
+                        self.keyboardHeight = height == 0 ? 0 : height - 70
                     }
                     .onReceive(Publishers.keyboardOpened) { _ in
                         scrollToLastChat(scroll: scroll)
@@ -67,7 +73,7 @@ struct ChatLog: View {
                 .padding(.bottom, chat.endThread ? 30 : 0)
                 .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0).offset(y: 5) }
             
-                .padding(.bottom, chat.id == allChats.last!.id ? 130 + keyboardHeight : 0)
+                .padding(.bottom, chat.id == allChats.last!.id ? keyboardOffset + keyboardHeight : 0)
                 .id(chat.id)
         }
     }

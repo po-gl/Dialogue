@@ -27,6 +27,7 @@ struct ContentView: View {
                     AskView(waiting: $waiting)
                 }
             }
+            .ignoresSafeArea(.container, edges: .bottom)
             .toolbar {
                 ToolbarView()
             }

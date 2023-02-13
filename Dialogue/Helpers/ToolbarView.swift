@@ -49,7 +49,7 @@ struct ToolbarView: ToolbarContent {
             }
             
             .sheet(isPresented: $isPresentingModelSettings) {
-                ModelSettingsView()
+                ModelSettingsView(isPresented: $isPresentingModelSettings)
             }
         }
     }

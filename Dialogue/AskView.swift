@@ -26,7 +26,7 @@ struct AskView: View {
 #if os(iOS)
     private let toggleButtonFontSize: Double = 26
     private let chatTextPadding: Double = 11
-    private let borderWidth: Double = 2
+    private let borderWidth: Double = 1
     @State private var bottomPadding: Double = 40
 #elseif os(OSX)
     private let toggleButtonFontSize: Double = 20

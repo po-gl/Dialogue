@@ -7,6 +7,9 @@
 
 import SwiftUI
 import Combine
+#if os(iOS)
+import Introspect
+#endif
 
 struct ChatLog: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
@@ -15,7 +18,7 @@ struct ChatLog: View {
     @State private var keyboardHeight: CGFloat = 0
     
 #if os(iOS)
-    private let keyboardOffset: CGFloat = 140
+    private let keyboardOffset: CGFloat = 45
 #elseif os(OSX)
     private let keyboardOffset: CGFloat = 100
 #endif
@@ -57,6 +60,12 @@ struct ChatLog: View {
                     }
                 }
                 .scrollDismissesKeyboard(.immediately)
+#if os(iOS)
+                .padding(.bottom, 95)
+                .introspectScrollView { view in
+                    view.clipsToBounds = false
+                }
+#endif
             }
         }
         .ignoresSafeArea(.keyboard)

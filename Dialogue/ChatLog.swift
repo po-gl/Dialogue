@@ -59,6 +59,12 @@ struct ChatLog: View {
                         animate = true
                     }
                 }
+                .overlay(
+                    Rectangle()
+                        .fill(LinearGradient(stops: [.init(color: .white.opacity(0.8), location: 0.0), .init(color: .clear, location: 1.0)], startPoint: .top, endPoint: .bottom))
+                        .blendMode(.softLight)
+                        .allowsHitTesting(false)
+                )
                 .scrollDismissesKeyboard(.immediately)
 #if os(iOS)
                 .padding(.bottom, 95)

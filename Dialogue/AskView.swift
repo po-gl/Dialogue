@@ -34,8 +34,8 @@ struct AskView: View {
     private let chatTextPadding: Double = 7
     private let borderWidth: Double = 1
     
-    @FocusState private var focus: Bool
 #endif
+    @FocusState private var focus: Bool
     
     var body: some View {
         HStack {
@@ -63,6 +63,17 @@ struct AskView: View {
             }
         }
         .background(Rectangle().fill(.ultraThinMaterial).brightness(colorScheme == .dark ? -0.1 : 0.012))
+        
+        .simultaneousGesture(DragGesture(minimumDistance: 20, coordinateSpace: .global)
+            .onEnded { value in
+                if value.translation.height > 0 {
+                    focus = false
+                }
+                if value.translation.height < 0 {
+                    focus = true
+                }
+            }
+        )
 #endif
     }
     
@@ -122,9 +133,9 @@ struct AskView: View {
             .textFieldStyle(.plain)
             .tint(Color("ServerAccent"))
             .padding(chatTextPadding)
+            .focused($focus)
 #if os(OSX)
             .padding(.horizontal, 5)
-            .focused($focus)
             .onAppear {
                 focus = true
             }

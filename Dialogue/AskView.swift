@@ -16,6 +16,7 @@ struct AskView: View {
     private var allChats: FetchedResults<Chat>
     
     @AppStorage("messageMemory") private var messageMemory: Double = 2
+    @AppStorage("showThreadButtonHint") private var showThreadButtonHint = true
     
     @ObservedObject var apiRequestHandler = ChatRequestHandler()
     @State private var inputText: String = ""
@@ -71,7 +72,6 @@ struct AskView: View {
                                               .init(color: Color("ServerAccent"), location: 0.6),
                                               .init(color: .black, location: 1.6)],
                                       startPoint: .top, endPoint: .bottom)
-        
         Button(action: toggleEndThread) {
             Image(systemName: "circle.and.line.horizontal.fill")
                 .foregroundColor(Color("ServerAccent"))
@@ -88,6 +88,12 @@ struct AskView: View {
                 )
         }
         .buttonStyle(.plain)
+        .alwaysPopover(isPresented: $showThreadButtonHint) {
+            Text("✨ This button ends the thread. You can use it to **restart the conversation.**")
+                .font(.system(size: 16))
+                .frame(width: 160)
+                .padding()
+        }
     }
     
     private func toggleEndThread() {
@@ -146,6 +152,8 @@ struct AskView: View {
         .padding(.trailing, 5)
     }
     
+    
+// MARK: Send Request functions
     
     private func sendRequest() {
         guard inputText != "" else { return }

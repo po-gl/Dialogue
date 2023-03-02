@@ -54,6 +54,9 @@
 		61E369922993A201005210B1 /* ChatDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E369912993A201005210B1 /* ChatDivider.swift */; };
 		61E369932993A201005210B1 /* ChatDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E369912993A201005210B1 /* ChatDivider.swift */; };
 		61E369942993A201005210B1 /* ChatDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E369912993A201005210B1 /* ChatDivider.swift */; };
+		61EF678A29B091FD00C77813 /* View+alwaysPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EF678929B091FD00C77813 /* View+alwaysPopover.swift */; };
+		61EF678B29B091FD00C77813 /* View+alwaysPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EF678929B091FD00C77813 /* View+alwaysPopover.swift */; };
+		61EF678C29B091FD00C77813 /* View+alwaysPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EF678929B091FD00C77813 /* View+alwaysPopover.swift */; };
 		61F21DDE299236B400C3DACC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F21DDD299236B400C3DACC /* Persistence.swift */; };
 		61F21DDF299236B400C3DACC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F21DDD299236B400C3DACC /* Persistence.swift */; };
 		61F21DE0299236B400C3DACC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F21DDD299236B400C3DACC /* Persistence.swift */; };
@@ -117,6 +120,7 @@
 		61CA0F1B2992DC2D00BFC448 /* AskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskView.swift; sourceTree = "<group>"; };
 		61CA0F1F2992E2FA00BFC448 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		61E369912993A201005210B1 /* ChatDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDivider.swift; sourceTree = "<group>"; };
+		61EF678929B091FD00C77813 /* View+alwaysPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+alwaysPopover.swift"; sourceTree = "<group>"; };
 		61F21DDD299236B400C3DACC /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		61F21DE22992377800C3DACC /* Dialogue.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dialogue.xcdatamodel; sourceTree = "<group>"; };
 		61F21DE629923B7400C3DACC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 				61F21DF1299245CE00C3DACC /* Color+hex.swift */,
 				61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */,
 				611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */,
+				61EF678929B091FD00C77813 /* View+alwaysPopover.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				61F21DE32992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
 				61F21DEE2992454700C3DACC /* Color+isDark.swift in Sources */,
 				61E369922993A201005210B1 /* ChatDivider.swift in Sources */,
+				61EF678A29B091FD00C77813 /* View+alwaysPopover.swift in Sources */,
 				6153E7C52992A2E400427F85 /* WaitingIndicator.swift in Sources */,
 				614DA2B92997DBDF00EFC91C /* AppDelegate.swift in Sources */,
 				61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */,
@@ -426,6 +432,7 @@
 				61CA0F212992E2FA00BFC448 /* Haptics.swift in Sources */,
 				611A5FAF29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,
 				614DA2CE29987A8A00EFC91C /* ModelSettingsView.swift in Sources */,
+				61EF678B29B091FD00C77813 /* View+alwaysPopover.swift in Sources */,
 				61F21DFF29924AA100C3DACC /* ChatView.swift in Sources */,
 				6153E7C72992A2EA00427F85 /* WaitingIndicator.swift in Sources */,
 				61F21DE42992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
@@ -452,6 +459,7 @@
 				61CA0F222992E2FA00BFC448 /* Haptics.swift in Sources */,
 				611A5FB029967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,
 				614DA2CF29987A8A00EFC91C /* ModelSettingsView.swift in Sources */,
+				61EF678C29B091FD00C77813 /* View+alwaysPopover.swift in Sources */,
 				61F21E0029924AA100C3DACC /* ChatView.swift in Sources */,
 				6153E7C62992A2E400427F85 /* WaitingIndicator.swift in Sources */,
 				61F21DE52992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,

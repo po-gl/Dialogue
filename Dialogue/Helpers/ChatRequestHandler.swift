@@ -10,17 +10,23 @@ import Combine
 
 class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
-    
+    var session = URLSession.shared
     @Published var responseData: Data?
-    
     @AppStorage("maxTokens") var maxTokens: Double = 150
     
-    var session = URLSession.shared
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("EEE M/d/Y")
+        return formatter
+    }()
+    
     
     func makeRequest(chats: [[String: String]]) async {
         
-        let preprompt = getMessageInDataFormat(role: "system", content: "You are an assistant is helpful, creative, clever, and very friendly")
-        let messages: [[String: String]] = [preprompt] + chats
+        let preprompt = "You are an assistant is helpful, creative, clever, and very friendly. Knowledge cutoff: Sep 2021. Current Date: \(dateFormatter.string(from: Date()))."
+        let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
+        
+        let messages: [[String: String]] = [prepromptData] + chats
         
         let apiKey = getApiKey("apikey.env")
         let model = "gpt-3.5-turbo"

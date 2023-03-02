@@ -20,7 +20,7 @@ struct ChatView: View {
     
     private var color: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("User") : SwiftUI.Color("Server") }
     private var colorAccent: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("UserAccent") : Color("ServerAccent") }
-    private var maxWidth: Double { return chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/9 }
+    private var maxWidth: Double { return chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/13 }
     
     
     var body: some View {

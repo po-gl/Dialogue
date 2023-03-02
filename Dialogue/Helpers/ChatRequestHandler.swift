@@ -17,41 +17,38 @@ class ChatRequestHandler: ObservableObject {
     
     var session = URLSession.shared
     
-    func makeRequest(texts: [String], firstIsHuman: Bool = true) async {
-        let preprompt = "The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\n"
-        let postprompt = "AI:"
-        let textsWithStops = insertStops(texts: texts, firstIsHuman: firstIsHuman).reversed()
+    func makeRequest(chats: [[String: String]]) async {
+        
+        let preprompt = getMessageInDataFormat(role: "system", content: "You are an assistant is helpful, creative, clever, and very friendly")
+        let messages: [[String: String]] = [preprompt] + chats
         
         let apiKey = getApiKey("apikey.env")
-        let model = "text-davinci-003"
-        let prompt = ([preprompt] + textsWithStops + [postprompt]).joined()
+        let model = "gpt-3.5-turbo"
         let temperature = 0.9
         let maxTokens = Int(self.maxTokens)
         let topP = 1
         let frequencyPenalty = 0.0
         let presencePenalty = 0.6
-        let stop = [" Human:", " AI:"]
         
         let requestBody: [String: Any] = [
             "model": model,
-            "prompt": prompt,
+            "messages": messages,
             "temperature": temperature,
             "max_tokens": maxTokens,
             "top_p": topP,
             "frequency_penalty": frequencyPenalty,
             "presence_penalty": presencePenalty,
-            "stop": stop
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: requestBody)
         
-        var request = URLRequest(url: URL(string: "https://api.openai.com/v1/completions")!)
+        var request = URLRequest(url: URL(string: "https://api.openai.com/v1/chat/completions")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        print("Input prompt: \(String(reflecting: prompt))")
+        print("Input prompt: \(String(reflecting: messages))")
         
         do {
             let (responseData, _) = try await session.upload(for: request, from: jsonData!)
@@ -76,13 +73,8 @@ class ChatRequestHandler: ObservableObject {
         return ""
     }
     
-    private func insertStops(texts: [String], firstIsHuman: Bool) -> [String] {
-        var toggle = firstIsHuman
-        let textsWithStops: [String] = texts.map {
-            let actor = toggle ? "Human: " : "AI: "
-            toggle.toggle()
-            return actor + $0 + "\n"
-        }
-        return textsWithStops
+    
+    private func getMessageInDataFormat(role: String, content: String) -> [String: String] {
+        return ["role": role, "content": content]
     }
 }

@@ -161,7 +161,7 @@ struct AskView: View {
         basicHaptic()
         withAnimation { waiting = true }
         Task {
-            await self.apiRequestHandler.makeRequest(texts: getLastCoupleChats())
+            await self.apiRequestHandler.makeRequest(chats: getLastCoupleChats().reversed())
             handleResponse()
             withAnimation { waiting = false }
         }
@@ -174,26 +174,34 @@ struct AskView: View {
         if let data = apiRequestHandler.responseData {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 if let choices = json["choices"] as? [[String: Any]] {
-                    if let text = choices[0]["text"] as? String {
-                        print("Response: \(String(reflecting: text))")
-                        addServerChat(text.trimmingCharacters(in: .whitespacesAndNewlines))
+                    if let message = choices[0]["message"] as? [String: String] {
+                        if let text = message["content"] {
+                            print("Response: \(String(reflecting: text))")
+                            addServerChat(text.trimmingCharacters(in: .whitespacesAndNewlines))
+                        }
                     }
                 } else {
                     addServerChat("There was an error processing the request, try again.")
                 }
+            } else {
+                addServerChat("There was an error processing the request, try again. Error during JSON serialization.")
             }
         }
     }
     
     
-    private func getLastCoupleChats() -> [String] {
-        var texts: [String] = []
+    private func getLastCoupleChats() -> [[String: String]] {
+        var texts: [[String: String]] = []
         for i in 0..<Int(messageMemory)+1 {
             guard allChats.endIndex-1 - i >= 0 else { break }
             let chat = allChats[allChats.endIndex-1 - i]
             
             if chat.endThread { break }
-            texts.append(chat.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
+            
+            if let text = chat.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+                let role = chat.fromUser ? "user" : "assistant"
+                texts.append(["role" : role, "content" : text])
+            }
         }
         return texts
     }

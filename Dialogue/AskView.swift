@@ -39,10 +39,11 @@ struct AskView: View {
     var body: some View {
         HStack {
             ToggleThreadButton()
-            HStack {
+            HStack (alignment: .bottom) {
                 ChatInput()
 #if os(iOS)
                 SendButton()
+                    .padding(.bottom, 4)
 #endif
             }
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.5))
@@ -66,10 +67,25 @@ struct AskView: View {
     
     @ViewBuilder
     private func ToggleThreadButton() -> some View {
+        let gradient = LinearGradient(stops: [.init(color: Color("Server"), location: -0.2),
+                                              .init(color: Color("ServerAccent"), location: 0.6),
+                                              .init(color: .black, location: 1.6)],
+                                      startPoint: .top, endPoint: .bottom)
+        
         Button(action: toggleEndThread) {
             Image(systemName: "circle.and.line.horizontal.fill")
                 .foregroundColor(Color("ServerAccent"))
                 .font(.system(size: toggleButtonFontSize))
+                .overlay(
+                    Rectangle()
+                        .fill(gradient)
+                        .blendMode(.softLight)
+                        .mask {
+                            Image(systemName: "circle.and.line.horizontal.fill")
+                                .foregroundColor(Color("ServerAccent"))
+                                .font(.system(size: toggleButtonFontSize))
+                        }
+                )
         }
         .buttonStyle(.plain)
     }
@@ -117,12 +133,15 @@ struct AskView: View {
     
     @ViewBuilder
     private func SendButton() -> some View {
+        let gradient = LinearGradient(stops: [.init(color: Color("Server"), location: -0.4),
+                                              .init(color: Color("ServerAccent"), location: 1.0)],
+                                      startPoint: .top, endPoint: .bottom)
         Button(action: sendRequest) {
-            Image(systemName: "paperplane")
+            Image(systemName: "arrow.up")
                 .resizable()
-                .frame(width: 20, height: 20)
+                .frame(width: 17, height: 20)
         }
-        .buttonStyle(PopStyle(color: Color("ServerAccent"), radius: 50))
+        .buttonStyle(PopStyle(color: Color("ServerAccent"), gradient: gradient, radius: 50))
         .frame(width: 35, height: 35)
         .padding(.trailing, 5)
     }

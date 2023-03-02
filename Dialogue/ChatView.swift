@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import MarkdownUI
+import Splash
+
 
 struct ChatView: View {
     var chat: Chat
@@ -15,13 +18,13 @@ struct ChatView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
-    private var color: Color { return chat.fromUser ? Color("User") : Color("Server") }
-    private var colorAccent: Color { return chat.fromUser ? Color("UserAccent") : Color("ServerAccent") }
+    private var color: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("User") : SwiftUI.Color("Server") }
+    private var colorAccent: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("UserAccent") : Color("ServerAccent") }
     private var maxWidth: Double { return chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/9 }
     
     
     var body: some View {
-        Chat()
+        ChatMessage()
             .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
             .onAppear {
                 animate = false
@@ -31,11 +34,12 @@ struct ChatView: View {
 #endif
     }
     
+    
     @ViewBuilder
-    private func Chat() -> some View {
+    private func ChatMessage() -> some View {
         VStack {
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
-                ChatText()
+                ChatBody()
 #if os(iOS)
                     .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
 #endif
@@ -51,26 +55,32 @@ struct ChatView: View {
         .frame(width: geometry.size.width, alignment: chat.fromUser ? .trailing : .leading)
     }
     
+    
     @ViewBuilder
-    private func ChatText() -> some View {
+    private func ChatBody() -> some View {
         VStack (alignment: chat.fromUser ? .trailing : .leading ,spacing: 5) {
-            Text("\(chat.text!)")
+            ChatMarkdown()
 #if os(OSX)
                 .textSelection(.enabled)
 #endif
-            if chat.text!.count > 8 {
-                Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
-                    .font(.system(size: 12, design: .monospaced))
-                    .opacity(0.5)
-            } else {
-                Rectangle().fill(.clear).frame(width: 0, height: 0)
-            }
+            Timestamp()
         }
-        .foregroundColor(color.isDarkColor ? .white : .black)
         .padding([.top, .horizontal])
         .padding(.bottom, 10)
         .background(RoundedRectangle(cornerRadius: 20).fill(color))
         .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color("Outline"), lineWidth: 2))
+    }
+    
+    @ViewBuilder
+    private func Timestamp() -> some View {
+        if chat.text!.count > 8 {
+            Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
+                .font(.system(size: 12, design: .monospaced))
+                .foregroundColor(color.isDarkColor ? .white : .black)
+                .opacity(0.5)
+        } else {
+            Rectangle().fill(.clear).frame(width: 0, height: 0)
+        }
     }
     
     @ViewBuilder
@@ -80,6 +90,17 @@ struct ChatView: View {
             .overlay(Circle().stroke(Color("Outline"), lineWidth: 2))
             .frame(width: 12, height: 12)
     }
+    
+    
+    @ViewBuilder
+    private func ChatMarkdown() -> some View {
+        Markdown("\(chat.text!)")
+            .markdownTextStyle() {
+                ForegroundColor(color.isDarkColor ? .white : .black)
+            }
+            .markdownCodeSyntaxHighlighter(.splash(theme: .gruvLight(withFont: .init(size: 16))))
+    }
+    
     
     
     @ViewBuilder
@@ -99,12 +120,12 @@ struct ChatView: View {
     }
     
     private func saveToClipboard() {
-        #if os(iOS)
+#if os(iOS)
         UIPasteboard.general.string = chat.text
-        #elseif os(OSX)
+#elseif os(OSX)
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(chat.text!, forType: .string)
-        #endif
+#endif
     }
     
     private func deleteChat() {

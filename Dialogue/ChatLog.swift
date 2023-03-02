@@ -33,7 +33,8 @@ struct ChatLog: View {
                         EmptyChat()
                             .padding(.top, 250)
                     }
-                    LazyVStack (spacing: 0){
+                    
+                    VStack (spacing: 0){
                         Chats(geometry)
                     }
                     .onChange(of: allChats.count) { _ in

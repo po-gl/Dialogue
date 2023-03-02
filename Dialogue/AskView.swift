@@ -94,6 +94,7 @@ struct AskView: View {
                 .frame(width: 160)
                 .padding()
         }
+        .simultaneousGesture(LongPressGesture().onEnded({ _ in showThreadButtonHint = true }))
     }
     
     private func toggleEndThread() {

@@ -10,10 +10,6 @@ import SwiftUI
 struct InfoPage: View {
     var body: some View {
         VStack (spacing: 0) {
-            RoundedRectangle(cornerRadius: 30)
-                .frame(width: 50, height: 5)
-                .opacity(0.2)
-                .padding(20)
             ScrollView {
                 VStack (alignment: .leading, spacing: 20) {
                     HeaderText("About ChatGPT")
@@ -35,6 +31,7 @@ struct InfoPage: View {
                         Text("_Note there are more powerful version of ChatGPT, such as Microsoft's Bing chat, that do use up-to-date information and have external capabilities._")
                     }
                 }
+                .padding(.top, 90)
                 .padding([.leading, .trailing, .bottom], 25)
             }
         }

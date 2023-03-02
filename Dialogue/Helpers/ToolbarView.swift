@@ -45,12 +45,37 @@ struct ToolbarView: ToolbarContent {
             }
             
             .sheet(isPresented: $isPresentingAboutPage) {
-                InfoPage()
+                ZStack {
+                    InfoPage()
+                    InfoHeader()
+                }
             }
             
             .sheet(isPresented: $isPresentingModelSettings) {
                 ModelSettingsView(isPresented: $isPresentingModelSettings)
             }
+        }
+    }
+    
+    
+    @ViewBuilder
+    private func InfoHeader() -> some View {
+        VStack {
+            ZStack {
+                HStack {
+                    Button("Close") { isPresentingAboutPage = false }
+                        .foregroundColor(Color("User"))
+                        .brightness(0.07)
+                        .saturation(1.05)
+                        .padding()
+                    Spacer()
+                }
+                Text("Info")
+                    .font(.title3)
+            }
+            .frame(height: 65)
+            .background(.thinMaterial)
+            Spacer()
         }
     }
     

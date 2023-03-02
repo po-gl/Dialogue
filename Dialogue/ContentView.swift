@@ -21,9 +21,10 @@ struct ContentView: View {
                 ChatLog()
                 VStack (spacing: 0) {
                     Spacer()
-                    WaitingIndicator()
-                        .padding(.bottom, 5)
-                        .opacity(waiting ? 1.0 : 0.0)
+                    if waiting {
+                        WaitingIndicator()
+                            .padding(.bottom, 5)
+                    }
                     AskView(waiting: $waiting)
                 }
             }

@@ -39,6 +39,24 @@ struct WaitingIndicator: View {
 
 struct WaitingIndicator_Previews: PreviewProvider {
     static var previews: some View {
-        WaitingIndicator()
+        WrapperView()
+    }
+    
+    private struct WrapperView: View {
+        @State var showWaiting = false
+        
+        var body: some View {
+            VStack {
+                if showWaiting {
+                    WaitingIndicator()
+//                        .opacity(showWaiting ? 1.0 : 0.0)
+                }
+                
+                Button(showWaiting ? "Hide" : "Show") {
+                    withAnimation { showWaiting.toggle() }
+                }
+            }
+            
+        }
     }
 }

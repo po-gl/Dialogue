@@ -64,14 +64,12 @@ struct ToolbarView: ToolbarContent {
             ZStack {
                 HStack {
                     Button("Close") { isPresentingAboutPage = false }
-                        .foregroundColor(Color("User"))
+                        .foregroundColor(Color("ServerAccent"))
                         .brightness(0.07)
                         .saturation(1.05)
                         .padding()
                     Spacer()
                 }
-                Text("Info")
-                    .font(.title3)
             }
             .frame(height: 65)
             .background(.thinMaterial)

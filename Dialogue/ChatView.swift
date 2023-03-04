@@ -94,9 +94,18 @@ struct ChatView: View {
     
     @ViewBuilder
     private func ChatMarkdown() -> some View {
-        Markdown("\(chat.text!)")
+        Markdown(chat.text!)
             .markdownTextStyle() {
                 ForegroundColor(color.isDarkColor ? .white : .black)
+            }
+            .markdownTextStyle(\.emphasis) {
+                FontStyle(.italic)
+            }
+            .markdownTextStyle(\.strong) {
+                FontWeight(.heavy)
+            }
+            .markdownTextStyle(\.link) {
+                ForegroundColor(Color(hex: 0x076678))
             }
             .markdownCodeSyntaxHighlighter(.splash(theme: .gruvLight(withFont: .init(size: 16))))
     }

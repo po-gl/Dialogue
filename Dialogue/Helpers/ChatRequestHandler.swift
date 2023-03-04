@@ -21,7 +21,7 @@ class ChatRequestHandler: ObservableObject {
     }()
     
     
-    func makeRequest(chats: [[String: String]]) async {
+    public func makeRequest(chats: [[String: String]]) async {
         
         let preprompt = "You are an assistant is helpful, creative, clever, and very friendly. Knowledge cutoff: Sep 2021. Current Date: \(dateFormatter.string(from: Date()))."
         let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
@@ -65,6 +65,24 @@ class ChatRequestHandler: ObservableObject {
         } catch {
             print("Error loading openai url: \(error.localizedDescription)")
         }
+    }
+    
+    public static func getResponseString(_ data: Data?) -> String {
+        if let data {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                if let choices = json["choices"] as? [[String: Any]] {
+                    if let message = choices[0]["message"] as? [String: String] {
+                        if let text = message["content"] {
+                            print("Response: \(String(reflecting: text))")
+                            return text.trimmingCharacters(in: .whitespacesAndNewlines)
+                        }
+                    }
+                }
+            } else {
+                return "There was an error processing the request, try again. Error during JSON serialization."
+            }
+        }
+        return "There was an error processing the request, try again."
     }
     
     

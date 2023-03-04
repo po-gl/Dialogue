@@ -182,22 +182,7 @@ struct AskView: View {
     
     private func handleResponse() {
         completeHaptic()
-        if let data = apiRequestHandler.responseData {
-            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                if let choices = json["choices"] as? [[String: Any]] {
-                    if let message = choices[0]["message"] as? [String: String] {
-                        if let text = message["content"] {
-                            print("Response: \(String(reflecting: text))")
-                            addServerChat(text.trimmingCharacters(in: .whitespacesAndNewlines))
-                        }
-                    }
-                } else {
-                    addServerChat("There was an error processing the request, try again.")
-                }
-            } else {
-                addServerChat("There was an error processing the request, try again. Error during JSON serialization.")
-            }
-        }
+        addServerChat(ChatRequestHandler.getResponseString(apiRequestHandler.responseData))
     }
     
     
@@ -229,7 +214,6 @@ struct AskView: View {
                 try viewContext.save()
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("CoreData error \(nsError), \(nsError.userInfo)")
             }

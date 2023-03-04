@@ -129,6 +129,7 @@
 		617D0055295FA14600A7D2A5 /* apikey.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = apikey.env; sourceTree = "<group>"; };
 		619C45DE29B3852300D3C77B /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
 		61B91323299AD835009B8E7A /* EmptyChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyChat.swift; sourceTree = "<group>"; };
+		61BA184229B3C6060008DA97 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+keyboardAdaptive.swift"; sourceTree = "<group>"; };
 		61CA0F172992DB7600BFC448 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
 		61CA0F1B2992DC2D00BFC448 /* AskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskView.swift; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		617D001B295F8B3D00A7D2A5 = {
 			isa = PBXGroup;
 			children = (
+				61BA184129B3C5D30008DA97 /* ci_scripts */,
 				617D0026295F8B3D00A7D2A5 /* Dialogue */,
 				617D0038295F8B3E00A7D2A5 /* DialogueTests */,
 				617D0042295F8B3E00A7D2A5 /* DialogueUITests */,
@@ -242,6 +244,14 @@
 				617D0045295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift */,
 			);
 			path = DialogueUITests;
+			sourceTree = "<group>";
+		};
+		61BA184129B3C5D30008DA97 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				61BA184229B3C6060008DA97 /* ci_pre_xcodebuild.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		61EF67A229B0DCC600C77813 /* Model */ = {

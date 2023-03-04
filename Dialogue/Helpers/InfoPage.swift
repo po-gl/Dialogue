@@ -20,7 +20,7 @@ struct InfoPage: View {
                     Text("ChatGPT is powerful, but it isn't perfect.")
                     
                     HeaderText("Limitations")
-                        .padding(.top, 10)
+                        .padding(.top, 60)
                     Text("**ChatGPT is sometimes confidently wrong.** It may give convincingly worded answers that are incorrect,. Like any information you encounter in life, use good judgement and consult secondary sources.")
                     
                     Text("**Answers do not use up-to-date information.** ChatGPT is trained on data that stopped in 2021. Thus, the model has no knowledge of events past 2021.")

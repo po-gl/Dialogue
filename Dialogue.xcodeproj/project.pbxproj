@@ -250,6 +250,7 @@
 		61F21DE7299240B300C3DACC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */,
 				614DA2BC2997F25D00EFC91C /* ToolbarView.swift */,
 				614DA2CC29987A8A00EFC91C /* ModelSettingsView.swift */,
 				614DA2CA2998586E00EFC91C /* InfoPage.swift */,
@@ -257,7 +258,6 @@
 				61B91323299AD835009B8E7A /* EmptyChat.swift */,
 				61E369912993A201005210B1 /* ChatDivider.swift */,
 				61F21DE8299240E100C3DACC /* PopStyle.swift */,
-				617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */,
 				61CA0F1F2992E2FA00BFC448 /* Haptics.swift */,
 				61EF679E29B0D2FF00C77813 /* CodeHighlighter.swift */,
 			);

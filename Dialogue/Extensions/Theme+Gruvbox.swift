@@ -11,8 +11,6 @@ import Splash
 #if os(iOS)
 import UIKit
 private typealias Color = UIColor
-#elseif os(macOS)
-private typealias Color = NSColor
 #endif
 
 public extension Splash.Theme {

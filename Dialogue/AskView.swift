@@ -99,12 +99,14 @@ struct AskView: View {
                 )
         }
         .buttonStyle(.plain)
+#if os(iOS)
         .alwaysPopover(isPresented: $showThreadButtonHint) {
             Text("✨ This button ends the thread. You can use it to **restart the conversation.**")
                 .font(.system(size: 16))
                 .frame(width: 160)
                 .padding()
         }
+#endif
         .simultaneousGesture(LongPressGesture().onEnded({ _ in showThreadButtonHint = true }))
     }
     

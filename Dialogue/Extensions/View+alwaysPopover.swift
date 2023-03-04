@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 extension View {
     public func alwaysPopover<Content>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View where Content : View {
         self.modifier(AlwaysPopoverModifier(isPresented: isPresented, contentBlock: content))
@@ -105,3 +106,4 @@ fileprivate extension UIView {
         return nil
     }
 }
+#endif

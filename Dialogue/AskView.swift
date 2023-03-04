@@ -22,7 +22,7 @@ struct AskView: View {
     @State private var inputText: String = ""
     @Binding var waiting: Bool
     
-    private let askPhrases = ["How", "Why", "What", "Who", "Nothing", "Anything", "Something"]
+    private let askPhrases = ["How", "Why", "What", "Who", "Anything", "Something"]
     
 #if os(iOS)
     private let toggleButtonFontSize: Double = 26

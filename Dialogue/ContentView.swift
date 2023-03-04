@@ -38,6 +38,10 @@ struct ContentView: View {
             .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+            .introspectNavigationController { navController in
+                navController.navigationBar.scrollEdgeAppearance = navController.navigationBar.standardAppearance
+                navController.navigationBar.isTranslucent = true
+            }
             .background(Color("Background"))
 #elseif os(OSX)
             .background(Color("BackgroundMacOS"))

@@ -38,8 +38,9 @@ struct AskView: View {
     @FocusState private var focus: Bool
     
     var body: some View {
-        HStack {
+        HStack (alignment: .bottom) {
             ToggleThreadButton()
+                .padding(.bottom, 7)
             HStack (alignment: .bottom) {
                 ChatInput()
 #if os(iOS)

@@ -36,6 +36,9 @@
 		617D005A295FAA4700A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 		617D005B295FAA4800A7D2A5 /* apikey.env in Resources */ = {isa = PBXBuildFile; fileRef = 617D0055295FA14600A7D2A5 /* apikey.env */; };
 		6194BFCE299B05D300E667D1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 6194BFCD299B05D300E667D1 /* Introspect */; };
+		619C45DF29B3852300D3C77B /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C45DE29B3852300D3C77B /* ChatPage.swift */; };
+		619C45E029B3852300D3C77B /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C45DE29B3852300D3C77B /* ChatPage.swift */; };
+		619C45E129B3852300D3C77B /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C45DE29B3852300D3C77B /* ChatPage.swift */; };
 		61B91324299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
 		61B91325299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
 		61B91326299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
@@ -124,6 +127,7 @@
 		617D0045295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRequestHandler.swift; sourceTree = "<group>"; };
 		617D0055295FA14600A7D2A5 /* apikey.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = apikey.env; sourceTree = "<group>"; };
+		619C45DE29B3852300D3C77B /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
 		61B91323299AD835009B8E7A /* EmptyChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyChat.swift; sourceTree = "<group>"; };
 		61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+keyboardAdaptive.swift"; sourceTree = "<group>"; };
 		61CA0F172992DB7600BFC448 /* ChatLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLog.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				617D0027295F8B3D00A7D2A5 /* DialogueApp.swift */,
 				614DA2B82997DBDF00EFC91C /* AppDelegate.swift */,
 				617D0029295F8B3D00A7D2A5 /* ContentView.swift */,
+				619C45DE29B3852300D3C77B /* ChatPage.swift */,
 				61CA0F172992DB7600BFC448 /* ChatLog.swift */,
 				61F21DFD29924AA100C3DACC /* ChatView.swift */,
 				61CA0F1B2992DC2D00BFC448 /* AskView.swift */,
@@ -441,6 +446,7 @@
 				61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */,
 				61EF67A429B0DEBF00C77813 /* Theme+Gruvbox.swift in Sources */,
 				617D0028295F8B3D00A7D2A5 /* DialogueApp.swift in Sources */,
+				619C45DF29B3852300D3C77B /* ChatPage.swift in Sources */,
 				614DA2CB2998586E00EFC91C /* InfoPage.swift in Sources */,
 				61CA0F1C2992DC2D00BFC448 /* AskView.swift in Sources */,
 				617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
@@ -459,6 +465,7 @@
 				617D0054295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 				61E369932993A201005210B1 /* ChatDivider.swift in Sources */,
 				61F21DEA299240E100C3DACC /* PopStyle.swift in Sources */,
+				619C45E029B3852300D3C77B /* ChatPage.swift in Sources */,
 				617D003A295F8B3E00A7D2A5 /* DialogueTests.swift in Sources */,
 				61CA0F1D2992DC2D00BFC448 /* AskView.swift in Sources */,
 				61CA0F192992DB7600BFC448 /* ChatLog.swift in Sources */,
@@ -488,6 +495,7 @@
 				617D0046295F8B3E00A7D2A5 /* DialogueUITestsLaunchTests.swift in Sources */,
 				61E369942993A201005210B1 /* ChatDivider.swift in Sources */,
 				61F21DEB299240E100C3DACC /* PopStyle.swift in Sources */,
+				619C45E129B3852300D3C77B /* ChatPage.swift in Sources */,
 				617D0044295F8B3E00A7D2A5 /* DialogueUITests.swift in Sources */,
 				61CA0F1E2992DC2D00BFC448 /* AskView.swift in Sources */,
 				61CA0F1A2992DB7600BFC448 /* ChatLog.swift in Sources */,

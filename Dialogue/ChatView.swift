@@ -25,7 +25,7 @@ struct ChatView: View {
     
     var body: some View {
         ChatMessage()
-            .animation(.interpolatingSpring(stiffness: 170, damping: 10), value: animate)
+            .animation(.interpolatingSpring(stiffness: 250, damping: 26), value: animate)
             .onAppear {
                 animate = false
             }

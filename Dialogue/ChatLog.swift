@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import MarkdownUI
 #if os(iOS)
 import Introspect
 #endif
@@ -15,7 +16,11 @@ struct ChatLog: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
     
+    @State private var animate = false
     @State private var keyboardHeight: CGFloat = 0
+    
+    private let maxChats = 50
+    private var hasRunoff: Bool { allChats.count > maxChats }
     
 #if os(iOS)
     private let keyboardOffset: CGFloat = 45
@@ -23,18 +28,16 @@ struct ChatLog: View {
     private let keyboardOffset: CGFloat = 100
 #endif
     
-    @State private var animate = false
     
     var body: some View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
                 ScrollView {
                     if allChats.isEmpty {
-                        EmptyChat()
-                            .padding(.top, 250)
+                        EmptyChat().padding(.top, 250)
                     }
-                    
                     VStack (spacing: 0){
+                        if hasRunoff { RunoffIndicator() }
                         Chats(geometry)
                     }
                     .onChange(of: allChats.count) { _ in
@@ -81,7 +84,7 @@ struct ChatLog: View {
     
     @ViewBuilder
     private func Chats(_ geometry: GeometryProxy) -> some View {
-        ForEach(allChats, id: \.id) { chat in
+        ForEach(allChats.dropFirst(max(allChats.count-maxChats, 0)), id: \.id) { chat in
             ChatView(chat: chat, animate: animate, geometry: geometry)
                 .padding(.vertical, 10)
                 .padding(.bottom, 10)
@@ -92,6 +95,19 @@ struct ChatLog: View {
                 .padding(.bottom, chat.id == allChats.last!.id ? keyboardOffset + keyboardHeight : 0)
                 .id(chat.id)
         }
+    }
+    
+    @ViewBuilder
+    private func RunoffIndicator() -> some View {
+        Rectangle()
+            .fill(LinearGradient(colors: [.primary.opacity(0.2), .primary], startPoint: .top, endPoint: .bottom))
+            .frame(width: 30, height: 30)
+            .mask {
+                Image(systemName: "ellipsis")
+                    .rotationEffect(.degrees(90))
+                    .scaleEffect(1.5)
+            }
+            .padding(.top, 20)
     }
     
     private func scrollToLastChat(scroll: ScrollViewProxy) {

@@ -120,10 +120,18 @@ struct ChatView: View {
         }) {
             Label("Copy", systemImage: "doc.on.doc")
         }
-        Button(action: toggleEndThread) {
+        
+        Button(action: {
+            basicHaptic()
+            withAnimation { ChatData.toggleEndThread(chat: chat, context: viewContext) }
+        }) {
             Label(chat.endThread ? "Open Thread" : "Close Thread", systemImage: "circle.and.line.horizontal")
         }
-        Button(role: .destructive, action: deleteChat) {
+        
+        Button(role: .destructive, action: {
+            basicHaptic()
+            withAnimation { ChatData.deleteChat(chat, context: viewContext)}
+        }) {
             Label("Remove", systemImage: "trash")
         }
     }
@@ -135,37 +143,6 @@ struct ChatView: View {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(chat.text!, forType: .string)
 #endif
-    }
-    
-    private func deleteChat() {
-        basicHaptic()
-        withAnimation {
-            viewContext.delete(chat)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    private func toggleEndThread() {
-        basicHaptic()
-        withAnimation {
-            chat.endThread.toggle()
-            if chat.endThread {
-                chat.endThreadDividerColor = ChatDivider.colors.randomElement()
-            }
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
 }
 

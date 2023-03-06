@@ -84,7 +84,13 @@ struct AskView: View {
                                               .init(color: Color("ServerAccent"), location: 0.6),
                                               .init(color: .black, location: 1.6)],
                                       startPoint: .top, endPoint: .bottom)
-        Button(action: toggleEndThread) {
+        Button(action: {
+            guard allChats.count > 0 else { return }
+            completeHaptic()
+            withAnimation(.interpolatingSpring(stiffness: 170, damping: 10)) {
+                ChatData.toggleEndThread(chat: allChats.last!, context: viewContext)
+            }
+        }) {
             Image(systemName: "circle.and.line.horizontal.fill")
                 .foregroundColor(Color("ServerAccent"))
                 .font(.system(size: toggleButtonFontSize))
@@ -109,24 +115,6 @@ struct AskView: View {
         }
 #endif
         .simultaneousGesture(LongPressGesture().onEnded({ _ in showThreadButtonHint = true }))
-    }
-    
-    private func toggleEndThread() {
-        guard allChats.count > 0 else { return }
-        completeHaptic()
-        withAnimation(.interpolatingSpring(stiffness: 170, damping: 10)) {
-            allChats.last!.endThread.toggle()
-            if allChats.last!.endThread {
-                allChats.last!.endThreadDividerColor = ChatDivider.colors.randomElement()
-            }
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
     
     
@@ -175,17 +163,18 @@ struct AskView: View {
         basicHaptic()
         withAnimation { waiting = true }
         Task {
-            await self.apiRequestHandler.makeRequest(chats: getLastCoupleChats().reversed())
+            await self.apiRequestHandler.makeRequest(chats: getLastCoupleChats())
             handleResponse()
             withAnimation { waiting = false }
         }
-        addUserChat()
+        withAnimation { ChatData.addUserChat(inputText, context: viewContext) }
         inputText = ""
     }
     
     private func handleResponse() {
         completeHaptic()
-        addServerChat(ChatRequestHandler.getResponseString(apiRequestHandler.responseData))
+        let responseText = ChatRequestHandler.getResponseString(apiRequestHandler.responseData)
+        withAnimation { ChatData.addServerChat(responseText, context: viewContext) }
     }
     
     
@@ -202,41 +191,7 @@ struct AskView: View {
                 texts.append(["role" : role, "content" : text])
             }
         }
-        return texts
-    }
-    
-    
-    private func addUserChat() {
-        withAnimation {
-            let newChat = Chat(context: viewContext)
-            newChat.timestamp = Date()
-            newChat.text = "\(inputText)"
-            newChat.fromUser = true
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                let nsError = error as NSError
-                fatalError("CoreData error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    private func addServerChat(_ text: String) {
-        withAnimation {
-            let newChat = Chat(context: viewContext)
-            newChat.timestamp = Date()
-            newChat.text = "\(text)"
-            newChat.fromUser = false
-
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("CoreData error \(nsError), \(nsError.userInfo)")
-            }
-        }
+        return texts.reversed()
     }
 }
 

@@ -80,14 +80,7 @@ struct ToolbarView: ToolbarContent {
     private func deleteAllChats() {
         completeHaptic()
         withAnimation {
-            allChats.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            allChats.forEach { ChatData.deleteChat($0, context: viewContext) }
         }
     }
 }

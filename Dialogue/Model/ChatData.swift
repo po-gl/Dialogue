@@ -72,7 +72,7 @@ struct ChatData {
     
     // MARK: Save context
     
-    static func saveContext(_ context: NSManagedObjectContext, errorMessage: String) {
+    static func saveContext(_ context: NSManagedObjectContext, errorMessage: String = "CoreData error.") {
         do {
             try context.save()
         } catch {

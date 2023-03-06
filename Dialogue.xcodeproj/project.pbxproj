@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		610B181929B48E0800337F0E /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181829B48E0800337F0E /* LinkPreview.swift */; };
+		610B181A29B48E0800337F0E /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181829B48E0800337F0E /* LinkPreview.swift */; };
+		610B181B29B48E0800337F0E /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181829B48E0800337F0E /* LinkPreview.swift */; };
+		610B181D29B5A33900337F0E /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181C29B5A33900337F0E /* ChatData.swift */; };
+		610B181E29B5A33900337F0E /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181C29B5A33900337F0E /* ChatData.swift */; };
+		610B181F29B5A33900337F0E /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181C29B5A33900337F0E /* ChatData.swift */; };
 		611A5FAE29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */; };
 		611A5FAF29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */; };
 		611A5FB029967BA600E28A56 /* View+fixContextFlicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */; };
@@ -108,6 +114,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		610B181829B48E0800337F0E /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
+		610B181C29B5A33900337F0E /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+fixContextFlicker.swift"; sourceTree = "<group>"; };
 		614DA2B82997DBDF00EFC91C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		614DA2BC2997F25D00EFC91C /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
@@ -258,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				61F21DDD299236B400C3DACC /* Persistence.swift */,
+				610B181C29B5A33900337F0E /* ChatData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,6 +284,7 @@
 				61F21DE8299240E100C3DACC /* PopStyle.swift */,
 				61CA0F1F2992E2FA00BFC448 /* Haptics.swift */,
 				61EF679E29B0D2FF00C77813 /* CodeHighlighter.swift */,
+				610B181829B48E0800337F0E /* LinkPreview.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -437,8 +447,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				610B181D29B5A33900337F0E /* ChatData.swift in Sources */,
 				61CA0F202992E2FA00BFC448 /* Haptics.swift in Sources */,
 				617D002A295F8B3D00A7D2A5 /* ContentView.swift in Sources */,
+				610B181929B48E0800337F0E /* LinkPreview.swift in Sources */,
 				614DA2BD2997F25D00EFC91C /* ToolbarView.swift in Sources */,
 				614DA2CD29987A8A00EFC91C /* ModelSettingsView.swift in Sources */,
 				61F21DF2299245CE00C3DACC /* Color+hex.swift in Sources */,
@@ -487,8 +499,10 @@
 				61EF678B29B091FD00C77813 /* View+alwaysPopover.swift in Sources */,
 				61F21DFF29924AA100C3DACC /* ChatView.swift in Sources */,
 				61EF67A029B0D2FF00C77813 /* CodeHighlighter.swift in Sources */,
+				610B181E29B5A33900337F0E /* ChatData.swift in Sources */,
 				6153E7C72992A2EA00427F85 /* WaitingIndicator.swift in Sources */,
 				61F21DE42992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
+				610B181A29B48E0800337F0E /* LinkPreview.swift in Sources */,
 				61F21DEF2992454700C3DACC /* Color+isDark.swift in Sources */,
 				614DA2BA2997DBDF00EFC91C /* AppDelegate.swift in Sources */,
 				61F21DF3299245CE00C3DACC /* Color+hex.swift in Sources */,
@@ -517,8 +531,10 @@
 				61EF678C29B091FD00C77813 /* View+alwaysPopover.swift in Sources */,
 				61F21E0029924AA100C3DACC /* ChatView.swift in Sources */,
 				61EF67A129B0D2FF00C77813 /* CodeHighlighter.swift in Sources */,
+				610B181F29B5A33900337F0E /* ChatData.swift in Sources */,
 				6153E7C62992A2E400427F85 /* WaitingIndicator.swift in Sources */,
 				61F21DE52992377800C3DACC /* Dialogue.xcdatamodeld in Sources */,
+				610B181B29B48E0800337F0E /* LinkPreview.swift in Sources */,
 				61F21DF02992454700C3DACC /* Color+isDark.swift in Sources */,
 				614DA2BB2997DBDF00EFC91C /* AppDelegate.swift in Sources */,
 				61F21DF4299245CE00C3DACC /* Color+hex.swift in Sources */,

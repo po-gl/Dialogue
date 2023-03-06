@@ -7,24 +7,44 @@
 
 import Foundation
 import CoreData
+import LinkPresentation
 
 struct ChatData {
     
     // MARK: Add Chat functions
     
-    static func addUserChat(_ text: String, context: NSManagedObjectContext) {
-        addChat(text, fromUser: true, context: context)
+    static func addUserChat(_ text: String,
+                            date: Date = Date(),
+                            endThread: Bool = false,
+                            context: NSManagedObjectContext) {
+        addChat(text, fromUser: true, date: date, endThread: endThread, metadata: nil, context: context)
     }
     
-    static func addServerChat(_ text: String, context: NSManagedObjectContext) {
-        addChat(text, fromUser: false, context: context)
+    static func addServerChat(_ text: String,
+                              date: Date = Date(),
+                              endThread: Bool = false,
+                              context: NSManagedObjectContext) {
+        Task {
+            let url = URL.getURL(for: text)
+            let metadata = await LPLinkMetadata.load(for: url)
+            addChat(text, fromUser: false, date: date, endThread: endThread, metadata: metadata, context: context)
+        }
     }
     
-    static func addChat(_ text: String, fromUser: Bool, context: NSManagedObjectContext) {
+    static func addChat(_ text: String, fromUser: Bool, date: Date, endThread: Bool, metadata: LPLinkMetadata?, context: NSManagedObjectContext) {
         let newChat = Chat(context: context)
-        newChat.timestamp = Date()
+        newChat.timestamp = date
         newChat.text = text
         newChat.fromUser = fromUser
+        
+        if let metadata {
+            newChat.metadata = metadata
+        }
+        
+        if endThread {
+            newChat.endThread = true
+            newChat.endThreadDividerColor = ChatDivider.colors.randomElement()
+        }
         
         saveContext(context, errorMessage: "CoreData error while adding Chat.")
     }

@@ -8,6 +8,7 @@
 import SwiftUI
 import MarkdownUI
 import Splash
+import LinkPresentation
 
 
 struct ChatView: View {
@@ -37,7 +38,12 @@ struct ChatView: View {
     
     @ViewBuilder
     private func ChatMessage() -> some View {
-        VStack {
+        VStack (alignment: chat.fromUser ? .trailing : .leading) {
+            if let metadata = chat.metadata {
+                LinkPreview(metadata: metadata as! LPLinkMetadata)
+                    .frame(maxWidth: 250, maxHeight: 400)
+                    .padding(.leading)
+            }
             ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
                 ChatBody()
 #if os(iOS)
@@ -49,9 +55,9 @@ struct ChatView: View {
                     .offset(x: chat.fromUser ? 8 : -8, y: 8)
             }
             .padding(.horizontal)
-            .frame(maxWidth: maxWidth, alignment: chat.fromUser ? .trailing : .leading)
-            .offset(y: animate ? 0 : 20)
         }
+        .frame(maxWidth: maxWidth, alignment: chat.fromUser ? .trailing : .leading)
+        .offset(y: animate ? 0 : 20)
         .frame(width: geometry.size.width, alignment: chat.fromUser ? .trailing : .leading)
     }
     

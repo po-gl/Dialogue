@@ -60,27 +60,18 @@ struct PersistenceController {
             }\n
             ```
             """
+        let linkText = "Here is that link you were looking for: https://en.wikipedia.org/wiki/Calico_cat"
+        
         for i in 0..<10 {
-            let newItem = Chat(context: viewContext)
-            newItem.timestamp = Date().addingTimeInterval(-Double(i+1) * 60.0 * 5.0)
-            newItem.text = "\(i) \(i % 2 == 0 ? userText : serverText)"
-            newItem.fromUser = i % 2 == 0
-            if i == 3 || i == 7 {
-                newItem.endThread = true
-                newItem.endThreadDividerColor = ChatDivider.colors.randomElement()
-            }
+            let date = Date().addingTimeInterval(-Double(i+1) * 60.0 * 5.0)
+            let endThread = i == 3 || i == 7
             
-            if i == 1 {
-                newItem.text = "\(i) \(codeText)"
+            if i % 2 == 0 {
+                ChatData.addUserChat(userText, date: date, endThread: endThread, context: viewContext)
+            } else {
+                let text = i == 3 ? codeText : i == 1 ? linkText : serverText
+                ChatData.addServerChat(text, date: date, endThread: endThread, context: viewContext)
             }
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
         return result
     }()

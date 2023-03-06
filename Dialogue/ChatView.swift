@@ -74,9 +74,6 @@ struct ChatView: View {
     private func ChatBody() -> some View {
         VStack (alignment: chat.fromUser ? .trailing : .leading, spacing: 5) {
             ChatMarkdown()
-#if os(OSX)
-                .textSelection(.enabled)
-#endif
             Timestamp()
         }
         .padding([.top, .horizontal])
@@ -119,6 +116,9 @@ struct ChatView: View {
                 ForegroundColor(Color(hex: 0x076678))
             }
             .markdownCodeSyntaxHighlighter(.splash(theme: .gruvLight(withFont: .init(size: 16))))
+#if os(OSX)
+            .textSelection(.enabled)
+#endif
     }
     
     

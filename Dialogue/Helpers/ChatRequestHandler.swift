@@ -23,7 +23,7 @@ class ChatRequestHandler: ObservableObject {
     
     public func makeRequest(chats: [[String: String]]) async {
         
-        let preprompt = "You are an assistant is helpful, creative, clever, and very friendly. Knowledge cutoff: Sep 2021. Current Date: \(dateFormatter.string(from: Date()))."
+        let preprompt = "You are an assistant is helpful, creative, clever, and very friendly. When asked for images, you can provide a wiki link. Knowledge cutoff: Sep 2021. Current Date: \(dateFormatter.string(from: Date()))."
         let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
         
         let messages: [[String: String]] = [prepromptData] + chats

@@ -30,9 +30,6 @@ struct ChatView: View {
             .onAppear {
                 animate = false
             }
-#if os(iOS)
-            .fixContextFlicker()
-#endif
     }
     
     

@@ -72,8 +72,9 @@ struct ChatView: View {
     
     @ViewBuilder
     private func ChatBody() -> some View {
-        VStack (alignment: chat.fromUser ? .trailing : .leading ,spacing: 5) {
+        VStack (alignment: chat.fromUser ? .trailing : .leading, spacing: 0) {
             ChatMarkdown()
+                .padding(.bottom, 5)
 #if os(OSX)
                 .textSelection(.enabled)
 #endif
@@ -87,14 +88,11 @@ struct ChatView: View {
     
     @ViewBuilder
     private func Timestamp() -> some View {
-        if chat.text!.count > 8 {
-            Text("\(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)")
-                .font(.system(size: 12, design: .monospaced))
-                .foregroundColor(color.isDarkColor ? .white : .black)
-                .opacity(0.5)
-        } else {
-            Rectangle().fill(.clear).frame(width: 0, height: 0)
-        }
+        Text(chat.timestamp!, formatter: chat.text!.count > 15 ? timeFormatter : shortTimeFormatter)
+            .font(.system(size: 12, design: .monospaced))
+            .foregroundColor(color.isDarkColor ? .white : .black)
+            .opacity(chat.text!.count > 8 ? 0.5 : 0.0)
+            .frame(maxHeight: chat.text!.count > 8 ? .infinity : 0.0)
     }
     
     @ViewBuilder

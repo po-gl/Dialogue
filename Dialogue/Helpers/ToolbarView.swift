@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToolbarView: ToolbarContent {
+struct ToolbarView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
@@ -16,44 +16,56 @@ struct ToolbarView: ToolbarContent {
     @State private var isPresentingModelSettings = false
     @State private var isPresentingRemoveAllConfirm = false
     
-    var body: some ToolbarContent {
-        ToolbarItem() {
-            Menu {
-                Button(action: { isPresentingAboutPage = true }) {
-                    Label("About ChatGPT", systemImage: "info.circle")
-                }
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                MenuButton()
+                    .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
+                        Button(role: .destructive, action: deleteAllChats) {
+                            Text("Delete all messages")
+                        }
+                    } message: {
+                        Text("You cannot undo this action.")
+                    }
                 
-                Button(action: { isPresentingModelSettings = true}) {
-                    Label("Model Settings", systemImage: "slider.horizontal.3")
-                }
+                    .sheet(isPresented: $isPresentingAboutPage) {
+                        ZStack {
+                            InfoPage()
+                            InfoHeader()
+                        }
+                    }
                 
-                Button(role: .destructive, action: { isPresentingRemoveAllConfirm = true }) {
-                    Label("Remove All", systemImage: "trash")
-                }
-                
-            } label: {
-                Image(systemName: "ellipsis.circle")
-                    .foregroundColor(Color("Toolbar"))
+                    .sheet(isPresented: $isPresentingModelSettings) {
+                        ModelSettingsView(isPresented: $isPresentingModelSettings)
+                    }
+            }
+            .padding(.top, 20)
+            .padding(.trailing, 20)
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private func MenuButton() -> some View {
+        Menu {
+            Button(action: { isPresentingAboutPage = true }) {
+                Label("About ChatGPT", systemImage: "info.circle")
             }
             
-            .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
-                Button(role: .destructive, action: deleteAllChats) {
-                    Text("Delete all messages")
-                }
-            } message: {
-                Text("You cannot undo this action.")
+            Button(action: { isPresentingModelSettings = true}) {
+                Label("Model Settings", systemImage: "slider.horizontal.3")
             }
             
-            .sheet(isPresented: $isPresentingAboutPage) {
-                ZStack {
-                    InfoPage()
-                    InfoHeader()
-                }
+            Button(role: .destructive, action: { isPresentingRemoveAllConfirm = true }) {
+                Label("Remove All", systemImage: "trash")
             }
             
-            .sheet(isPresented: $isPresentingModelSettings) {
-                ModelSettingsView(isPresented: $isPresentingModelSettings)
-            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .foregroundColor(Color("Toolbar"))
+                .frame(width: 50, height: 32)
+                .background(RoundedRectangle(cornerRadius: 30).fill(.thinMaterial))
         }
     }
     

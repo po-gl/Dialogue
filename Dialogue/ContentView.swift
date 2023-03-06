@@ -11,6 +11,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.undoManager) private var undoManager
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         ChatPage()
@@ -22,6 +23,19 @@ struct ContentView: View {
                     ChatData.saveContext(viewContext)
                 }
             }
+            .overlay(alignment: .top) {
+                StatusBarBlur()
+            }
+    }
+    
+    
+    @ViewBuilder
+    private func StatusBarBlur() -> some View {
+        Color.clear
+            .background(.ultraThinMaterial)
+            .brightness(colorScheme == .dark ? -0.1 : 0.02)
+            .edgesIgnoringSafeArea(.top)
+            .frame(height: 0)
     }
 }
 

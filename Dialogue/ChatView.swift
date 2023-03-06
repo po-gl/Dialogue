@@ -23,13 +23,24 @@ struct ChatView: View {
     private var colorAccent: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("UserAccent") : Color("ServerAccent") }
     private var maxWidth: Double { return chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/13 }
     
+    @State var isPresentingDeleteConfirm = false
     
     var body: some View {
-        ChatMessage()
-            .animation(.interpolatingSpring(stiffness: 250, damping: 26), value: animate)
-            .onAppear {
-                animate = false
-            }
+        if !chat.isFault {
+            ChatMessage()
+                .animation(.interpolatingSpring(stiffness: 250, damping: 26), value: animate)
+                .onAppear {
+                    animate = false
+                }
+                .confirmationDialog("Are you sure?", isPresented: $isPresentingDeleteConfirm) {
+                    Button("Delete message", role: .destructive) {
+                        basicHaptic()
+                        withAnimation { ChatData.deleteChat(chat, context: viewContext)}
+                    }
+                }
+        } else {
+            Rectangle().fill(.clear)
+        }
     }
     
     
@@ -133,7 +144,7 @@ struct ChatView: View {
         
         Button(role: .destructive, action: {
             basicHaptic()
-            withAnimation { ChatData.deleteChat(chat, context: viewContext)}
+            isPresentingDeleteConfirm = true
         }) {
             Label("Remove", systemImage: "trash")
         }

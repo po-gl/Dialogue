@@ -19,9 +19,14 @@ struct ChatView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
-    private var color: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("User") : SwiftUI.Color("Server") }
-    private var colorAccent: SwiftUI.Color { return chat.fromUser ? SwiftUI.Color("UserAccent") : Color("ServerAccent") }
-    private var maxWidth: Double { return chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/13 }
+    private var color: SwiftUI.Color { chat.fromUser ? SwiftUI.Color("User") : SwiftUI.Color("Server") }
+    private var colorAccent: SwiftUI.Color { chat.fromUser ? SwiftUI.Color("UserAccent") : Color("ServerAccent") }
+    
+    @State var spotOffset: Double = Double.random(in: 45..<60)
+    
+    private var maxWidth: Double { chat.fromUser ? geometry.size.width - geometry.size.width/4 : geometry.size.width - geometry.size.width/13 }
+    private var alignment: Alignment { chat.fromUser ? .bottomTrailing : .bottomLeading }
+    private var oppositeAlignment: Alignment { chat.fromUser ? .bottomLeading : .bottomTrailing }
     
     @State var isPresentingDeleteConfirm = false
     
@@ -46,13 +51,13 @@ struct ChatView: View {
     
     @ViewBuilder
     private func ChatMessage() -> some View {
-        VStack (alignment: chat.fromUser ? .trailing : .leading) {
+        VStack (alignment: alignment.horizontal) {
             if let metadata = chat.metadata {
                 LinkPreview(metadata: metadata as! LPLinkMetadata)
                     .frame(maxWidth: 250, maxHeight: 400)
                     .padding(.leading)
             }
-            ZStack (alignment: chat.fromUser ? .bottomTrailing : .bottomLeading) {
+            ZStack (alignment: alignment) {
                 ChatBody()
 #if os(iOS)
                     .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
@@ -64,22 +69,28 @@ struct ChatView: View {
             }
             .padding(.horizontal)
         }
-        .frame(maxWidth: maxWidth, alignment: chat.fromUser ? .trailing : .leading)
         .offset(y: animate ? 0 : 20)
-        .frame(width: geometry.size.width, alignment: chat.fromUser ? .trailing : .leading)
+        .frame(maxWidth: maxWidth, alignment: Alignment(horizontal: alignment.horizontal, vertical: .center))
+        .frame(width: geometry.size.width, alignment: Alignment(horizontal: alignment.horizontal, vertical: .center))
     }
     
     
     @ViewBuilder
     private func ChatBody() -> some View {
-        VStack (alignment: chat.fromUser ? .trailing : .leading, spacing: 5) {
+        VStack (alignment: alignment.horizontal, spacing: 5) {
             ChatMarkdown()
             Timestamp()
         }
         .padding([.top, .horizontal])
         .padding(.bottom, 10)
         .background(RoundedRectangle(cornerRadius: 20).fill(color))
+        
+        .overlay(alignment: oppositeAlignment) { Image("PickSpotSmall").resizable().frame(width: 100, height: 100).offset(x: chat.fromUser ? -50 : 50, y: spotOffset).opacity(0.6) }
+        
         .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(Color("Outline"), lineWidth: 2))
+        
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .clipped()
     }
     
     @ViewBuilder
@@ -94,7 +105,7 @@ struct ChatView: View {
     @ViewBuilder
     private func Bubble() -> some View {
         Circle()
-            .fill(colorAccent)
+            .fill(colorAccent.gradient)
             .overlay(Circle().stroke(Color("Outline"), lineWidth: 2))
             .frame(width: 12, height: 12)
     }

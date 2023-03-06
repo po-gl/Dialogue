@@ -15,6 +15,7 @@ import Introspect
 struct ChatLog: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
     private var allChats: FetchedResults<Chat>
+    @State private var oldAllChatsCount: Int?
     
     @State private var animate = false
     @State private var keyboardHeight: CGFloat = 0
@@ -41,7 +42,10 @@ struct ChatLog: View {
                         Chats(geometry)
                     }
                     .onChange(of: allChats.count) { _ in
-                        scrollToLastChat(scroll: scroll)
+                        if !wasChatRemoved() {
+                            scrollToLastChat(scroll: scroll)
+                        }
+                        oldAllChatsCount = allChats.count
                     }
                     .onChange(of: allChats.last?.endThread) { _ in
                         guard allChats.last?.endThread == true else { return }
@@ -61,6 +65,7 @@ struct ChatLog: View {
                     .frame(width: geometry.size.width)
                     .onAppear {
                         animate = true
+                        oldAllChatsCount = allChats.count
                     }
                 }
                 .overlay(
@@ -118,6 +123,10 @@ struct ChatLog: View {
             withAnimation { scroll.scrollTo(allChats.last?.id) }
         }
         #endif
+    }
+    
+    private func wasChatRemoved() -> Bool {
+        return oldAllChatsCount ?? 0 > allChats.count
     }
 }
 

@@ -72,9 +72,8 @@ struct ChatView: View {
     
     @ViewBuilder
     private func ChatBody() -> some View {
-        VStack (alignment: chat.fromUser ? .trailing : .leading, spacing: 0) {
+        VStack (alignment: chat.fromUser ? .trailing : .leading, spacing: 5) {
             ChatMarkdown()
-                .padding(.bottom, 5)
 #if os(OSX)
                 .textSelection(.enabled)
 #endif
@@ -92,7 +91,7 @@ struct ChatView: View {
             .font(.system(size: 12, design: .monospaced))
             .foregroundColor(color.isDarkColor ? .white : .black)
             .opacity(chat.text!.count > 8 ? 0.5 : 0.0)
-            .frame(maxHeight: chat.text!.count > 8 ? .infinity : 0.0)
+            .frame(maxHeight: chat.text!.count > 8 ? 12 : 0.0)
     }
     
     @ViewBuilder

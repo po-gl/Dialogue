@@ -17,32 +17,39 @@ struct ToolbarView: View {
     @State private var isPresentingRemoveAllConfirm = false
     
     var body: some View {
-        VStack {
-            HStack {
+        Group {
+#if os(iOS)
+            VStack {
+                HStack {
+                    Spacer()
+                    MenuButton()
+                }
+                .padding(.top, 20)
+                .padding(.trailing, 20)
                 Spacer()
-                MenuButton()
-                    .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
-                        Button(role: .destructive, action: deleteAllChats) {
-                            Text("Delete all messages")
-                        }
-                    } message: {
-                        Text("You cannot undo this action.")
-                    }
-                
-                    .sheet(isPresented: $isPresentingAboutPage) {
-                        ZStack {
-                            InfoPage()
-                            InfoHeader()
-                        }
-                    }
-                
-                    .sheet(isPresented: $isPresentingModelSettings) {
-                        ModelSettingsView(isPresented: $isPresentingModelSettings)
-                    }
             }
-            .padding(.top, 20)
-            .padding(.trailing, 20)
-            Spacer()
+#elseif os(OSX)
+            MenuButton()
+#endif
+        }
+        
+        .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
+            Button(role: .destructive, action: deleteAllChats) {
+                Text("Delete all messages")
+            }
+        } message: {
+            Text("You cannot undo this action.")
+        }
+        
+        .sheet(isPresented: $isPresentingAboutPage) {
+            ZStack {
+                InfoPage()
+                InfoHeader()
+            }
+        }
+        
+        .sheet(isPresented: $isPresentingModelSettings) {
+            ModelSettingsView(isPresented: $isPresentingModelSettings)
         }
     }
     
@@ -64,8 +71,10 @@ struct ToolbarView: View {
         } label: {
             Image(systemName: "ellipsis.circle")
                 .foregroundColor(Color("Toolbar"))
+#if os(iOS)
                 .frame(width: 50, height: 32)
                 .background(RoundedRectangle(cornerRadius: 30).fill(.thinMaterial))
+#endif
         }
     }
     

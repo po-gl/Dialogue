@@ -8,6 +8,7 @@
 import SwiftUI
 import LinkPresentation
 
+#if os(iOS)
 struct LinkPreview: UIViewRepresentable {
     let metadata: LPLinkMetadata
     
@@ -20,9 +21,24 @@ struct LinkPreview: UIViewRepresentable {
     }
 }
 
+#elseif os(OSX)
+struct LinkPreview: NSViewRepresentable {
+    let metadata: LPLinkMetadata
+    
+    func makeNSView(context: Context) -> some NSView {
+        let view = ResizableLPLinkView(metadata: metadata)
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSViewType, context: Context) {
+    }
+}
+#endif
+
 class ResizableLPLinkView: LPLinkView {
     override var intrinsicContentSize: CGSize { CGSize(width: 0, height: super.intrinsicContentSize.height) }
 }
+
 
 struct LinkPreview_Previews: PreviewProvider {
     static var previews: some View {
@@ -31,8 +47,7 @@ struct LinkPreview_Previews: PreviewProvider {
     
     struct Wrapper: View {
         @State var metadata: LPLinkMetadata?
-//        let linkText = "https://en.wikipedia.org/wiki/Calico_cat" // https:// seems to crash it, hmm
-        let linkText = "https://reddit.com/r/catsareliquid/comments/11hda02/liquid_or_slinky/"
+        let linkText = "https://en.wikipedia.org/wiki/Calico_cat"
         
         var body: some View {
             VStack {

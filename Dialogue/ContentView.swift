@@ -23,9 +23,11 @@ struct ContentView: View {
                     ChatData.saveContext(viewContext)
                 }
             }
+#if os(iOS)
             .overlay(alignment: .top) {
                 StatusBarBlur()
             }
+#endif
     }
     
     

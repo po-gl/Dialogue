@@ -135,7 +135,7 @@ struct AskView: View {
             }
             .touchBar {
                 ToggleThreadButton()
-                    .padding(20)
+                    .padding(.horizontal, 20)
             }
 #endif
     }

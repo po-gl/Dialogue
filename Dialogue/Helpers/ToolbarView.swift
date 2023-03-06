@@ -46,10 +46,16 @@ struct ToolbarView: View {
                 InfoPage()
                 InfoHeader()
             }
+#if os(OSX)
+            .frame(minWidth: 400, idealWidth: 450, maxWidth: 600)
+#endif
         }
         
         .sheet(isPresented: $isPresentingModelSettings) {
             ModelSettingsView(isPresented: $isPresentingModelSettings)
+#if os(OSX)
+                .frame(minWidth: 450, idealWidth: 500, maxWidth: 650)
+#endif
         }
     }
     

@@ -39,7 +39,6 @@ struct ModelSettingsView: View {
                 }
                 .padding(.top)
             }
-            .frame(width: 300)
         }
         .padding(.top, 10)
         .padding(25)

@@ -7,7 +7,7 @@ Its UI is a simple and familiar chat interface, but its conversation abilities a
 Features:
 - Chat interface connecting to OpenAI's ChatGPT api (`gpt-3.5-turbo`)
 - Markdown rendering of messages (lists, tables, code syntax, etc.)
-- Preview links with rich media (the model can't utilize the internet so links are often dead)
+- Preview links with rich media (the model can't utilize the internet so links are often dead ¯\_(ツ)_/¯)
 - Close/Open thread to control conversational memory
 - Change model settings (token limit and message memory)
 

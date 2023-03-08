@@ -21,7 +21,7 @@ cd Dialogue
 echo YOUR_API_KEY > ./Dialogue/apikey.env
 ```
 
-Note that your API key is not not hidden in the compiled app, so do not share your app with anyone you don't trust. If sharing your app is something you want to do, host a webserver that will make API calls and send results back to the app.
+Note that **your API key is not not hidden in a compiled app**, so do not share it with anyone you don't trust. If sharing your app is something you want to do, host a webserver that will make API calls and send results back to the app.
 
 ---
 

@@ -29,10 +29,12 @@ struct AskView: View {
     private let chatTextPadding: Double = 11
     private let borderWidth: Double = 1
     @State private var bottomPadding: Double = 40
+    private let materialDarkBrightness = -0.1
 #elseif os(OSX)
     private let toggleButtonFontSize: Double = 20
     private let chatTextPadding: Double = 7
     private let borderWidth: Double = 1
+    private let materialDarkBrightness = -0.03
     
 #endif
     @FocusState private var focus: Bool
@@ -48,14 +50,14 @@ struct AskView: View {
                     .padding(.bottom, 4)
 #endif
             }
-            .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(colorScheme == .dark ? Color("Gray") : .black, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.5))
+            .background(RoundedRectangle(cornerRadius: 26).fill(.ultraThinMaterial).opacity(0.3).brightness(colorScheme == .dark ? materialDarkBrightness : 0.012))
+            .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(.primary, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.4))
         }
         .padding(.vertical, 5)
         .padding(.horizontal, 10)
 #if os(OSX)
         .padding(.top, 5)
         .padding([.trailing, .bottom], 10)
-        .background(Rectangle().fill(.ultraThinMaterial).brightness(colorScheme == .dark ? -0.03 : 0.012))
 #elseif os(iOS)
         .padding(.bottom, bottomPadding)
         .onReceive(Publishers.keyboardReadable) { opened in
@@ -63,7 +65,6 @@ struct AskView: View {
                 bottomPadding = opened ? 0 : 40
             }
         }
-        .background(Rectangle().fill(.ultraThinMaterial).brightness(colorScheme == .dark ? -0.1 : 0.012))
         
         .simultaneousGesture(DragGesture(minimumDistance: 20, coordinateSpace: .global)
             .onEnded { value in
@@ -76,6 +77,7 @@ struct AskView: View {
             }
         )
 #endif
+        .background(Rectangle().fill(.ultraThinMaterial).brightness(colorScheme == .dark ? materialDarkBrightness : 0.012))
     }
     
     @ViewBuilder
@@ -105,6 +107,7 @@ struct AskView: View {
                         }
                 )
         }
+        .keyboardShortcut("k")
         .buttonStyle(.plain)
 #if os(iOS)
         .alwaysPopover(isPresented: $showThreadButtonHint) {

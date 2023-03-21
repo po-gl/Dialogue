@@ -52,7 +52,7 @@ struct ChatLog: View {
                         scrollToLastChat(scroll: scroll)
                     }
                     .onAppear {
-                        scroll.scrollTo(allChats.last?.id)
+                        scroll.scrollTo(allChats.last?.id, anchor: .bottom)
                     }
 #if os(iOS)
                     .onReceive(Publishers.keyboardHeight) { height in
@@ -117,10 +117,10 @@ struct ChatLog: View {
     
     private func scrollToLastChat(scroll: ScrollViewProxy) {
         #if os(iOS)
-        withAnimation { scroll.scrollTo(allChats.last?.id) }
+        withAnimation { scroll.scrollTo(allChats.last?.id, anchor: .bottom) }
         #elseif os(OSX)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            withAnimation { scroll.scrollTo(allChats.last?.id) }
+            withAnimation { scroll.scrollTo(allChats.last?.id, anchor: .bottom) }
         }
         #endif
     }

@@ -45,10 +45,8 @@ struct AskView: View {
                 .padding(.bottom, 7)
             HStack (alignment: .bottom) {
                 ChatInput()
-#if os(iOS)
                 SendButton()
                     .padding(.bottom, 4)
-#endif
             }
             .background(RoundedRectangle(cornerRadius: 26).fill(.ultraThinMaterial).opacity(0.3).brightness(colorScheme == .dark ? materialDarkBrightness : 0.012))
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(.primary, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.4))
@@ -130,6 +128,7 @@ struct AskView: View {
             .focused($focus)
 #if os(OSX)
             .padding(.horizontal, 5)
+            .padding(.vertical, 2)
             .onAppear {
                 focus = true
             }
@@ -145,16 +144,27 @@ struct AskView: View {
     
     @ViewBuilder
     private func SendButton() -> some View {
+#if os(iOS)
+        let diameter: Double = 35
+#elseif os(OSX)
+        let diameter: Double = 25
+#endif
+        let arrowWidth: Double = 17
+        let arrowHeight: Double = 20
         let gradient = LinearGradient(stops: [.init(color: Color("Server"), location: -0.4),
                                               .init(color: Color("ServerAccent"), location: 1.0)],
                                       startPoint: .top, endPoint: .bottom)
         Button(action: sendRequest) {
             Image(systemName: "arrow.up")
                 .resizable()
-                .frame(width: 17, height: 20)
+#if os(iOS)
+                .frame(width: arrowWidth, height: arrowHeight)
+#elseif os(OSX)
+                .frame(width: arrowWidth * 0.65, height: arrowHeight * 0.65)
+#endif
         }
         .buttonStyle(PopStyle(color: Color("ServerAccent"), gradient: gradient, radius: 50))
-        .frame(width: 35, height: 35)
+        .frame(width: diameter, height: diameter)
         .padding(.trailing, 5)
     }
     

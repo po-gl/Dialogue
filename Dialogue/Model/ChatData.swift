@@ -5,7 +5,7 @@
 //  Created by Porter Glines on 3/5/23.
 //
 
-import Foundation
+import SwiftUI
 import CoreData
 import LinkPresentation
 
@@ -67,6 +67,11 @@ struct ChatData {
     static func deleteChat(_ chat: Chat,  context: NSManagedObjectContext) {
         context.delete(chat)
         saveContext(context, errorMessage: "CoreData error while deleting Chat.")
+    }
+    
+    static func deleteChats(_ chats: FetchedResults<Chat>,  context: NSManagedObjectContext) {
+        chats.forEach { context.delete($0) }
+        saveContext(context, errorMessage: "CoreData error while deleting multiple Chats.")
     }
     
     

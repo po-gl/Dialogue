@@ -107,7 +107,7 @@ struct ToolbarView: View {
     private func deleteAllChats() {
         completeHaptic()
         withAnimation {
-            allChats.forEach { ChatData.deleteChat($0, context: viewContext) }
+            ChatData.deleteChats(allChats, context: viewContext)
         }
     }
 }

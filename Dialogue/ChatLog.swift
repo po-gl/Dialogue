@@ -61,6 +61,7 @@ struct ChatLog: View {
                     .onReceive(Publishers.keyboardOpened) { _ in
                         scrollToLastChat(scroll: scroll)
                     }
+                    .padding(.bottom, 95)
 #endif
                     .frame(width: geometry.size.width)
                     .onAppear {
@@ -75,12 +76,6 @@ struct ChatLog: View {
                         .allowsHitTesting(false)
                 )
                 .scrollDismissesKeyboard(.immediately)
-#if os(iOS)
-                .padding(.bottom, 95)
-                .introspectScrollView { view in
-                    view.clipsToBounds = false
-                }
-#endif
             }
         }
         .ignoresSafeArea(.keyboard)

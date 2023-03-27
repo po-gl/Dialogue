@@ -11,33 +11,18 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.undoManager) private var undoManager
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.colorScheme) private var colorScheme
+    
     
     var body: some View {
-        ChatPage()
+        ThreadsPage()
             .onAppear {
                 viewContext.undoManager = undoManager
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .inactive {
-                    ChatData.saveContext(viewContext)
+                    ChatThreadData.saveContext(viewContext)
                 }
             }
-#if os(iOS)
-            .overlay(alignment: .top) {
-                StatusBarBlur()
-            }
-#endif
-    }
-    
-    
-    @ViewBuilder
-    private func StatusBarBlur() -> some View {
-        Color.clear
-            .background(.ultraThinMaterial)
-            .brightness(colorScheme == .dark ? -0.1 : 0.02)
-            .edgesIgnoringSafeArea(.top)
-            .frame(height: 0)
     }
 }
 

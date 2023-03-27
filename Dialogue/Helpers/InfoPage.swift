@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct InfoPage: View {
+    @Binding var isPresenting: Bool
+    
     var body: some View {
+        ZStack {
+            Page()
+            Header()
+        }
+    }
+        
+    @ViewBuilder
+    private func Page() -> some View {
         VStack (spacing: 0) {
             ScrollView {
                 VStack (alignment: .leading, spacing: 20) {
@@ -42,10 +52,37 @@ struct InfoPage: View {
         Text(text)
             .font(.system(size: 30, weight: .bold))
     }
+    
+    
+    @ViewBuilder
+    private func Header() -> some View {
+        VStack {
+            ZStack {
+                HStack {
+                    Button("Close") { isPresenting = false }
+                        .foregroundColor(Color("ServerAccent"))
+                        .brightness(0.07)
+                        .saturation(1.05)
+                        .padding()
+                    Spacer()
+                }
+            }
+            .frame(height: 65)
+            .background(.thinMaterial)
+            Spacer()
+        }
+    }
 }
 
 struct InfoPage_Previews: PreviewProvider {
     static var previews: some View {
-        InfoPage()
+        Wrapper()
+    }
+    
+    struct Wrapper: View {
+        @State var isPresenting = true
+        var body: some View {
+            InfoPage(isPresenting: $isPresenting)
+        }
     }
 }

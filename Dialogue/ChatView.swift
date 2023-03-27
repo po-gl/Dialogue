@@ -145,7 +145,10 @@ struct ChatView: View {
         
         Button(action: {
             basicHaptic()
-            withAnimation { ChatData.toggleEndThread(chat: chat, context: viewContext) }
+            withAnimation {
+                ChatData.toggleEndThread(chat: chat, context: viewContext)
+                ChatThreadData.wasEdited(chat.thread!, context: viewContext)
+            }
         }) {
             Label(chat.endThread ? "Open Thread" : "Close Thread", systemImage: "circle.and.line.horizontal")
         }
@@ -153,6 +156,7 @@ struct ChatView: View {
         Button(role: .destructive, action: {
             basicHaptic()
             isPresentingDeleteConfirm = true
+            ChatThreadData.wasEdited(chat.thread!, context: viewContext)
         }) {
             Label("Remove", systemImage: "trash")
         }

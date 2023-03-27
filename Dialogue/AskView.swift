@@ -12,8 +12,8 @@ struct AskView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
-    private var allChats: FetchedResults<Chat>
+    var chatThread: ChatThread
+    private var allChats: [Chat] { chatThread.chatsArray }
     
     @AppStorage("messageMemory") private var messageMemory: Double = 2
     @AppStorage("showThreadButtonHint") private var showThreadButtonHint = true
@@ -88,7 +88,10 @@ struct AskView: View {
             guard allChats.count > 0 else { return }
             completeHaptic()
             withAnimation(.interpolatingSpring(stiffness: 170, damping: 10)) {
-                ChatData.toggleEndThread(chat: allChats.last!, context: viewContext)
+                if let lastChat = allChats.last {
+                    ChatData.toggleEndThread(chat: lastChat, context: viewContext)
+                    ChatThreadData.wasEdited(chatThread, context: viewContext)
+                }
             }
         }) {
             Image(systemName: "circle.and.line.horizontal.fill")
@@ -174,20 +177,23 @@ struct AskView: View {
     private func sendRequest() {
         guard inputText != "" else { return }
         basicHaptic()
+        withAnimation { ChatData.addUserChat(inputText, thread: chatThread, context: viewContext) }
+        ChatThreadData.wasEdited(chatThread, context: viewContext)
+        
         withAnimation { waiting = true }
         Task {
             await self.apiRequestHandler.makeRequest(chats: getLastCoupleChats())
             handleResponse()
             withAnimation { waiting = false }
         }
-        withAnimation { ChatData.addUserChat(inputText, context: viewContext) }
         inputText = ""
     }
     
     private func handleResponse() {
         completeHaptic()
         let responseText = ChatRequestHandler.getResponseString(apiRequestHandler.responseData)
-        withAnimation { ChatData.addServerChat(responseText, context: viewContext) }
+        withAnimation { ChatData.addServerChat(responseText, thread: chatThread, context: viewContext) }
+        ChatThreadData.wasEdited(chatThread, context: viewContext)
     }
     
     

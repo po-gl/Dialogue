@@ -6,55 +6,42 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct ChatPage: View {
     private let titleEmoji = ["🤖", "🔮", "🌞", "👁️"]
     @State private var waiting: Bool = false
     
+    var chatThread: ChatThread
+    
     var body: some View {
+        Page()
+            .toolbar {
+                ChatsToolbarView(chatThread: chatThread)
+            }
+            .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
+            .ignoresSafeArea(.container, edges: .bottom)
 #if os(iOS)
-        iOSLayout()
+            .navigationBarTitleDisplayMode(.inline)
+            .background(Color("Background"))
 #elseif os(OSX)
-        MacOSLayout()
+            .background(Color("BackgroundMacOS"))
+            .frame(minWidth: 400, idealWidth: 600, minHeight: 450, idealHeight: 800)
 #endif
-    }
-    
-    @ViewBuilder
-    private func iOSLayout() -> some View {
-        ZStack {
-            Page()
-            ToolbarView()
-        }
-        .ignoresSafeArea(.container, edges: .bottom)
-        .background(Color("Background"))
-    }
-    
-    @ViewBuilder
-    private func MacOSLayout() -> some View {
-        NavigationStack {
-            Page()
-        }
-        .toolbar {
-            ToolbarView()
-        }
-        .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
-        .ignoresSafeArea(.container, edges: .bottom)
-        .background(Color("BackgroundMacOS"))
-        .frame(minWidth: 400, idealWidth: 600, minHeight: 450, idealHeight: 800)
     }
     
     
     @ViewBuilder
     private func Page() -> some View {
         ZStack {
-            ChatLog()
+            ChatLog(chatThread: chatThread)
             VStack (spacing: 0) {
                 Spacer()
                 if waiting {
                     WaitingIndicator()
                         .padding(.bottom, 5)
                 }
-                AskView(waiting: $waiting)
+                AskView(chatThread: chatThread, waiting: $waiting)
             }
         }
     }

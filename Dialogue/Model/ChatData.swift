@@ -15,27 +15,39 @@ struct ChatData {
     
     static func addUserChat(_ text: String,
                             date: Date = Date(),
+                            thread: ChatThread,
                             endThread: Bool = false,
                             context: NSManagedObjectContext) {
-        addChat(text, fromUser: true, date: date, endThread: endThread, metadata: nil, context: context)
+        addChat(text, fromUser: true, date: date, thread: thread, endThread: endThread, metadata: nil, context: context)
     }
     
     static func addServerChat(_ text: String,
                               date: Date = Date(),
+                              thread: ChatThread,
                               endThread: Bool = false,
                               context: NSManagedObjectContext) {
         Task {
             let url = URL.getURL(for: text)
             let metadata = await LPLinkMetadata.load(for: url)
-            addChat(text, fromUser: false, date: date, endThread: endThread, metadata: metadata, context: context)
+            await MainActor.run {
+                addChat(text, fromUser: false, date: date, thread: thread, endThread: endThread, metadata: metadata, context: context)
+            }
         }
     }
     
-    static func addChat(_ text: String, fromUser: Bool, date: Date, endThread: Bool, metadata: LPLinkMetadata?, context: NSManagedObjectContext) {
+    static func addChat(_ text: String,
+                        fromUser: Bool,
+                        date: Date,
+                        thread: ChatThread,
+                        endThread: Bool,
+                        metadata: LPLinkMetadata?,
+                        context: NSManagedObjectContext) {
         let newChat = Chat(context: context)
         newChat.timestamp = date
         newChat.text = text
         newChat.fromUser = fromUser
+        
+        newChat.thread = thread
         
         if let metadata {
             newChat.metadata = metadata
@@ -69,7 +81,7 @@ struct ChatData {
         saveContext(context, errorMessage: "CoreData error while deleting Chat.")
     }
     
-    static func deleteChats(_ chats: FetchedResults<Chat>,  context: NSManagedObjectContext) {
+    static func deleteChats(_ chats: [Chat],  context: NSManagedObjectContext) {
         chats.forEach { context.delete($0) }
         saveContext(context, errorMessage: "CoreData error while deleting multiple Chats.")
     }

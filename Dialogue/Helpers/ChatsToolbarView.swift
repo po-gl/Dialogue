@@ -1,5 +1,5 @@
 //
-//  ToolbarView.swift
+//  ChatsToolbarView.swift
 //  Dialogue
 //
 //  Created by Porter Glines on 2/11/23.
@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct ToolbarView: View {
+struct ChatsToolbarView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
-    private var allChats: FetchedResults<Chat>
+    
+    var chatThread: ChatThread
+    private var allChats: [Chat] { chatThread.chatsArray }
     
     @State private var isPresentingAboutPage = false
     @State private var isPresentingModelSettings = false
@@ -18,19 +19,7 @@ struct ToolbarView: View {
     
     var body: some View {
         Group {
-#if os(iOS)
-            VStack {
-                HStack {
-                    Spacer()
-                    MenuButton()
-                }
-                .padding(.top, 20)
-                .padding(.trailing, 20)
-                Spacer()
-            }
-#elseif os(OSX)
             MenuButton()
-#endif
         }
         
         .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
@@ -42,12 +31,9 @@ struct ToolbarView: View {
         }
         
         .sheet(isPresented: $isPresentingAboutPage) {
-            ZStack {
-                InfoPage()
-                InfoHeader()
-            }
+            InfoPage(isPresenting: $isPresentingAboutPage)
 #if os(OSX)
-            .frame(minWidth: 400, idealWidth: 450, maxWidth: 600)
+                .frame(minWidth: 400, idealWidth: 450, maxWidth: 600)
 #endif
         }
         
@@ -77,32 +63,9 @@ struct ToolbarView: View {
         } label: {
             Image(systemName: "ellipsis.circle")
                 .foregroundColor(Color("Toolbar"))
-#if os(iOS)
-                .frame(width: 50, height: 32)
-                .background(RoundedRectangle(cornerRadius: 30).fill(.thinMaterial))
-#endif
         }
     }
     
-    
-    @ViewBuilder
-    private func InfoHeader() -> some View {
-        VStack {
-            ZStack {
-                HStack {
-                    Button("Close") { isPresentingAboutPage = false }
-                        .foregroundColor(Color("ServerAccent"))
-                        .brightness(0.07)
-                        .saturation(1.05)
-                        .padding()
-                    Spacer()
-                }
-            }
-            .frame(height: 65)
-            .background(.thinMaterial)
-            Spacer()
-        }
-    }
     
     private func deleteAllChats() {
         completeHaptic()

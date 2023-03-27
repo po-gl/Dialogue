@@ -13,8 +13,9 @@ import Introspect
 #endif
 
 struct ChatLog: View {
-    @FetchRequest(sortDescriptors: [SortDescriptor(\Chat.timestamp, order: .forward)])
-    private var allChats: FetchedResults<Chat>
+    @ObservedObject var chatThread: ChatThread
+    private var allChats: [Chat] { chatThread.chatsArray }
+    
     @State private var oldAllChatsCount: Int?
     
     @State private var animate = false
@@ -24,7 +25,7 @@ struct ChatLog: View {
     private var hasRunoff: Bool { allChats.count > maxChats }
     
 #if os(iOS)
-    private let keyboardOffset: CGFloat = 45
+    private let keyboardOffset: CGFloat = 140
 #elseif os(OSX)
     private let keyboardOffset: CGFloat = 100
 #endif
@@ -61,7 +62,6 @@ struct ChatLog: View {
                     .onReceive(Publishers.keyboardOpened) { _ in
                         scrollToLastChat(scroll: scroll)
                     }
-                    .padding(.bottom, 95)
 #endif
                     .frame(width: geometry.size.width)
                     .onAppear {
@@ -74,6 +74,9 @@ struct ChatLog: View {
                         .fill(LinearGradient(stops: [.init(color: .white.opacity(0.8), location: 0.0), .init(color: .clear, location: 1.0)], startPoint: .top, endPoint: .bottom))
                         .blendMode(.softLight)
                         .allowsHitTesting(false)
+                        // SwiftUI bug: blendmode flickers to normal if touching
+                        // horizontal edges during navigation animations
+                        .frame(width: max(geometry.size.width - 2, 0))
                 )
                 .scrollDismissesKeyboard(.immediately)
             }
@@ -84,7 +87,7 @@ struct ChatLog: View {
     
     @ViewBuilder
     private func Chats(_ geometry: GeometryProxy) -> some View {
-        ForEach(allChats.dropFirst(max(allChats.count-maxChats, 0)), id: \.id) { chat in
+        ForEach(allChats.dropFirst(max(allChats.count-maxChats, 0)), id: \Chat.id) { chat in
             ChatView(chat: chat, animate: animate, geometry: geometry)
                 .padding(.vertical, 10)
                 .padding(.bottom, 10)
@@ -111,13 +114,13 @@ struct ChatLog: View {
     }
     
     private func scrollToLastChat(scroll: ScrollViewProxy) {
-        #if os(iOS)
+#if os(iOS)
         withAnimation { scroll.scrollTo(allChats.last?.id, anchor: .bottom) }
-        #elseif os(OSX)
+#elseif os(OSX)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             withAnimation { scroll.scrollTo(allChats.last?.id, anchor: .bottom) }
         }
-        #endif
+#endif
     }
     
     private func wasChatRemoved() -> Bool {

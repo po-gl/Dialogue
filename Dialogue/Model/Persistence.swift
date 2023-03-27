@@ -62,15 +62,19 @@ struct PersistenceController {
             """
         let linkText = "Here is that link you were looking for: https://en.wikipedia.org/wiki/Calico_cat"
         
+        let thread = ChatThreadData.addThread(context: viewContext)
+        ChatThreadData.addThread("Empty Thread", date: .now - 1, context: viewContext)
+        ChatThreadData.addThread("Also Empty", date: .now - 2, context: viewContext)
+        
         for i in 0..<10 {
             let date = Date().addingTimeInterval(-Double(i+1) * 60.0 * 5.0)
             let endThread = i == 3 || i == 7
             
             if i % 2 == 0 {
-                ChatData.addUserChat(userText, date: date, endThread: endThread, context: viewContext)
+                ChatData.addUserChat(userText, date: date, thread: thread, endThread: endThread, context: viewContext)
             } else {
                 let text = i == 3 ? codeText : i == 1 ? linkText : serverText
-                ChatData.addServerChat(text, date: date, endThread: endThread, context: viewContext)
+                ChatData.addServerChat(text, date: date, thread: thread, endThread: endThread, context: viewContext)
             }
         }
         return result

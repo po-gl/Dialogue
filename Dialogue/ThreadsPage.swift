@@ -121,7 +121,12 @@ struct ThreadsPage: View {
 #endif
             }
 #if os(iOS)
-            .listRowBackground(colorScheme == .dark ? Color.black.opacity(0.6) : Color.white.opacity(0.6))
+            .listRowBackground(
+                (colorScheme == .dark ? Color.black : Color.white)
+                    .brightness(colorScheme == .dark ? 0.12 : -0.05)
+                    .opacity(0.6)
+            )
+            
 #endif
         }
 #if os(iOS)

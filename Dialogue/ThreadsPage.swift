@@ -83,9 +83,14 @@ struct ThreadsPage: View {
                             DeleteButton(thread)
                         }
                     
-                        .swipeActions(edge: .trailing) {
+                        .swipeActions {
+#if os(iOS)
                             DeleteButton(thread)
                             RenameButton(thread)
+#elseif os(OSX)
+                            RenameButton(thread)
+                            DeleteButton(thread)
+#endif
                         }
                 }
             } header: {

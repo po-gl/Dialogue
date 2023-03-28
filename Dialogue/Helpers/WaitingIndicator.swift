@@ -12,8 +12,8 @@ struct WaitingIndicator: View {
     var body: some View {
         HStack (spacing: 5) {
             DotView(delay: 0.2)
+            DotView(delay: 0.4)
             DotView(delay: 0.6)
-            DotView(delay: 1.0)
         }
         .foregroundColor(Color("Gray"))
         .padding(10)
@@ -28,7 +28,7 @@ struct WaitingIndicator: View {
             Circle()
                 .frame(width: 10)
                 .opacity(opacity)
-                .animation(.easeInOut(duration: 1.0).repeatForever().delay(delay), value: opacity)
+                .animation(.easeInOut(duration: 0.6).repeatForever().delay(delay), value: opacity)
                 .onAppear {
                     self.opacity = 1.0
                 }

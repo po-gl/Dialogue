@@ -41,17 +41,16 @@ struct ThreadsPage: View {
         }
     }
     
+#if os(iOS)
     @ViewBuilder
     private func MainContent() -> some View {
         ZStack {
             ThreadsPageBackground()
             
             ThreadList()
-#if os(iOS)
                 .listStyle(.insetGrouped)
 #endif
-        }
-    }
+    
     
     @ViewBuilder
     private func SideBar() -> some View {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct ThreadsPageBackground: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.verticalSizeClass) private var verticalSizeClass
@@ -73,3 +74,4 @@ struct ThreadsPageBackground: View {
         .saturation(colorScheme == .dark ? 1.05 : 1.05)
     }
 }
+#endif

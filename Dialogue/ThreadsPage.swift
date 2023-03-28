@@ -49,6 +49,12 @@ struct ThreadsPage: View {
             
             ThreadList()
                 .listStyle(.insetGrouped)
+        }
+        .onChange(of: selectedThread) { selectedThread in
+            guard selectedThread != nil else { return }
+            basicHaptic()
+        }
+    }
 #endif
     
     

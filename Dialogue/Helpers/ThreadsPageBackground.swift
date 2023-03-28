@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ThreadsPageBackground: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     
     @State private var animate = false
     
@@ -26,11 +27,16 @@ struct ThreadsPageBackground: View {
     private func ColorBlobs() -> some View{
         ZStack {
             VStack {
-                Circle().fill(Color("User"))
+                Circle().fill(Color(hex: 0x6EED89))
                     .blur(radius: 70)
-                    .offset(x: 320, y: animate ? 100 : 80)
+                    .offset(x: 320, y: animate ? 120 : 80)
                     .animation(.easeInOut(duration: 10).repeatForever(), value: animate)
                     .scaleEffect(1.2)
+                    .brightness(0.13).saturation(1.1)
+                Image("PickSpotSmall")
+                    .scaleEffect(1.0)
+                    .opacity(verticalSizeClass == .compact ? 0.0 : 0.8)
+                    .offset(x: 220, y: -180)
                 Spacer()
             }
             
@@ -54,6 +60,11 @@ struct ThreadsPageBackground: View {
                         .blur(radius: 80)
                         .offset(x: -180, y: 230)
                         .opacity(colorScheme == .dark ? 0.5 : 0.1)
+                    
+                    Image("PickSpotSmall")
+                        .scaleEffect(1.0)
+                        .opacity(verticalSizeClass == .compact ? 0.0 : 0.8)
+                        .offset(x: -160, y: 200)
                 }
             }
         }

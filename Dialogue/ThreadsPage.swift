@@ -18,8 +18,6 @@ struct ThreadsPage: View {
     
     @State private var selectedThread: ChatThread?
     
-    @State private var isPresentingAboutPage = false
-    
     @State private var isPresentingRenameAlert = false
     @State private var threadToRename: ChatThread?
     @State private var renameText = ""
@@ -30,7 +28,6 @@ struct ThreadsPage: View {
 #if os(iOS)
             MainContent()
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) { InfoButton() }
                     ToolbarItem { AddThreadButton() }
                 }
                 .introspectNavigationController { navController in
@@ -145,16 +142,7 @@ struct ThreadsPage: View {
             withAnimation { let _ = ChatThreadData.addThread(context: viewContext) }
         }) {
             Label("Add Thread", systemImage: "plus.app")
-        }
-    }
-    
-    @ViewBuilder
-    private func InfoButton() -> some View {
-        Button(action: { isPresentingAboutPage = true }) {
-            Label("About", systemImage: "info.circle")
-        }
-        .sheet(isPresented: $isPresentingAboutPage) {
-            InfoPage(isPresenting: $isPresentingAboutPage)
+                .shadow(radius: 10)
         }
     }
     

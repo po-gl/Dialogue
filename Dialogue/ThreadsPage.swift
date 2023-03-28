@@ -90,7 +90,12 @@ struct ThreadsPage: View {
                         }
                 }
             } header: {
+#if os(iOS)
                 Color.clear.frame(height: 5)
+#elseif os(macOS)
+                Text("Threads")
+                    .font(.system(.footnote))
+#endif
             }
 #if os(iOS)
             .listRowBackground(colorScheme == .dark ? Color.black.opacity(0.6) : Color.white.opacity(0.6))

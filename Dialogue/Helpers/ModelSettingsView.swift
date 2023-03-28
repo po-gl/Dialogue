@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ModelSettingsView: View {
-    @AppStorage("maxTokens") var maxTokens: Double = 150
-    @AppStorage("messageMemory") private var messageMemory: Double = 2
+    @AppStorage("maxTokens") var maxTokens: Double = 400
+    @AppStorage("messageMemory") private var messageMemory: Double = 4
     
     @Binding var isPresented: Bool
     

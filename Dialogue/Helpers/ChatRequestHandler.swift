@@ -12,7 +12,7 @@ class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var session = URLSession.shared
     @Published var responseData: Data?
-    @AppStorage("maxTokens") var maxTokens: Double = 150
+    @AppStorage("maxTokens") var maxTokens: Double = 400
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()

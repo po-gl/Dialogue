@@ -11,10 +11,13 @@ import Introspect
 struct ChatPage: View {
     @Environment(\.colorScheme) private var colorScheme
     
+    @FetchRequest(sortDescriptors: [SortDescriptor(\ChatThread.lastEdited, order: .reverse)])
+    private var chatThreads: FetchedResults<ChatThread>
+    
     private let titleEmoji = ["🤖", "🔮", "🌞", "👁️"]
     @State private var waiting: Bool = false
     
-    var chatThread: ChatThread
+    @Binding var chatThread: ChatThread
     
     
     var body: some View {
@@ -22,9 +25,14 @@ struct ChatPage: View {
             .toolbar {
                 ChatsToolbarView(chatThread: chatThread)
             }
-            .navigationTitle(chatThread.name ?? "New Thread \(titleEmoji.randomElement()!)")
+        
             .ignoresSafeArea(.container, edges: .bottom)
 #if os(iOS)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    SwipeTitle()
+                }
+            }
             .introspectNavigationController { navController in
                 let appearence = UINavigationBarAppearance()
                 appearence.backgroundColor = .clear
@@ -37,6 +45,7 @@ struct ChatPage: View {
                 StatusBarBlur()
             }
 #elseif os(OSX)
+            .navigationTitle(chatThread.name ?? "New Thread \(titleEmoji.randomElement()!)")
             .background(Color("BackgroundMacOS"))
             .frame(minWidth: 400, idealWidth: 600, minHeight: 450, idealHeight: 800)
 #endif
@@ -58,6 +67,21 @@ struct ChatPage: View {
         }
     }
     
+    @ViewBuilder
+    private func SwipeTitle() -> some View {
+        Menu {
+            ForEach(chatThreads) { thread in
+                if chatThread != thread {
+                    Button(action: { withAnimation { chatThread = thread } }) {
+                        Text(thread.name ?? "New Thread \(titleEmoji.randomElement()!)")
+                    }
+                }
+            }
+        } label: {
+            Text(chatThread.name ?? "New Thread \(titleEmoji.randomElement()!)")
+        }
+        .tint(.primary)
+    }
     
     @ViewBuilder
     private func StatusBarBlur() -> some View {

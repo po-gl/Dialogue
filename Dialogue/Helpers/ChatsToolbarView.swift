@@ -18,10 +18,57 @@ struct ChatsToolbarView: View {
     @State private var isPresentingRemoveAllConfirm = false
     
     var body: some View {
-        Group {
-            MenuButton()
+#if os(iOS)
+        MenuButton()
+            .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
+                Button(role: .destructive, action: deleteAllChats) {
+                    Text("Delete all messages")
+                }
+            } message: {
+                Text("You cannot undo this action.")
+            }
+        
+            .sheet(isPresented: $isPresentingAboutPage) {
+                InfoPage(isPresenting: $isPresentingAboutPage)
+            }
+        
+            .sheet(isPresented: $isPresentingModelSettings) {
+                ModelSettingsView(isPresented: $isPresentingModelSettings)
+            }
+#elseif os(OSX)
+        Buttons()
+#endif
+    }
+    
+    @ViewBuilder
+    private func MenuButton() -> some View {
+        Menu {
+            Buttons()
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .foregroundColor(Color("Toolbar"))
+        }
+    }
+    
+    
+    @ViewBuilder
+    private func Buttons() -> some View {
+        Button(action: { isPresentingAboutPage = true }) {
+            Label("About ChatGPT", systemImage: "info.circle")
         }
         
+        Button(action: { isPresentingModelSettings = true }) {
+            Label("Model Settings", systemImage: "slider.horizontal.3")
+        }
+#if os(OSX)
+        .padding(.trailing, 30)
+#endif
+        
+        Button(role: .destructive, action: { isPresentingRemoveAllConfirm = true }) {
+            Label("Remove All", systemImage: "trash")
+        }
+        
+#if os(OSX)
         .confirmationDialog("Are you sure?", isPresented: $isPresentingRemoveAllConfirm) {
             Button(role: .destructive, action: deleteAllChats) {
                 Text("Delete all messages")
@@ -32,38 +79,14 @@ struct ChatsToolbarView: View {
         
         .sheet(isPresented: $isPresentingAboutPage) {
             InfoPage(isPresenting: $isPresentingAboutPage)
-#if os(OSX)
                 .frame(minWidth: 400, idealWidth: 450, maxWidth: 600)
-#endif
         }
         
         .sheet(isPresented: $isPresentingModelSettings) {
             ModelSettingsView(isPresented: $isPresentingModelSettings)
-#if os(OSX)
                 .frame(minWidth: 450, idealWidth: 500, maxWidth: 650)
+        }
 #endif
-        }
-    }
-    
-    @ViewBuilder
-    private func MenuButton() -> some View {
-        Menu {
-            Button(action: { isPresentingAboutPage = true }) {
-                Label("About ChatGPT", systemImage: "info.circle")
-            }
-            
-            Button(action: { isPresentingModelSettings = true}) {
-                Label("Model Settings", systemImage: "slider.horizontal.3")
-            }
-            
-            Button(role: .destructive, action: { isPresentingRemoveAllConfirm = true }) {
-                Label("Remove All", systemImage: "trash")
-            }
-            
-        } label: {
-            Image(systemName: "ellipsis.circle")
-                .foregroundColor(Color("Toolbar"))
-        }
     }
     
     

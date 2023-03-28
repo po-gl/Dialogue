@@ -9,10 +9,13 @@ import SwiftUI
 import Introspect
 
 struct ChatPage: View {
+    @Environment(\.colorScheme) private var colorScheme
+    
     private let titleEmoji = ["🤖", "🔮", "🌞", "👁️"]
     @State private var waiting: Bool = false
     
     var chatThread: ChatThread
+    
     
     var body: some View {
         Page()
@@ -22,8 +25,17 @@ struct ChatPage: View {
             .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
             .ignoresSafeArea(.container, edges: .bottom)
 #if os(iOS)
+            .introspectNavigationController { navController in
+                let appearence = UINavigationBarAppearance()
+                appearence.backgroundColor = .clear
+                appearence.backgroundEffect = .none
+                navController.navigationBar.standardAppearance = appearence
+            }
             .navigationBarTitleDisplayMode(.inline)
             .background(Color("Background"))
+            .overlay(alignment: .top) {
+                StatusBarBlur()
+            }
 #elseif os(OSX)
             .background(Color("BackgroundMacOS"))
             .frame(minWidth: 400, idealWidth: 600, minHeight: 450, idealHeight: 800)
@@ -44,5 +56,15 @@ struct ChatPage: View {
                 AskView(chatThread: chatThread, waiting: $waiting)
             }
         }
+    }
+    
+    
+    @ViewBuilder
+    private func StatusBarBlur() -> some View {
+        Color.clear
+            .background(.ultraThinMaterial)
+            .brightness(colorScheme == .dark ? -0.1 : 0.02)
+            .edgesIgnoringSafeArea(.top)
+            .frame(height: 0)
     }
 }

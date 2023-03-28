@@ -30,10 +30,6 @@ struct ThreadsPage: View {
                 .toolbar {
                     ToolbarItem { AddThreadButton() }
                 }
-                .introspectNavigationController { navController in
-                    navController.navigationBar.scrollEdgeAppearance = navController.navigationBar.standardAppearance
-                    navController.navigationBar.isTranslucent = true
-                }
                 .navigationTitle("Threads")
 #elseif os(OSX)
             SideBar()

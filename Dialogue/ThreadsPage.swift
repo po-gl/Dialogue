@@ -63,6 +63,9 @@ struct ThreadsPage: View {
                 .padding(10)
                 .opacity(0.8)
         }
+        .onAppear {
+            selectedThread = chatThreads.first
+        }
     }
     
     
@@ -146,6 +149,7 @@ struct ThreadsPage: View {
     private func AddThreadButton() -> some View {
         Button(action: {
             withAnimation { let _ = ChatThreadData.addThread(context: viewContext) }
+            selectedThread = chatThreads.first
         }) {
             Label("Add Thread", systemImage: "plus.app")
                 .shadow(radius: 10)

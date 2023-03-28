@@ -51,6 +51,8 @@
 		6194BFCE299B05D300E667D1 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 6194BFCD299B05D300E667D1 /* Introspect */; };
 		619C45DF29B3852300D3C77B /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C45DE29B3852300D3C77B /* ChatPage.swift */; };
 		619C45E129B3852300D3C77B /* ChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619C45DE29B3852300D3C77B /* ChatPage.swift */; };
+		61A374EB29D2DA01006A0256 /* EmptyChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A374EA29D2DA01006A0256 /* EmptyChatPage.swift */; };
+		61A374EC29D2DA01006A0256 /* EmptyChatPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A374EA29D2DA01006A0256 /* EmptyChatPage.swift */; };
 		61B91324299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
 		61B91326299AD835009B8E7A /* EmptyChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B91323299AD835009B8E7A /* EmptyChat.swift */; };
 		61CA0F102992C5C400BFC448 /* View+keyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */; };
@@ -134,6 +136,7 @@
 		617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRequestHandler.swift; sourceTree = "<group>"; };
 		617D0055295FA14600A7D2A5 /* apikey.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = apikey.env; sourceTree = "<group>"; };
 		619C45DE29B3852300D3C77B /* ChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPage.swift; sourceTree = "<group>"; };
+		61A374EA29D2DA01006A0256 /* EmptyChatPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyChatPage.swift; sourceTree = "<group>"; };
 		61B91323299AD835009B8E7A /* EmptyChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyChat.swift; sourceTree = "<group>"; };
 		61BA184229B3C6060008DA97 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		61CA0F0F2992C5C400BFC448 /* View+keyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+keyboardAdaptive.swift"; sourceTree = "<group>"; };
@@ -294,6 +297,7 @@
 				6153E7C42992A2E400427F85 /* WaitingIndicator.swift */,
 				615F40BB29D17C9A00E9E5E0 /* ThreadsPageBackground.swift */,
 				61B91323299AD835009B8E7A /* EmptyChat.swift */,
+				61A374EA29D2DA01006A0256 /* EmptyChatPage.swift */,
 				61E369912993A201005210B1 /* ChatDivider.swift */,
 				61F21DE8299240E100C3DACC /* PopStyle.swift */,
 				61CA0F1F2992E2FA00BFC448 /* Haptics.swift */,
@@ -496,6 +500,7 @@
 				61CA0F1C2992DC2D00BFC448 /* AskView.swift in Sources */,
 				617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 				611A5FAE29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,
+				61A374EB29D2DA01006A0256 /* EmptyChatPage.swift in Sources */,
 				615F40BC29D17C9A00E9E5E0 /* ThreadsPageBackground.swift in Sources */,
 				61EF679F29B0D2FF00C77813 /* CodeHighlighter.swift in Sources */,
 			);
@@ -545,6 +550,7 @@
 				610B181B29B48E0800337F0E /* LinkPreview.swift in Sources */,
 				61F21DF02992454700C3DACC /* Color+isDark.swift in Sources */,
 				614DA2BB2997DBDF00EFC91C /* AppDelegate.swift in Sources */,
+				61A374EC29D2DA01006A0256 /* EmptyChatPage.swift in Sources */,
 				615F40BD29D17C9A00E9E5E0 /* ThreadsPageBackground.swift in Sources */,
 				61F21DF4299245CE00C3DACC /* Color+hex.swift in Sources */,
 			);

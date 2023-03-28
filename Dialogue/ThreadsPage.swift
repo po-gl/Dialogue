@@ -10,6 +10,8 @@ import Combine
 import Introspect
 
 struct ThreadsPage: View {
+    @AppStorage("shouldOnboard") private var shouldOnboard = true
+    
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
@@ -35,9 +37,20 @@ struct ThreadsPage: View {
             SideBar()
 #endif
         } detail: {
-            if let selectedThread {
+            if let selectedThread = Binding<ChatThread>($selectedThread) {
                 ChatPage(chatThread: selectedThread)
             }
+#if os(OSX)
+            if chatThreads.isEmpty {
+                EmptyChatPage()
+            }
+#endif
+        }
+        .onAppear {
+            if shouldOnboard && chatThreads.isEmpty {
+                addAndSelectThread()
+            }
+            shouldOnboard = false
         }
     }
     
@@ -78,6 +91,8 @@ struct ThreadsPage: View {
     private func ThreadList() -> some View {
         List(selection: $selectedThread) {
             Section {
+                if chatThreads.isEmpty { EmptyThreadListCell() }
+                
                 ForEach(chatThreads) { thread in
                     ThreadCell(thread)
                         .tag(thread)
@@ -149,12 +164,24 @@ struct ThreadsPage: View {
         }
     }
     
+    @ViewBuilder
+    private func EmptyThreadListCell() -> some View {
+        Text("Added threads will show up here.")
+            .opacity(0.4)
+            .listRowBackground(Color.clear)
+            .onTapGesture {
+                addAndSelectThread()
+            }
+#if os(OSX)
+            .font(.footnote)
+#endif
+    }
+    
     
     @ViewBuilder
     private func AddThreadButton() -> some View {
         Button(action: {
-            withAnimation { let _ = ChatThreadData.addThread(context: viewContext) }
-            selectedThread = chatThreads.first
+            addAndSelectThread()
         }) {
             Label("Add Thread", systemImage: "plus.app")
                 .shadow(radius: 10)
@@ -175,9 +202,20 @@ struct ThreadsPage: View {
     
     @ViewBuilder
     private func DeleteButton(_ thread: ChatThread) -> some View {
-        Button(role: .destructive, action: { ChatThreadData.deleteThread(thread, context: viewContext) }) {
+        Button(role: .destructive, action: {
+            ChatThreadData.deleteThread(thread, context: viewContext)
+            if chatThreads.isEmpty {
+                selectedThread = nil
+            }
+        }) {
             Label("Delete", systemImage: "trash")
         }.tint(.red)
+    }
+    
+    
+    private func addAndSelectThread() {
+        withAnimation { let _ = ChatThreadData.addThread(context: viewContext) }
+        selectedThread = chatThreads.first
     }
 }
 

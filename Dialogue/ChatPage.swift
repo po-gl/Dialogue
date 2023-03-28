@@ -22,7 +22,7 @@ struct ChatPage: View {
             .toolbar {
                 ChatsToolbarView(chatThread: chatThread)
             }
-            .navigationTitle("Dialogue \(titleEmoji.randomElement()!)")
+            .navigationTitle(chatThread.name ?? "New Thread \(titleEmoji.randomElement()!)")
             .ignoresSafeArea(.container, edges: .bottom)
 #if os(iOS)
             .introspectNavigationController { navController in

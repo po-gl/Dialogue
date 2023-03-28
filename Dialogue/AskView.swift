@@ -182,7 +182,7 @@ struct AskView: View {
         
         withAnimation { waiting = true }
         Task {
-            await self.apiRequestHandler.makeRequest(chats: getLastCoupleChats())
+            await self.apiRequestHandler.chat(chats: getLastCoupleChats())
             handleResponse()
             withAnimation { waiting = false }
         }
@@ -194,6 +194,11 @@ struct AskView: View {
         let responseText = ChatRequestHandler.getResponseString(apiRequestHandler.responseData)
         withAnimation { ChatData.addServerChat(responseText, thread: chatThread, context: viewContext) }
         ChatThreadData.wasEdited(chatThread, context: viewContext)
+        
+        Task {
+            let summary = await ChatRequestHandler().summarize(chats: getLastCoupleChats())
+            ChatThreadData.changeSummary(summary, for: chatThread, context: viewContext)
+        }
     }
     
     

@@ -161,7 +161,7 @@ struct ThreadsPage: View {
             HStack {
                 Text(timeFormatter.string(from: thread.lastEdited!))
                 
-                Text(thread.chatsArray.last?.text ?? "")
+                Text(thread.summary ?? thread.chatsArray.last?.text ?? "")
                     .lineLimit(1)
             }
             .font(.system(.subheadline))

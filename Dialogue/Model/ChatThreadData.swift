@@ -27,6 +27,11 @@ struct ChatThreadData {
         saveContext(context, errorMessage: "CoreData error while renaming ChatThread.")
     }
     
+    static func changeSummary(_ summary: String, for thread: ChatThread, context: NSManagedObjectContext) {
+        thread.summary = summary
+        saveContext(context, errorMessage: "CoreData error while changing ChatThread summary.")
+    }
+    
     static func deleteThread(_ thread: ChatThread, context: NSManagedObjectContext) {
         context.delete(thread)
         saveContext(context, errorMessage: "CoreData error while deleting ChatThread.")

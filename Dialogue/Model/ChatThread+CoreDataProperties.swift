@@ -18,6 +18,7 @@ extension ChatThread {
 
     @NSManaged public var lastEdited: Date?
     @NSManaged public var name: String?
+    @NSManaged public var summary: String?
     @NSManaged public var timestamp: Date?
     @NSManaged public var chats: NSSet?
 

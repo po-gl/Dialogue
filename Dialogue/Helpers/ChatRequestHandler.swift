@@ -14,19 +14,9 @@ class ChatRequestHandler: ObservableObject {
     @Published var responseData: Data?
     @AppStorage("maxTokens") var maxTokens: Double = 400
     
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("EEE M/d/Y")
-        return formatter
-    }()
     
-    
-    public func makeRequest(chats: [[String: String]]) async {
-        
-        let preprompt = "You are an assistant is helpful, creative, clever, and very friendly. When asked for images, you can provide a wiki link. Knowledge cutoff: Sep 2021. Current Date: \(dateFormatter.string(from: Date()))."
-        let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
-        
-        let messages: [[String: String]] = [prepromptData] + chats
+    public func makeRequest(messages: [[String: String]]) async -> Data? {
+        let messages: [[String: String]] = messages
         
         let apiKey = getApiKey("apikey.env")
         let model = "gpt-3.5-turbo"
@@ -54,26 +44,26 @@ class ChatRequestHandler: ObservableObject {
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        print("Input prompt: \(String(reflecting: messages))")
         
         do {
             let (responseData, _) = try await session.upload(for: request, from: jsonData!)
-            await MainActor.run {
-                self.responseData = responseData
-                print("URLResponseData:\(String(data:responseData, encoding: .utf8) ?? "")")
-            }
+            return responseData
         } catch {
             print("Error loading openai url: \(error.localizedDescription)")
         }
+        return nil
     }
     
-    public static func getResponseString(_ data: Data?) -> String {
+    
+    public static func getResponseString(_ data: Data?, printDebug: Bool = true) -> String {
         if let data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 if let choices = json["choices"] as? [[String: Any]] {
                     if let message = choices[0]["message"] as? [String: String] {
                         if let text = message["content"] {
-                            print("Response: \(String(reflecting: text))")
+                            if printDebug {
+                                print("Response: \(String(reflecting: text))")
+                            }
                             return text.trimmingCharacters(in: .whitespacesAndNewlines)
                         }
                     }
@@ -97,8 +87,50 @@ class ChatRequestHandler: ObservableObject {
         return ""
     }
     
-    
     private func getMessageInDataFormat(role: String, content: String) -> [String: String] {
         return ["role": role, "content": content]
     }
 }
+
+
+extension ChatRequestHandler {
+    
+    public func chat(chats: [[String: String]]) async {
+        let preprompt = "You are an assistant that is helpful, creative, clever, and very friendly. When asked for images, you can provide a wiki link. Knowledge cutoff: Sep 2021. Current Date: \(dateFormatter.string(from: Date()))."
+        let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
+        let messages = [prepromptData] + chats
+        print("Input prompt: \(String(reflecting: messages))")
+        
+        let responseData = await makeRequest(messages: messages)
+        await MainActor.run {
+            self.responseData = responseData
+            
+            if let responseData {
+                print("URLResponseData:\(String(data: responseData, encoding: .utf8) ?? "")")
+            }
+        }
+    }
+}
+
+extension ChatRequestHandler {
+    
+    public func summarize(chats: [[String: String]]) async -> String {
+        let preprompt = "You are an assistant that is an expert at summarizing conversations"
+        let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
+        let postprompt = "Give me the topic of the previous conversation in less than 8 words."
+        let postpromptData = getMessageInDataFormat(role: "user", content: postprompt)
+        
+        print("Summarizing...")
+        let responseData = await makeRequest(messages: [prepromptData] + chats + [postpromptData])
+        let summary = ChatRequestHandler.getResponseString(responseData, printDebug: false)
+        print("Summary: \(summary)")
+        return summary
+    }
+}
+
+
+fileprivate let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.setLocalizedDateFormatFromTemplate("EEE M/d/Y")
+    return formatter
+}()

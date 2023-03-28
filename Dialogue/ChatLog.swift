@@ -17,6 +17,7 @@ struct ChatLog: View {
     private var allChats: [Chat] { chatThread.chatsArray }
     
     @State private var oldAllChatsCount: Int?
+    @State private var shouldScroll = false
     
     @State private var animate = false
     @State private var keyboardHeight: CGFloat = 0
@@ -35,13 +36,13 @@ struct ChatLog: View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
                 ScrollView {
-                    if allChats.isEmpty {
-                        EmptyChat().padding(.top, 250)
-                    }
+                    if allChats.isEmpty { EmptyChat().padding(.top, 250) }
+                    
                     VStack (spacing: 0){
                         if hasRunoff { RunoffIndicator() }
                         Chats(geometry)
                     }
+                    
                     .onChange(of: allChats.count) { _ in
                         if !wasChatRemoved() {
                             scrollToLastChat(scroll: scroll)
@@ -54,6 +55,17 @@ struct ChatLog: View {
                     }
                     .onAppear {
                         scroll.scrollTo(allChats.last?.id, anchor: .bottom)
+                    }
+                    
+                    .onChange(of: chatThread) { chatThread in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            shouldScroll = true
+                        }
+                    }
+                    .onChange(of: shouldScroll) { shouldScroll in
+                        guard shouldScroll else { return }
+                        scrollToLastChat(scroll: scroll)
+                        self.shouldScroll = false
                     }
 #if os(iOS)
                     .onReceive(Publishers.keyboardHeight) { height in
@@ -76,7 +88,7 @@ struct ChatLog: View {
                         .allowsHitTesting(false)
                         // SwiftUI bug: blendmode flickers to normal if touching
                         // horizontal edges during navigation animations
-                        .frame(width: max(geometry.size.width - 2, 0))
+                        .frame(width: max(geometry.size.width - 2, 0), height: max(geometry.size.height - 2, 0))
                 )
                 .scrollDismissesKeyboard(.immediately)
             }

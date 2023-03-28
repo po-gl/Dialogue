@@ -25,6 +25,8 @@
 		6153E7C62992A2E400427F85 /* WaitingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6153E7C42992A2E400427F85 /* WaitingIndicator.swift */; };
 		615F40B929D131BE00E9E5E0 /* ThreadsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F40B829D131BE00E9E5E0 /* ThreadsPage.swift */; };
 		615F40BA29D131BE00E9E5E0 /* ThreadsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F40B829D131BE00E9E5E0 /* ThreadsPage.swift */; };
+		615F40BC29D17C9A00E9E5E0 /* ThreadsPageBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F40BB29D17C9A00E9E5E0 /* ThreadsPageBackground.swift */; };
+		615F40BD29D17C9A00E9E5E0 /* ThreadsPageBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615F40BB29D17C9A00E9E5E0 /* ThreadsPageBackground.swift */; };
 		6161E5BA29D11CF500B0DCF7 /* ChatRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */; };
 		6161E5BB29D11D0500B0DCF7 /* InfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614DA2CA2998586E00EFC91C /* InfoPage.swift */; };
 		6161E5C329D11E2700B0DCF7 /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 6161E5C229D11E2700B0DCF7 /* Splash */; };
@@ -114,6 +116,7 @@
 		614DA2CC29987A8A00EFC91C /* ModelSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSettingsView.swift; sourceTree = "<group>"; };
 		6153E7C42992A2E400427F85 /* WaitingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingIndicator.swift; sourceTree = "<group>"; };
 		615F40B829D131BE00E9E5E0 /* ThreadsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadsPage.swift; sourceTree = "<group>"; };
+		615F40BB29D17C9A00E9E5E0 /* ThreadsPageBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadsPageBackground.swift; sourceTree = "<group>"; };
 		617C252A29D10987007AA9E5 /* ChatThreadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatThreadData.swift; sourceTree = "<group>"; };
 		617C253629D117DE007AA9E5 /* ChatThread+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatThread+CoreDataClass.swift"; sourceTree = "<group>"; };
 		617C253729D117DE007AA9E5 /* ChatThread+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatThread+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -289,6 +292,7 @@
 				614DA2CC29987A8A00EFC91C /* ModelSettingsView.swift */,
 				614DA2CA2998586E00EFC91C /* InfoPage.swift */,
 				6153E7C42992A2E400427F85 /* WaitingIndicator.swift */,
+				615F40BB29D17C9A00E9E5E0 /* ThreadsPageBackground.swift */,
 				61B91323299AD835009B8E7A /* EmptyChat.swift */,
 				61E369912993A201005210B1 /* ChatDivider.swift */,
 				61F21DE8299240E100C3DACC /* PopStyle.swift */,
@@ -492,6 +496,7 @@
 				61CA0F1C2992DC2D00BFC448 /* AskView.swift in Sources */,
 				617D0053295F8BD500A7D2A5 /* ChatRequestHandler.swift in Sources */,
 				611A5FAE29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */,
+				615F40BC29D17C9A00E9E5E0 /* ThreadsPageBackground.swift in Sources */,
 				61EF679F29B0D2FF00C77813 /* CodeHighlighter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,6 +545,7 @@
 				610B181B29B48E0800337F0E /* LinkPreview.swift in Sources */,
 				61F21DF02992454700C3DACC /* Color+isDark.swift in Sources */,
 				614DA2BB2997DBDF00EFC91C /* AppDelegate.swift in Sources */,
+				615F40BD29D17C9A00E9E5E0 /* ThreadsPageBackground.swift in Sources */,
 				61F21DF4299245CE00C3DACC /* Color+hex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

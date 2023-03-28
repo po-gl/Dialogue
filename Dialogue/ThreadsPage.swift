@@ -176,38 +176,6 @@ struct ThreadsPage: View {
             Label("Delete", systemImage: "trash")
         }.tint(.red)
     }
-    
-    
-    @ViewBuilder
-    private func ThreadsPageBackground() -> some View {
-        VStack {
-            Circle().fill(Color("User"))
-                .blur(radius: 40)
-                .offset(x: -280, y: -100)
-            Spacer()
-            ZStack {
-                Circle().fill(Color("Server"))
-                    .blur(radius: 50)
-                    .offset(x: -0, y: 200)
-                    .scaleEffect(0.9)
-                Circle().fill(Color("ServerAccent"))
-                    .blur(radius: 50)
-                    .offset(x: -0, y: 300)
-                    .scaleEffect(0.9)
-                Circle().fill(Color("UserAccent"))
-                    .blur(radius: 50)
-                    .offset(x: 230, y: 100)
-                
-                Circle().fill(colorScheme == .dark ? Color("ServerAccent") : .black)
-                    .blur(radius: 80)
-                    .offset(x: 200, y: 280)
-                    .opacity(0.5)
-            }
-        }
-        .ignoresSafeArea()
-        .brightness(colorScheme == .dark ? -0.05 : 0.05)
-        .saturation(colorScheme == .dark ? 1.05 : 1.05)
-    }
 }
 
 

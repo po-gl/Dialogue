@@ -94,7 +94,7 @@ struct ChatData {
             try context.save()
         } catch {
             let nsError = error as NSError
-            fatalError("\(errorMessage) \(nsError), \(nsError.userInfo)")
+            print("\(errorMessage) \(nsError), \(nsError.userInfo)")
         }
     }
 }

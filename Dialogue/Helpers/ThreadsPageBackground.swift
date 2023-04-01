@@ -34,10 +34,6 @@ struct ThreadsPageBackground: View {
                     .animation(.easeInOut(duration: 10).repeatForever(), value: animate)
                     .scaleEffect(1.2)
                     .brightness(0.13).saturation(1.1)
-                Image("PickSpotSmall")
-                    .scaleEffect(1.0)
-                    .opacity(verticalSizeClass == .compact ? 0.0 : 0.8)
-                    .offset(x: 220, y: -180)
                 Spacer()
             }
             
@@ -63,8 +59,8 @@ struct ThreadsPageBackground: View {
                         .opacity(colorScheme == .dark ? 0.5 : 0.1)
                     
                     Image("PickSpotSmall")
-                        .scaleEffect(1.0)
-                        .opacity(verticalSizeClass == .compact ? 0.0 : 0.8)
+                        .scaleEffect(0.65)
+                        .opacity(verticalSizeClass == .compact ? 0.0 : 0.7)
                         .offset(x: -160, y: 200)
                 }
             }

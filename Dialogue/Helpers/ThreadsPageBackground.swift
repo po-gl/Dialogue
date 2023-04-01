@@ -58,10 +58,12 @@ struct ThreadsPageBackground: View {
                         .offset(x: -180, y: 230)
                         .opacity(colorScheme == .dark ? 0.5 : 0.1)
                     
-                    Image("PickSpotSmall")
-                        .scaleEffect(0.65)
-                        .opacity(verticalSizeClass == .compact ? 0.0 : 0.7)
-                        .offset(x: -160, y: 200)
+                    Image("PickSpot")
+                        .resizable()
+                        .frame(width: 300, height: 300)
+                        .scaleEffect(0.9)
+                        .opacity(verticalSizeClass == .compact ? 0.0 : 0.8)
+                        .offset(x: -170, y: 220)
                 }
             }
         }

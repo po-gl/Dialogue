@@ -52,11 +52,6 @@ struct ChatView: View {
     @ViewBuilder
     private func ChatMessage() -> some View {
         VStack (alignment: alignment.horizontal) {
-            if let metadata = chat.metadata {
-                LinkPreview(metadata: metadata as! LPLinkMetadata)
-                    .frame(maxWidth: 250, maxHeight: 400)
-                    .padding(.leading)
-            }
             ZStack (alignment: alignment) {
                 ChatBody()
 #if os(iOS)

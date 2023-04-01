@@ -18,7 +18,7 @@ struct ChatData {
                             thread: ChatThread,
                             endThread: Bool = false,
                             context: NSManagedObjectContext) {
-        addChat(text, fromUser: true, date: date, thread: thread, endThread: endThread, metadata: nil, context: context)
+        addChat(text, fromUser: true, date: date, thread: thread, endThread: endThread, context: context)
     }
     
     static func addServerChat(_ text: String,
@@ -26,13 +26,7 @@ struct ChatData {
                               thread: ChatThread,
                               endThread: Bool = false,
                               context: NSManagedObjectContext) {
-        Task {
-            let url = URL.getURL(for: text)
-            let metadata = await LPLinkMetadata.load(for: url)
-            await MainActor.run {
-                addChat(text, fromUser: false, date: date, thread: thread, endThread: endThread, metadata: metadata, context: context)
-            }
-        }
+        addChat(text, fromUser: false, date: date, thread: thread, endThread: endThread, context: context)
     }
     
     static func addChat(_ text: String,
@@ -40,7 +34,6 @@ struct ChatData {
                         date: Date,
                         thread: ChatThread,
                         endThread: Bool,
-                        metadata: LPLinkMetadata?,
                         context: NSManagedObjectContext) {
         let newChat = Chat(context: context)
         newChat.timestamp = date
@@ -48,10 +41,6 @@ struct ChatData {
         newChat.fromUser = fromUser
         
         newChat.thread = thread
-        
-        if let metadata {
-            newChat.metadata = metadata
-        }
         
         if endThread {
             newChat.endThread = true

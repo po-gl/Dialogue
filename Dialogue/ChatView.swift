@@ -99,10 +99,8 @@ struct ChatView: View {
     
     @ViewBuilder
     private func Bubble() -> some View {
-        Circle()
-            .fill(colorAccent.gradient)
-            .overlay(Circle().stroke(Color("Outline"), lineWidth: 2))
-            .frame(width: 12, height: 12)
+        BubbleAccent(fromUser: chat.fromUser,
+                     useLoopingGradient: abs(chat.timestamp!.timeIntervalSinceNow) < 60*60*3)
     }
     
     

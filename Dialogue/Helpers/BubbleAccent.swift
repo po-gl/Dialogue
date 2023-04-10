@@ -12,7 +12,7 @@ struct BubbleAccent: View {
     var useLoopingGradient: Bool
     
     var width: Double = 12
-    var animationDuration: Double { fromUser ? 9 : 8}
+    var animationDuration: Double { fromUser ? 4 : 5}
     
     @State var animate = true
     

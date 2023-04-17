@@ -65,7 +65,7 @@ struct ChatsToolbarView: View {
 #endif
         
         Button(role: .destructive, action: { isPresentingRemoveAllConfirm = true }) {
-            Label("Remove All", systemImage: "trash")
+            Label("Delete All Messages", systemImage: "trash")
         }
         
 #if os(OSX)

@@ -15,7 +15,7 @@ struct AskView: View {
     var chatThread: ChatThread
     private var allChats: [Chat] { chatThread.chatsArray }
     
-    @AppStorage("messageMemory") private var messageMemory: Double = 4
+    @AppStorage("messageMemory") private var messageMemory: Double = 6
     @AppStorage("showThreadButtonHint") private var showThreadButtonHint = true
     
     @ObservedObject var apiRequestHandler = ChatRequestHandler()

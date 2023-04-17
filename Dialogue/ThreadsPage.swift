@@ -68,8 +68,8 @@ struct ThreadsPage: View {
             basicHaptic()
         }
     }
-#endif
     
+#elseif os(OSX)
     
     @ViewBuilder
     private func SideBar() -> some View {
@@ -85,6 +85,7 @@ struct ThreadsPage: View {
             selectedThread = chatThreads.first
         }
     }
+#endif
     
     
     @ViewBuilder
@@ -155,9 +156,22 @@ struct ThreadsPage: View {
     
     @ViewBuilder
     private func ThreadCell(_ thread: ChatThread) -> some View {
-        VStack (alignment: .leading) {
+#if os(iOS)
+        let spacing: Double = 10
+#elseif os(OSX)
+        let spacing: Double = 0
+#endif
+        
+        VStack (alignment: .leading, spacing: spacing) {
+#if os(iOS)
             Text(thread.name == nil ? "New Thread" : thread.name == "" ? " " : thread.name!)
                 .font(.system(.headline))
+#elseif os(OSX)
+            TextField("", text: .init(get: { thread.name == nil ? "New Thread" : thread.name == "" ? " " : thread.name! },
+                                      set: { str in ChatThreadData.renameThread(str, for: thread, context: viewContext) }))
+            .offset(x: -8)
+            .font(.system(.headline))
+#endif
             
             HStack {
                 Text(timeFormatter.string(from: thread.lastEdited!))

@@ -110,6 +110,7 @@ struct ChatView: View {
             .markdownTextStyle() {
                 ForegroundColor(color.isDarkColor ? .white : .black)
             }
+        
             .markdownTextStyle(\.emphasis) {
                 FontStyle(.italic)
             }
@@ -119,7 +120,16 @@ struct ChatView: View {
             .markdownTextStyle(\.link) {
                 ForegroundColor(Color(hex: 0x076678))
             }
+        
             .markdownCodeSyntaxHighlighter(.splash(theme: .gruvLight(withFont: .init(size: 16))))
+            .markdownBlockStyle(\.codeBlock) { configuration in
+                configuration.label
+                    .overlay(alignment: .topTrailing) {
+                        CopyCodeButton(code: configuration.content)
+                            .scaleEffect(0.8)
+                            .opacity(0.4)
+                    }
+            }
 #if os(OSX)
             .textSelection(.enabled)
 #endif
@@ -131,7 +141,7 @@ struct ChatView: View {
     private func ChatContextMenu() -> some View {
         Button(action: {
             basicHaptic()
-            saveToClipboard()
+            saveToClipboard(text: chat.text)
         }) {
             Label("Copy", systemImage: "doc.on.doc")
         }
@@ -153,15 +163,6 @@ struct ChatView: View {
         }) {
             Label("Remove", systemImage: "trash")
         }
-    }
-    
-    private func saveToClipboard() {
-#if os(iOS)
-        UIPasteboard.general.string = chat.text
-#elseif os(OSX)
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(chat.text!, forType: .string)
-#endif
     }
 }
 

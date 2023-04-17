@@ -17,13 +17,14 @@ struct ChatLog: View {
     private var allChats: [Chat] { chatThread.chatsArray }
     
     @State private var oldAllChatsCount: Int?
+    @State private var lastID = ObjectIdentifier(Int.self)
+    
     @State private var shouldScroll = false
     
     @State private var animate = false
     @State private var keyboardHeight: CGFloat = 0
     
     private let maxChats = 50
-    private var hasRunoff: Bool { allChats.count > maxChats }
     
 #if os(iOS)
     private let keyboardOffset: CGFloat = 140
@@ -36,25 +37,26 @@ struct ChatLog: View {
         GeometryReader { geometry in
             ScrollViewReader { scroll in
                 ScrollView {
+                    let allChats = allChats
                     if allChats.isEmpty { EmptyChat().padding(.top, 250) }
                     
                     VStack (spacing: 0){
-                        if hasRunoff { RunoffIndicator() }
+                        if allChats.count > maxChats { RunoffIndicator() }
                         Chats(geometry)
                     }
                     
-                    .onChange(of: allChats.count) { _ in
+                    .onChange(of: self.allChats.count) { newCount in
                         if !wasChatRemoved() {
-                            scrollToLastChat(scroll: scroll)
+                            scrollToLastChat(scroll: scroll, withAnim: true)
                         }
-                        oldAllChatsCount = allChats.count
+                        oldAllChatsCount = newCount
                     }
                     .onChange(of: allChats.last?.endThread) { _ in
                         guard allChats.last?.endThread == true else { return }
-                        scrollToLastChat(scroll: scroll)
+                        scrollToLastChat(scroll: scroll, withAnim: true)
                     }
                     .onAppear {
-                        scroll.scrollTo(allChats.last?.id, anchor: .bottom)
+                        scrollToLastChat(scroll: scroll, withAnim: false)
                     }
                     
                     .onChange(of: chatThread) { chatThread in
@@ -64,7 +66,7 @@ struct ChatLog: View {
                     }
                     .onChange(of: shouldScroll) { shouldScroll in
                         guard shouldScroll else { return }
-                        scrollToLastChat(scroll: scroll)
+                        scrollToLastChat(scroll: scroll, withAnim: true)
                         self.shouldScroll = false
                     }
 #if os(iOS)
@@ -72,7 +74,7 @@ struct ChatLog: View {
                         self.keyboardHeight = height == 0 ? 0 : height - 70
                     }
                     .onReceive(Publishers.keyboardOpened) { _ in
-                        scrollToLastChat(scroll: scroll)
+                        scrollToLastChat(scroll: scroll, withAnim: true)
                     }
 #endif
                     .frame(width: geometry.size.width)
@@ -99,6 +101,7 @@ struct ChatLog: View {
     
     @ViewBuilder
     private func Chats(_ geometry: GeometryProxy) -> some View {
+        let allChats = allChats
         ForEach(allChats.dropFirst(max(allChats.count-maxChats, 0)), id: \Chat.id) { chat in
             ChatView(chat: chat, animate: animate, geometry: geometry)
                 .padding(.vertical, 10)
@@ -107,9 +110,11 @@ struct ChatLog: View {
                 .padding(.bottom, chat.endThread ? 30 : 0)
                 .overlay(alignment: .bottom) { ChatDivider(colorString: chat.endThreadDividerColor ?? "").opacity(chat.endThread ? 1 : 0).offset(y: 5) }
             
-                .padding(.bottom, chat.id == allChats.last!.id ? keyboardOffset + keyboardHeight : 0)
                 .id(chat.id)
         }
+        
+        Color.clear.frame(height: keyboardOffset + keyboardHeight)
+            .id(lastID)
     }
     
     @ViewBuilder
@@ -125,14 +130,18 @@ struct ChatLog: View {
             .padding(.top, 20)
     }
     
-    private func scrollToLastChat(scroll: ScrollViewProxy) {
+    private func scrollToLastChat(scroll: ScrollViewProxy, withAnim: Bool) {
+        if withAnim {
 #if os(iOS)
-        withAnimation { scroll.scrollTo(allChats.last?.id, anchor: .bottom) }
+            withAnimation { scroll.scrollTo(lastID, anchor: .bottom) }
 #elseif os(OSX)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            withAnimation { scroll.scrollTo(allChats.last?.id, anchor: .bottom) }
-        }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                withAnimation { scroll.scrollTo(lastID, anchor: .bottom) }
+            }
 #endif
+        } else {
+            scroll.scrollTo(lastID, anchor: .bottom)
+        }
     }
     
     private func wasChatRemoved() -> Bool {

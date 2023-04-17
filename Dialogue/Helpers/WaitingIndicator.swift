@@ -9,11 +9,13 @@ import SwiftUI
 
 struct WaitingIndicator: View {
     
+    private var duration: Double = 0.7
+    
     var body: some View {
         HStack (spacing: 5) {
-            DotView(delay: 0.2)
-            DotView(delay: 0.4)
-            DotView(delay: 0.6)
+            DotView(delay: 0.0,        duration: duration)
+            DotView(delay: duration/2, duration: duration)
+            DotView(delay: duration,   duration: duration)
         }
         .foregroundColor(Color("Gray"))
         .padding(10)
@@ -23,14 +25,15 @@ struct WaitingIndicator: View {
     
     struct DotView: View {
         var delay: Double = 0
+        var duration: Double
         @State var opacity: Double = 0.1
         var body: some View {
             Circle()
                 .frame(width: 10)
                 .opacity(opacity)
-                .animation(.easeInOut(duration: 0.6).repeatForever().delay(delay), value: opacity)
+                .animation(.easeInOut(duration: duration).repeatForever().delay(delay), value: opacity)
                 .onAppear {
-                    self.opacity = 1.0
+                    self.opacity = 0.8
                 }
         }
     }

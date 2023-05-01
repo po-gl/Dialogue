@@ -6,6 +6,7 @@ Its UI is a simple and familiar chat interface, but its conversation abilities a
 
 Features:
 - Chat interface connecting to OpenAI's ChatGPT api (`gpt-3.5-turbo`)
+- Keep track of multiple threads
 - Markdown rendering of messages (lists, tables, code syntax, etc.)
 - Preview links with rich media (the model can't utilize the internet so links are often dead ¯\\\_(ツ)_/¯)
 - Close/Open thread to control conversational memory
@@ -28,6 +29,6 @@ Note that **your API key is not not hidden in a compiled app**, so do not share 
 This app was fun to make, and I find myself using it instead of Google more often than I thought I would.
 
 <p align="middle"> 
-  <img align="center" width="280" alt="iOS dark" src="https://user-images.githubusercontent.com/42399205/223598252-21d7b4e2-045f-4deb-a32f-11a2f09ad38c.png">
-  <img align="center" width="380" alt="macOS light" src="https://user-images.githubusercontent.com/42399205/223598368-c193375a-da85-464a-a72d-2adea81e6537.png">
+  <img align="center" width="280" alt="iOS dark" src="https://user-images.githubusercontent.com/42399205/235488531-050e36a3-02d1-4f9a-aad3-235cfc871b42.png">
+  <img align="center" width="390" alt="macOS light" src="https://user-images.githubusercontent.com/42399205/235489112-a42420bc-05a4-4e9e-a56d-49a23a3feabb.png">
 </p>

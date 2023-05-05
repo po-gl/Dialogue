@@ -1,5 +1,5 @@
 # Dialogue
-An iOS and macOS chatGPT app
+An iOS and macOS ChatGPT app
 
 `Dialogue` is an iOS and macOS app that connects to OpenAI's ChatGPT API (`gpt-3.5-turbo`).
 Its UI is a simple and familiar chat interface, but its conversation abilities are surprisingly natural (like any other project using the GPT-3.5 model). Ask it general queries, coding questions, or to create poetry. The task-agnostic, few-shot model will typically give a convincing response, even when wrong. See OpenAI's [website](https://openai.com/blog/chatgpt) for more information on ChatGPT or their [paper](https://arxiv.org/pdf/2005.14165.pdf) on GPT-3 or this [paper](https://arxiv.org/abs/1706.03762) on the underlying Transformer model.

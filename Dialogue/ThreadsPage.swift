@@ -59,6 +59,7 @@ struct ThreadsPage: View {
     private func MainContent() -> some View {
         ZStack {
             ThreadsPageBackground()
+                .background(Color("BackgroundLighter"))
             
             ThreadList()
                 .listStyle(.insetGrouped)
@@ -114,10 +115,9 @@ struct ThreadsPage: View {
                         }
                     
 #if os(iOS)
-                        .listRowBackground(
-                            (colorScheme == .dark ? Color.black : Color.white)
-                                .brightness(colorScheme == .dark ? 0.12 : -0.05)
-                                .opacity(0.6)
+                        .listRowBackground(Color("BackgroundLighter")
+                                .brightness(colorScheme == .dark ? 0.12 : 0.03)
+                                .saturation(colorScheme == .dark ? 1.0 : 0.8)
                         )
 #endif
                     

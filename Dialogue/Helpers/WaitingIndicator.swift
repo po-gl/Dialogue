@@ -11,7 +11,7 @@ struct WaitingIndicator: View {
     
     private var duration: Double = 1.7
     
-    private var width: Double = 60
+    private var width: Double = 45
     
     var colors: [Color] {
         [Color("Server"),
@@ -32,18 +32,17 @@ struct WaitingIndicator: View {
     @State var animate = false
     
     var body: some View {
-        HStack (spacing: 5) {
+        HStack (spacing: 4) {
             DotView(delay: 0.0,        duration: duration)
             DotView(delay: duration/2, duration: duration)
             DotView(delay: duration,   duration: duration)
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6.3)
         .frame(width: width)
         
         .background(GradientBackground()
             .mask(RoundedRectangle(cornerRadius: 30)))
-        .overlay(RoundedRectangle(cornerRadius: 30).strokeBorder(Color("Outline"), lineWidth: 1.5))
+        .overlay(RoundedRectangle(cornerRadius: 30).strokeBorder(Color("Outline"), lineWidth: 1.7))
         .onAppear { animate = true }
     }
     
@@ -61,10 +60,10 @@ struct WaitingIndicator: View {
     struct DotView: View {
         var delay: Double = 0
         var duration: Double
-        @State var opacity: Double = -0.25
+        @State var opacity: Double = -0.15
         var body: some View {
             Circle()
-                .frame(width: 10)
+                .frame(width: 6.5)
                 .opacity(opacity)
                 .animation(.easeInOut(duration: duration).repeatForever().delay(delay), value: opacity)
                 .onAppear {

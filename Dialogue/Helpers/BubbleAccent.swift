@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct BubbleAccent: View {
+#if os(OSX)
+    @Environment(\.controlActiveState) private var controlActiveState
+#endif
+    
     var fromUser: Bool
     var useLoopingGradient: Bool
     
@@ -24,28 +28,42 @@ struct BubbleAccent: View {
     
     var color: Color { fromUser ? Color("UserAccent") : Color("ServerAccent") }
     
+    private var isFocusedWindow: Bool {
+#if os(OSX)
+        controlActiveState == .key
+#elseif os(iOS)
+        true
+#endif
+    }
+    
     
     var body: some View {
-        if useLoopingGradient {
-            GradientBackground()
-                .mask(Circle())
-                .overlay(Circle().stroke(Color("Outline"), lineWidth: 1.3))
-                .frame(width: width, height: width)
-            
-                .onAppear {
-                    Task {
-                        try? await Task.sleep(for: .seconds(0.1))
-                        animate = false
-                    }
-                }
-            
+        if useLoopingGradient && isFocusedWindow {
+            GradientBubble()
         } else {
-            
             Circle()
                 .fill(color.gradient)
                 .overlay(Circle().stroke(Color("Outline"), lineWidth: 1.3))
                 .frame(width: width, height: width)
         }
+    }
+        
+    @ViewBuilder
+    private func GradientBubble() -> some View {
+        GradientBackground()
+            .mask(Circle())
+            .overlay(Circle().stroke(Color("Outline"), lineWidth: 1.3))
+            .frame(width: width, height: width)
+        
+            .onAppear {
+                Task {
+                    try? await Task.sleep(for: .seconds(0.1))
+                    animate = false
+                }
+            }
+            .onDisappear {
+                animate = true
+            }
     }
     
     @ViewBuilder
@@ -56,7 +74,6 @@ struct BubbleAccent: View {
             .offset(x: animate ? -width*2 + width/2 + 2 : width*2 - width/2)
             .animation(.linear(duration: animationDuration).repeatForever(autoreverses: false), value: animate)
     }
-                  
 }
 
 struct BubbleAccent_Previews: PreviewProvider {

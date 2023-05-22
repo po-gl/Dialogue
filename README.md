@@ -2,7 +2,7 @@
 An iOS and macOS ChatGPT app
 
 `Dialogue` is an iOS and macOS app that connects to OpenAI's ChatGPT API (`gpt-3.5-turbo`).
-Its UI is a simple and familiar chat interface, but its conversation abilities are surprisingly natural (like any other project using the GPT-3.5 model). Ask it general queries, coding questions, or to create poetry. The task-agnostic, few-shot model will typically give a convincing response, even when wrong. See OpenAI's [website](https://openai.com/blog/chatgpt) for more information on ChatGPT or their [paper](https://arxiv.org/pdf/2005.14165.pdf) on GPT-3 or this [paper](https://arxiv.org/abs/1706.03762) on the underlying Transformer model.
+Its UI is a simple and familiar chat interface, but its conversation abilities are surprisingly natural (like any other project using the GPT-3.5 model). Ask it general queries, coding questions, or to create poetry. The task-agnostic model will typically give a convincing response in well crafted prose, even when wrong. As with other LLM's, do not rely on ChatGPT as a source of trustworthy information. See OpenAI's [website](https://openai.com/blog/chatgpt) for more information on ChatGPT or their [paper](https://arxiv.org/pdf/2005.14165.pdf) on GPT-3 or this [paper](https://arxiv.org/abs/1706.03762) on the underlying Transformer model.
 
 Features:
 - Chat interface connecting to OpenAI's ChatGPT api (`gpt-3.5-turbo`)
@@ -26,8 +26,6 @@ echo YOUR_API_KEY > ./Dialogue/apikey.env
 Note that **your API key is not not hidden in a compiled app**, so do not share it with anyone you don't trust. If sharing your app is something you want to do, host a webserver that will make API calls and send results back to the app.
 
 ---
-
-This app was fun to make, and I find myself using it instead of Google more often than I thought I would.
 
 <p align="middle"> 
   <img align="center" width="280" alt="iOS dark" src="https://user-images.githubusercontent.com/42399205/235488531-050e36a3-02d1-4f9a-aad3-235cfc871b42.png">

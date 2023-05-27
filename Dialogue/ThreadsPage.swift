@@ -113,15 +113,8 @@ struct ThreadsPage: View {
                             DeleteButton(thread)
 #endif
                         }
-                    
-#if os(iOS)
-                        .listRowBackground(Color("BackgroundLighter")
-                                .brightness(colorScheme == .dark ? 0.12 : 0.03)
-                                .saturation(colorScheme == .dark ? 1.0 : 0.8)
-                        )
-#endif
-                    
                 }
+                    
             } header: {
 #if os(iOS)
                 Color.clear.frame(height: 5)
@@ -130,6 +123,9 @@ struct ThreadsPage: View {
                     .font(.system(.footnote))
 #endif
             }
+#if os(iOS)
+            .listRowBackground(Color.clear)
+#endif
         }
 #if os(iOS)
         .background(.clear)

@@ -29,10 +29,6 @@ struct ThreadsPage: View {
         NavigationSplitView {
 #if os(iOS)
             MainContent()
-                .toolbar {
-                    ToolbarItem { AddThreadButton() }
-                }
-                .navigationTitle("Threads")
 #elseif os(OSX)
             SideBar()
 #endif
@@ -63,6 +59,10 @@ struct ThreadsPage: View {
             
             ThreadList()
                 .listStyle(.insetGrouped)
+        }
+        .navigationTitle("Threads")
+        .toolbar {
+            ToolbarItem { AddThreadButton() }
         }
         .onChange(of: selectedThread) { selectedThread in
             guard selectedThread != nil else { return }
@@ -199,7 +199,7 @@ struct ThreadsPage: View {
         Button(action: {
             addAndSelectThread()
         }) {
-            Label("Add Thread", systemImage: "plus.app")
+            Label("New Thread", systemImage: "plus.app")
                 .shadow(radius: 10)
         }
     }

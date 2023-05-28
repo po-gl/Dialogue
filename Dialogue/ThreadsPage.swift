@@ -60,8 +60,17 @@ struct ThreadsPage: View {
             
             ThreadList()
                 .listStyle(.insetGrouped)
+                .hidingTitleBackground()
         }
+        
         .navigationTitle("Threads")
+        .introspectNavigationController { navController in
+            let appearence = UINavigationBarAppearance()
+            appearence.backgroundColor = .clear
+            appearence.backgroundEffect = .none
+            navController.navigationBar.standardAppearance = appearence
+        }
+        
         .toolbar {
             ToolbarItem { AddThreadButton() }
         }
@@ -131,6 +140,7 @@ struct ThreadsPage: View {
 #if os(iOS)
         .background(.clear)
         .scrollContentBackground(.hidden)
+        .coordinateSpace(name: "titleScroll")
 #endif
         
         .alert("Rename Thread", isPresented: $isPresentingRenameAlert) {

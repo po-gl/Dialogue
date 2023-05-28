@@ -33,12 +33,6 @@ struct ChatPage: View {
                     SwipeTitle()
                 }
             }
-            .introspectNavigationController { navController in
-                let appearence = UINavigationBarAppearance()
-                appearence.backgroundColor = .clear
-                appearence.backgroundEffect = .none
-                navController.navigationBar.standardAppearance = appearence
-            }
             .navigationBarTitleDisplayMode(.inline)
             .background(Color("Background"))
             .overlay(alignment: .top) {

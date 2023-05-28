@@ -35,6 +35,7 @@ struct ThreadsPage: View {
         } detail: {
             if let selectedThread = Binding<ChatThread>($selectedThread) {
                 ChatPage(chatThread: selectedThread)
+                    .id(selectedThread.id)
             }
 #if os(OSX)
             if chatThreads.isEmpty {

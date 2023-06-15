@@ -24,7 +24,7 @@ struct ChatLog: View {
     @State private var animate = false
     @State private var keyboardHeight: CGFloat = 0
     
-    private let maxChats = 50
+    private let maxChats = 30
     
 #if os(iOS)
     private let keyboardOffset: CGFloat = 140

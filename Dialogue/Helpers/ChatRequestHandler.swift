@@ -15,11 +15,11 @@ class ChatRequestHandler: ObservableObject {
     @AppStorage("maxTokens") var maxTokens: Double = 1300
     
     
-    public func makeRequest(messages: [[String: String]]) async -> Data? {
+    public func makeRequest(messages: [[String: String]], model: String = "gpt-4") async -> Data? {
         let messages: [[String: String]] = messages
         
         let apiKey = getApiKey("apikey.env")
-        let model = "gpt-3.5-turbo"
+        let model = model
         let temperature = 0.9
         let maxTokens = Int(self.maxTokens)
         let topP = 1
@@ -115,13 +115,14 @@ extension ChatRequestHandler {
 extension ChatRequestHandler {
     
     public func summarize(chats: [[String: String]]) async -> String {
+        let model = "gpt-3.5-turbo"
         let preprompt = "You are an assistant that is an expert at summarizing conversations"
         let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
         let postprompt = "Give me the topic of the previous conversation in less than 8 words."
         let postpromptData = getMessageInDataFormat(role: "user", content: postprompt)
         
         print("Summarizing...")
-        let responseData = await makeRequest(messages: [prepromptData] + chats + [postpromptData])
+        let responseData = await makeRequest(messages: [prepromptData] + chats + [postpromptData], model: model)
         let summary = ChatRequestHandler.getResponseString(responseData, printDebug: false)
         print("Summary: \(summary)")
         return summary

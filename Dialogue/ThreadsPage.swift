@@ -56,12 +56,12 @@ struct ThreadsPage: View {
     private func MainContent() -> some View {
         ZStack {
             ThreadsPageBackground()
-                .background(Color("BackgroundLighter"))
             
             ThreadList()
                 .listStyle(.insetGrouped)
                 .hidingTitleBackground()
         }
+        .background(Color("BackgroundLighter"))
         
         .navigationTitle("Threads")
         .introspectNavigationController { navController in

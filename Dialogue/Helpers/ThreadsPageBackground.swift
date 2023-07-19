@@ -12,13 +12,22 @@ struct ThreadsPageBackground: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     
-    @State private var hueAnimate = false
+    @State var showColors: Bool?
     
     var body: some View {
-        ColorBlobs()
-            .onAppear {
-                hueAnimate = true
+        ZStack {
+            if showColors ?? false {
+                ColorBlobs()
             }
+        }
+        .onAppear {
+            showColors = verticalSizeClass == .regular
+        }
+        .onChange(of: verticalSizeClass) { verticalSizeClass in
+            withAnimation(.default.delay(0.2)) {
+                showColors = verticalSizeClass == .regular
+            }
+        }
     }
     
     @ViewBuilder
@@ -53,8 +62,8 @@ struct ThreadsPageBackground: View {
                     .blur(radius: 70)
                     .scaleEffect(x: 5, y: 0.7)
                     .offset(x: -60, y: 300)
-                
             }
+            .drawingGroup()
         }
         .ignoresSafeArea()
         .brightness(colorScheme == .dark ? 0.0 : 0.0)

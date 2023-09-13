@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Introspect
+import CoreData
 
 struct ChatPage: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -17,7 +18,15 @@ struct ChatPage: View {
     private let titleEmoji = ["🤖", "🔮", "🌞", "👁️"]
     @State private var waiting: Bool = false
     
-    @Binding var chatThread: ChatThread
+    @State var chatThread: ChatThread
+    
+    init(id objectID: NSManagedObjectID, in context: NSManagedObjectContext) {
+        if let thread = try? context.existingObject(with: objectID) as? ChatThread {
+            _chatThread = State(initialValue: thread)
+        } else {
+            _chatThread = State(initialValue: ChatThread(context: context))
+        }
+    }
     
     
     var body: some View {

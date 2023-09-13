@@ -33,8 +33,8 @@ struct ThreadsPage: View {
             SideBar()
 #endif
         } detail: {
-            if let selectedThread = Binding<ChatThread>($selectedThread) {
-                ChatPage(chatThread: selectedThread)
+            if let selectedThread {
+                ChatPage(id: selectedThread.objectID, in: viewContext)
                     .id(selectedThread.id)
             }
 #if os(OSX)

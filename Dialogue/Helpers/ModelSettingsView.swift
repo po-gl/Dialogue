@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ModelSettingsView: View {
     @AppStorage("maxTokens") var maxTokens: Double = 1300
+    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4
     @AppStorage("messageMemory") private var messageMemory: Double = 6
     
     @Binding var isPresented: Bool
@@ -18,6 +19,7 @@ struct ModelSettingsView: View {
         ZStack {
             SettingsHeader()
             VStack (spacing: 15) {
+                ModelSetting()
                 TokenSetting()
                 MemorySetting()
                 Spacer()
@@ -29,6 +31,7 @@ struct ModelSettingsView: View {
         
 #elseif os(OSX)
         VStack (spacing: 15) {
+            ModelSetting()
             TokenSetting()
             MemorySetting()
             
@@ -63,6 +66,14 @@ struct ModelSettingsView: View {
             .background(.thinMaterial)
             Spacer()
         }
+    }
+    
+    @ViewBuilder private func ModelSetting() -> some View {
+        Picker("GPT Model", selection: $gptModel) {
+            Text("gpt-4 ✨").tag(GPTModel.gpt4)
+            Text("gpt-3.5-turbo").tag(GPTModel.gpt3_5)
+        }
+        .pickerStyle(SegmentedPickerStyle())
     }
     
     @ViewBuilder private func TokenSetting() -> some View {

@@ -8,18 +8,24 @@
 import SwiftUI
 import Combine
 
+enum GPTModel: String {
+    case gpt4 = "gpt-4-0613"
+    case gpt3_5 = "gpt-3.5-turbo-0613"
+}
+
 class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var session = URLSession.shared
     @Published var responseData: Data?
     @AppStorage("maxTokens") var maxTokens: Double = 1300
+    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4
     
     
-    public func makeRequest(messages: [[String: String]], model: String = "gpt-4") async -> Data? {
+    public func makeRequest(messages: [[String: String]], model: GPTModel) async -> Data? {
         let messages: [[String: String]] = messages
         
         let apiKey = getApiKey("apikey.env")
-        let model = model
+        let model = model.rawValue
         let temperature = 0.9
         let maxTokens = Int(self.maxTokens)
         let topP = 1
@@ -101,7 +107,7 @@ extension ChatRequestHandler {
         let messages = [prepromptData] + chats
         print("Input prompt: \(String(reflecting: messages))")
         
-        let responseData = await makeRequest(messages: messages)
+        let responseData = await makeRequest(messages: messages, model: gptModel)
         await MainActor.run {
             self.responseData = responseData
             
@@ -115,7 +121,7 @@ extension ChatRequestHandler {
 extension ChatRequestHandler {
     
     public func summarize(chats: [[String: String]]) async -> String {
-        let model = "gpt-3.5-turbo"
+        let model: GPTModel = .gpt3_5
         let preprompt = "You are an assistant that is an expert at summarizing conversations"
         let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
         let postprompt = "Give me the topic of the previous conversation in less than 8 words."

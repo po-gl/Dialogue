@@ -176,7 +176,6 @@ struct ThreadsPage: View {
 #elseif os(OSX)
             TextField("", text: .init(get: { thread.name == nil ? "New Thread" : thread.name == "" ? " " : thread.name! },
                                       set: { str in ChatThreadData.renameThread(str, for: thread, context: viewContext) }))
-            .offset(x: -8)
             .font(.system(.headline))
 #endif
             

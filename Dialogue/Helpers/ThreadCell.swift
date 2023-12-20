@@ -39,7 +39,10 @@ struct ThreadCell: View {
             .opacity(0.6)
         }
         .task {
-            lastChatText = await thread.chatsArray.last?.text ?? ""
+            let result = await thread.chatsArray
+            await MainActor.run {
+                lastChatText = result.last?.text ?? ""
+            }
         }
     }
 }

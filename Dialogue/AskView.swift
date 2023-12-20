@@ -52,7 +52,10 @@ struct AskView: View {
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(.primary, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.4))
         }
         .task {
-            allChats = await chatThread.chatsArray
+            let result = await chatThread.chatsArray
+            await MainActor.run {
+                allChats = result
+            }
         }
         .padding(.vertical, 5)
         .padding(.horizontal, 10)

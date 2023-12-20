@@ -100,8 +100,11 @@ struct ChatLog: View {
         }
         .ignoresSafeArea(.keyboard)
         .task {
-            allChats = await chatThread.chatsArray
-            chatsJustLoaded = true
+            let result = await chatThread.chatsArray
+            await MainActor.run {
+                allChats = result
+                chatsJustLoaded = true
+            }
         }
     }
     

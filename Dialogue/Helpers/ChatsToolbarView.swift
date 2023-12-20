@@ -36,12 +36,18 @@ struct ChatsToolbarView: View {
                 ModelSettingsView(isPresented: $isPresentingModelSettings)
             }
             .task {
-                allChats = await chatThread.chatsArray
+                let result = await chatThread.chatsArray
+                await MainActor.run {
+                    allChats = result
+                }
             }
 #elseif os(OSX)
         Buttons()
             .task {
-                allChats = await chatThread.chatsArray
+                let result = await chatThread.chatsArray
+                await MainActor.run {
+                    allChats = result
+                }
             }
 #endif
     }

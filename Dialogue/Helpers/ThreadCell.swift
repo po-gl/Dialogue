@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ThreadCell: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
     let thread: ChatThread
     
 #if os(iOS)

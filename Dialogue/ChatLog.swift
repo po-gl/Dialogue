@@ -20,7 +20,8 @@ struct ChatLog: View {
     @State private var lastID = ObjectIdentifier(Int.self)
     
     @State private var shouldScroll = false
-    
+    @State private var chatsJustLoaded = false
+
     @State private var animate = false
     @State private var keyboardHeight: CGFloat = 0
     
@@ -100,6 +101,7 @@ struct ChatLog: View {
         .ignoresSafeArea(.keyboard)
         .task {
             allChats = await chatThread.chatsArray
+            chatsJustLoaded = true
         }
     }
     
@@ -136,7 +138,7 @@ struct ChatLog: View {
     }
     
     private func scrollToLastChat(scroll: ScrollViewProxy, withAnim: Bool) {
-        if withAnim {
+        if withAnim && !chatsJustLoaded {
 #if os(iOS)
             withAnimation { scroll.scrollTo(lastID, anchor: .bottom) }
 #elseif os(OSX)
@@ -144,6 +146,7 @@ struct ChatLog: View {
                 withAnimation { scroll.scrollTo(lastID, anchor: .bottom) }
             }
 #endif
+            chatsJustLoaded = false
         } else {
             scroll.scrollTo(lastID, anchor: .bottom)
         }

@@ -26,9 +26,11 @@ extension ChatThread {
 
 extension ChatThread {
     public var chatsArray: [Chat] {
-        let set = chats as? Set<Chat> ?? []
-        return set.sorted {
-            $0.timestamp ?? Date() < $1.timestamp ?? Date()
+        get async {
+            let set = chats as? Set<Chat> ?? []
+            return set.sorted {
+                $0.timestamp ?? Date() < $1.timestamp ?? Date()
+            }
         }
     }
 }

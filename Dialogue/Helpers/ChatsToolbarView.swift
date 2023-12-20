@@ -11,7 +11,7 @@ struct ChatsToolbarView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     var chatThread: ChatThread
-    private var allChats: [Chat] { chatThread.chatsArray }
+    @State private var allChats =  [Chat]()
     
     @State private var isPresentingAboutPage = false
     @State private var isPresentingModelSettings = false
@@ -35,8 +35,14 @@ struct ChatsToolbarView: View {
             .sheet(isPresented: $isPresentingModelSettings) {
                 ModelSettingsView(isPresented: $isPresentingModelSettings)
             }
+            .task {
+                allChats = await chatThread.chatsArray
+            }
 #elseif os(OSX)
         Buttons()
+            .task {
+                allChats = await chatThread.chatsArray
+            }
 #endif
     }
     

@@ -13,7 +13,7 @@ struct AskView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     var chatThread: ChatThread
-    private var allChats: [Chat] { chatThread.chatsArray }
+    @State private var allChats = [Chat]()
     
     @AppStorage("messageMemory") private var messageMemory: Double = 6
     @AppStorage("showThreadButtonHint") private var showThreadButtonHint = true
@@ -50,6 +50,9 @@ struct AskView: View {
             }
             .background(RoundedRectangle(cornerRadius: 26).fill(.ultraThinMaterial).opacity(0.3).brightness(colorScheme == .dark ? materialDarkBrightness : 0.012))
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(.primary, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.4))
+        }
+        .task {
+            allChats = await chatThread.chatsArray
         }
         .padding(.vertical, 5)
         .padding(.horizontal, 10)

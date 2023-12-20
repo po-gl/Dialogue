@@ -106,7 +106,7 @@ struct ThreadsPage: View {
                 if chatThreads.isEmpty { EmptyThreadListCell() }
                 
                 ForEach(chatThreads) { thread in
-                    ThreadCell(thread)
+                    ThreadCell(thread: thread)
                         .tag(thread)
                     
                         .contextMenu {
@@ -158,35 +158,6 @@ struct ThreadsPage: View {
                     ChatThreadData.renameThread(renameText, for: threadToRename, context: viewContext)
                 }
             }
-        }
-    }
-    
-    @ViewBuilder
-    private func ThreadCell(_ thread: ChatThread) -> some View {
-#if os(iOS)
-        let spacing: Double = 10
-#elseif os(OSX)
-        let spacing: Double = 0
-#endif
-        
-        VStack (alignment: .leading, spacing: spacing) {
-#if os(iOS)
-            Text(thread.name == nil ? "New Thread" : thread.name == "" ? " " : thread.name!)
-                .font(.system(.headline))
-#elseif os(OSX)
-            TextField("", text: .init(get: { thread.name == nil ? "New Thread" : thread.name == "" ? " " : thread.name! },
-                                      set: { str in ChatThreadData.renameThread(str, for: thread, context: viewContext) }))
-            .font(.system(.headline))
-#endif
-            
-            HStack {
-                Text(timeFormatter.string(from: thread.lastEdited!))
-                
-                Text(thread.summary ?? thread.chatsArray.last?.text ?? "")
-                    .lineLimit(1)
-            }
-            .font(.system(.subheadline))
-            .opacity(0.6)
         }
     }
     

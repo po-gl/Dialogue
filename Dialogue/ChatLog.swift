@@ -14,7 +14,7 @@ import Introspect
 
 struct ChatLog: View {
     @ObservedObject var chatThread: ChatThread
-    private var allChats: [Chat] { chatThread.chatsArray }
+    @State private var allChats = [Chat]()
     
     @State private var oldAllChatsCount: Int?
     @State private var lastID = ObjectIdentifier(Int.self)
@@ -98,6 +98,9 @@ struct ChatLog: View {
             }
         }
         .ignoresSafeArea(.keyboard)
+        .task {
+            allChats = await chatThread.chatsArray
+        }
     }
     
     

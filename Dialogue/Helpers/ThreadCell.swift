@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ThreadCell: View {
     let thread: ChatThread
-
-    @State var lastChatText = ""
     
 #if os(iOS)
         let spacing: Double = 10
@@ -32,17 +30,11 @@ struct ThreadCell: View {
             HStack {
                 Text(timeFormatter.string(from: thread.lastEdited!))
                 
-                Text(thread.summary ?? lastChatText)
+                Text(thread.summary ?? "")
                     .lineLimit(1)
             }
             .font(.system(.subheadline))
             .opacity(0.6)
-        }
-        .task {
-            let result = await thread.chatsArray
-            await MainActor.run {
-                lastChatText = result.last?.text ?? ""
-            }
         }
     }
 }

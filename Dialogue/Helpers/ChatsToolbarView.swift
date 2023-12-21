@@ -46,10 +46,12 @@ struct ChatsToolbarView: View {
 #elseif os(OSX)
         Buttons()
             .task {
-                reloadChats()
+                await reloadChats()
             }
             .onChange(of: chatThread.chats?.count) { _ in
-                reloadChats()
+                Task {
+                    await reloadChats()
+                }
             }
 #endif
     }

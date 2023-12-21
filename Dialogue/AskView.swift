@@ -52,9 +52,11 @@ struct AskView: View {
             .overlay(RoundedRectangle(cornerRadius: 26).strokeBorder(.primary, style: StrokeStyle(lineWidth: borderWidth)).opacity(0.4))
         }
         .task {
-            let result = await chatThread.chatsArray
-            await MainActor.run {
-                allChats = result
+            await reloadChats()
+        }
+        .onChange(of: chatThread.chats?.count) { _ in
+            Task {
+                await reloadChats()
             }
         }
         .padding(.vertical, 5)
@@ -208,7 +210,8 @@ struct AskView: View {
     }
     
     
-    private func getLastCoupleChats() -> [[String: String]] {
+    private func getLastCoupleChats() async -> [[String: String]] {
+        await reloadChats()
         var texts: [[String: String]] = []
         for i in 0..<Int(messageMemory)+1 {
             guard allChats.endIndex-1 - i >= 0 else { break }
@@ -222,6 +225,13 @@ struct AskView: View {
             }
         }
         return texts.reversed()
+    }
+
+    private func reloadChats() async {
+        let result = await chatThread.chatsArray
+        await MainActor.run {
+            allChats = result
+        }
     }
 }
 

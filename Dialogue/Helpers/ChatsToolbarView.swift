@@ -36,18 +36,20 @@ struct ChatsToolbarView: View {
                 ModelSettingsView(isPresented: $isPresentingModelSettings)
             }
             .task {
-                let result = await chatThread.chatsArray
-                await MainActor.run {
-                    allChats = result
+                await reloadChats()
+            }
+            .onChange(of: chatThread.chats?.count) { _ in
+                Task {
+                    await reloadChats()
                 }
             }
 #elseif os(OSX)
         Buttons()
             .task {
-                let result = await chatThread.chatsArray
-                await MainActor.run {
-                    allChats = result
-                }
+                reloadChats()
+            }
+            .onChange(of: chatThread.chats?.count) { _ in
+                reloadChats()
             }
 #endif
     }
@@ -106,6 +108,13 @@ struct ChatsToolbarView: View {
         completeHaptic()
         withAnimation {
             ChatData.deleteChats(allChats, context: viewContext)
+        }
+    }
+    
+    private func reloadChats() async {
+        let result = await chatThread.chatsArray
+        await MainActor.run {
+            allChats = result
         }
     }
 }

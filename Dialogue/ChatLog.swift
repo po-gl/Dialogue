@@ -100,14 +100,16 @@ struct ChatLog: View {
         }
         .ignoresSafeArea(.keyboard)
         .task {
-            let result = await chatThread.chatsArray
-            await MainActor.run {
-                allChats = result
+            await reloadChats(onComplete: {
                 chatsJustLoaded = true
+            })
+        }
+        .onChange(of: chatThread.chats?.count) { _ in
+            Task {
+                await reloadChats()
             }
         }
     }
-    
     
     @ViewBuilder
     private func Chats(_ geometry: GeometryProxy) -> some View {
@@ -125,6 +127,14 @@ struct ChatLog: View {
         
         Color.clear.frame(height: keyboardOffset + keyboardHeight)
             .id(lastID)
+    }
+
+    private func reloadChats(onComplete: @escaping () -> Void = {}) async {
+        let result = await chatThread.chatsArray
+        await MainActor.run {
+            allChats = result
+            onComplete()
+        }
     }
     
     @ViewBuilder

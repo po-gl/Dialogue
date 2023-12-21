@@ -10,7 +10,7 @@ import SwiftUI
 struct ThreadCell: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    let thread: ChatThread
+    @ObservedObject var thread: ChatThread
     
 #if os(iOS)
         let spacing: Double = 10

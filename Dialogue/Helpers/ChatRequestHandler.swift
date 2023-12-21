@@ -52,7 +52,7 @@ class ChatRequestHandler: ObservableObject {
         
         
         do {
-            let (responseData, _) = try await session.upload(for: request, from: jsonData!)
+            let (responseData, _) = try await session.data(for: request)
             return responseData
         } catch {
             print("Error loading openai url: \(error.localizedDescription)")

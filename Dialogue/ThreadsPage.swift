@@ -211,8 +211,10 @@ struct ThreadsPage: View {
     
     
     private func addAndSelectThread() {
-        withAnimation { let _ = ChatThreadData.addThread(context: viewContext) }
-        selectedThread = chatThreads.first
+        withAnimation {
+            let newThread = ChatThreadData.addThread(context: viewContext)
+            selectedThread = newThread
+        }
     }
 }
 

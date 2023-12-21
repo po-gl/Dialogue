@@ -30,8 +30,12 @@ struct ThreadCell: View {
 #endif
             
             HStack {
-                Text(timeFormatter.string(from: thread.lastEdited!))
-                
+                if let lastEdited = thread.lastEdited {
+                    Text(timeFormatter.string(from: lastEdited))
+                } else {
+                    Text("----")
+                }
+
                 Text(thread.summary ?? "")
                     .lineLimit(1)
             }

@@ -9,8 +9,9 @@ import SwiftUI
 import Combine
 
 enum GPTModel: String {
+    case gpt4_turbo = "gpt-4-1106-preview"
     case gpt4 = "gpt-4-0613"
-    case gpt3_5 = "gpt-3.5-turbo-0613"
+    case gpt3_5 = "gpt-3.5-turbo-1106"
 }
 
 class ChatRequestHandler: ObservableObject {
@@ -18,7 +19,7 @@ class ChatRequestHandler: ObservableObject {
     var session = URLSession.shared
     @Published var responseData: Data?
     @AppStorage("maxTokens") var maxTokens: Double = 1300
-    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4
+    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4_turbo
     
     
     public func makeRequest(messages: [[String: String]], model: GPTModel) async -> Data? {

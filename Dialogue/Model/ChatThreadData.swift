@@ -45,11 +45,13 @@ struct ChatThreadData {
     // MARK: Save context
     
     static func saveContext(_ context: NSManagedObjectContext, errorMessage: String = "CoreData error.") {
-        do {
-            try context.save()
-        } catch {
-            let nsError = error as NSError
-            print("\(errorMessage) \(nsError), \(nsError.userInfo)")
+        context.perform {
+            do {
+                try context.save()
+            } catch {
+                let nsError = error as NSError
+                print("\(errorMessage) \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }

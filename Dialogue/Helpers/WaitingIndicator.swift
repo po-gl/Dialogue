@@ -9,24 +9,25 @@ import SwiftUI
 
 struct WaitingIndicator: View {
     
-    private var duration: Double = 1.7
+    private var duration: Double = 1.3
     
     private var width: Double = 45
     
     var colors: [Color] {
-        [Color("Server"),
-         Color("ServerAccent"),
-         Color(hex: 0xA02A95),
-         Color(hex: 0x331F99),
-         Color(hex: 0x476FEE),
-         Color(hex: 0xA9ECF1),
-        
-         Color(hex: 0xaC537A),
-         Color("UserAccent"),
-         Color(hex: 0xE3AC53),
-         Color(hex: 0x72DFF6),
-         Color("User"),
-         Color(hex: 0xDDEEF7)]
+        [
+            Color("Server"),
+            Color("ServerAccent"),
+            Color(hex: 0xA02A95),
+            Color(hex: 0x331F99),
+            Color(hex: 0x476FEE),
+            Color(hex: 0xA9ECF1),
+            
+            Color(hex: 0xaC537A),
+            Color("UserAccent"),
+            Color(hex: 0xE3AC53),
+            Color(hex: 0x72DFF6),
+            Color("User"),
+        ]
     }
     
     @State var animate = false
@@ -48,10 +49,10 @@ struct WaitingIndicator: View {
     
     @ViewBuilder
     private func GradientBackground() -> some View {
-        LinearGradient(colors: colors + colors.reversed() + colors, startPoint: .leading, endPoint: .trailing)
+        LinearGradient(colors: colors.prefix(colors.count-1) + colors.reversed().prefix(colors.count-1) + colors, startPoint: .leading, endPoint: .trailing)
             .scaleEffect(x: 4.0)
-            // - 10 to adjust for animation misalignment
-            .offset(x: animate ? -width*2 + width/2: width*2 - width/2 - 16)
+            // - 15 to adjust for animation misalignment
+            .offset(x: animate ? -width*2 + width/2: width*2 - width/2 - 15)
             .animation(.linear(duration: duration*40).repeatForever(autoreverses: false), value: animate)
             .scaleEffect(x: 2)
     }

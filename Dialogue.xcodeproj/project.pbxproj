@@ -11,6 +11,7 @@
 		610B181B29B48E0800337F0E /* LinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181829B48E0800337F0E /* LinkPreview.swift */; };
 		610B181D29B5A33900337F0E /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181C29B5A33900337F0E /* ChatData.swift */; };
 		610B181F29B5A33900337F0E /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610B181C29B5A33900337F0E /* ChatData.swift */; };
+		61183DC22BF5C768000A6532 /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61183DC12BF5C768000A6532 /* Migrations.swift */; };
 		611A5FAE29967BA600E28A56 /* View+fixContextFlicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */; };
 		611A5FB029967BA600E28A56 /* View+fixContextFlicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */; };
 		6123749A2A22D691005C55C5 /* View+hidingTitleBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612374992A22D691005C55C5 /* View+hidingTitleBackground.swift */; };
@@ -121,6 +122,7 @@
 /* Begin PBXFileReference section */
 		610B181829B48E0800337F0E /* LinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPreview.swift; sourceTree = "<group>"; };
 		610B181C29B5A33900337F0E /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
+		61183DC12BF5C768000A6532 /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
 		611A5FAD29967BA600E28A56 /* View+fixContextFlicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+fixContextFlicker.swift"; sourceTree = "<group>"; };
 		612374992A22D691005C55C5 /* View+hidingTitleBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+hidingTitleBackground.swift"; sourceTree = "<group>"; };
 		614B806329E162BF00A861B8 /* BubbleAccent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAccent.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 		61F21DE7299240B300C3DACC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				61183DC12BF5C768000A6532 /* Migrations.swift */,
 				617D0052295F8BD500A7D2A5 /* ChatRequestHandler.swift */,
 				614DA2BC2997F25D00EFC91C /* ChatsToolbarView.swift */,
 				614DA2CC29987A8A00EFC91C /* ModelSettingsView.swift */,
@@ -510,6 +513,7 @@
 				615F40B929D131BE00E9E5E0 /* ThreadsPage.swift in Sources */,
 				61F21DEE2992454700C3DACC /* Color+isDark.swift in Sources */,
 				61DD9A6029EDC48200B20ECC /* Clipboard.swift in Sources */,
+				61183DC22BF5C768000A6532 /* Migrations.swift in Sources */,
 				61E369922993A201005210B1 /* ChatDivider.swift in Sources */,
 				6123749A2A22D691005C55C5 /* View+hidingTitleBackground.swift in Sources */,
 				61EF678A29B091FD00C77813 /* View+alwaysPopover.swift in Sources */,

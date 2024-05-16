@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ModelSettingsView: View {
     @AppStorage("maxTokens") var maxTokens: Double = 1300
-    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4_turbo
+    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4o
     @AppStorage("messageMemory") private var messageMemory: Double = 6
     
     @Binding var isPresented: Bool
@@ -70,8 +70,8 @@ struct ModelSettingsView: View {
     
     @ViewBuilder private func ModelSetting() -> some View {
         Picker("GPT Model", selection: $gptModel) {
-            Text("gpt-4-turbo ✨").tag(GPTModel.gpt4_turbo)
-            Text("gpt-4").tag(GPTModel.gpt4)
+            Text("gpt-4o ✨").tag(GPTModel.gpt4o)
+            Text("gpt-4-turbo").tag(GPTModel.gpt4_turbo)
             Text("gpt-3.5-turbo").tag(GPTModel.gpt3_5)
         }
         .pickerStyle(SegmentedPickerStyle())

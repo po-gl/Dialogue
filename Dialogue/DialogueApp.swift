@@ -18,6 +18,9 @@ struct DialogueApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onAppear {
+                    Migrations.performModelMigrationGPT4oIfNeeded()
+                }
         } .commands {
             CommandGroup(replacing: .newItem, addition: {})
         }

@@ -30,6 +30,9 @@ struct ChatView: View {
     
     @State var isPresentingDeleteConfirm = false
     
+    @State var isPresentingDeletePairConfirm = false
+    @State var pairChat: Chat?
+    
     var body: some View {
         if !chat.isFault {
             ChatMessage()
@@ -41,6 +44,20 @@ struct ChatView: View {
                     Button("Delete message", role: .destructive) {
                         basicHaptic()
                         withAnimation { ChatData.deleteChat(chat, context: viewContext)}
+                        ChatThreadData.wasEdited(chat.thread!, context: viewContext)
+                    }
+                }
+                .confirmationDialog("Are you sure?", isPresented: $isPresentingDeletePairConfirm) {
+                    let message = pairChat != nil ? "Delete pair of messages" : "Delete message (no pair found)"
+                    Button(message, role: .destructive) {
+                        basicHaptic()
+                        withAnimation {
+                            ChatData.deleteChat(chat, context: viewContext)
+                            if let pairChat {
+                                ChatData.deleteChat(pairChat, context: viewContext)
+                            }
+                        }
+                        ChatThreadData.wasEdited(chat.thread!, context: viewContext)
                     }
                 }
         } else {
@@ -159,10 +176,24 @@ struct ChatView: View {
         Button(role: .destructive, action: {
             basicHaptic()
             isPresentingDeleteConfirm = true
-            ChatThreadData.wasEdited(chat.thread!, context: viewContext)
         }) {
             Label("Remove", systemImage: "trash")
         }
+        
+        Button(role: .destructive, action: {
+            basicHaptic()
+            Task {
+                pairChat = await ChatData.fetchPair(for: chat)
+                isPresentingDeletePairConfirm = true
+            }
+        }) {
+            Label("Remove Pair", systemImage: "trash")
+        }
+    }
+    
+    private func check() -> Bool {
+        print("Check called!")
+        return true
     }
 }
 

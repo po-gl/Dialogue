@@ -22,8 +22,11 @@ struct ChatThreadData {
         return newThread
     }
     
-    static func renameThread(_ name: String, for thread: ChatThread, context: NSManagedObjectContext) {
+    static func renameThread(_ name: String, for thread: ChatThread, byUser: Bool, context: NSManagedObjectContext) {
         thread.name = name
+        if byUser {
+            thread.wasRenamed = true
+        }
         saveContext(context, errorMessage: "CoreData error while renaming ChatThread.")
     }
     

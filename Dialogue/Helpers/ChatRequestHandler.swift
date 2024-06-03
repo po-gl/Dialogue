@@ -136,6 +136,23 @@ extension ChatRequestHandler {
     }
 }
 
+extension ChatRequestHandler {
+    
+    public func summarizeTitle(chats: [[String: String]]) async -> String {
+        let model: GPTModel = .gpt4o
+        let preprompt = "You are an assistant that is an expert at summarizing conversations into thread titles"
+        let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
+        let postprompt = "Give me the topic of the previous conversation in less than 4 words."
+        let postpromptData = getMessageInDataFormat(role: "user", content: postprompt)
+        
+        print("Summarizing Title...")
+        let responseData = await makeRequest(messages: [prepromptData] + chats + [postpromptData], model: model)
+        let summary = ChatRequestHandler.getResponseString(responseData, printDebug: false)
+        print("Summary Title: \(summary)")
+        return summary
+    }
+}
+
 
 fileprivate let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()

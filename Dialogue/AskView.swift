@@ -204,8 +204,14 @@ struct AskView: View {
         ChatThreadData.wasEdited(chatThread, context: viewContext)
         
         Task {
-            let summary = await ChatRequestHandler().summarize(chats: getLastCoupleChats())
+            let lastCoupleChats = await getLastCoupleChats()
+            let summary = await ChatRequestHandler().summarize(chats: lastCoupleChats)
             ChatThreadData.changeSummary(summary, for: chatThread, context: viewContext)
+            
+            if !chatThread.wasRenamed {
+                let title = await ChatRequestHandler().summarizeTitle(chats: lastCoupleChats)
+                ChatThreadData.renameThread(title, for: chatThread, byUser: false, context: viewContext)
+            }
         }
     }
     

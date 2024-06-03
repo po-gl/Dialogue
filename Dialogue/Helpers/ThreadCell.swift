@@ -25,7 +25,7 @@ struct ThreadCell: View {
                 .font(.system(.headline))
 #elseif os(OSX)
             TextField("", text: .init(get: { thread.name == nil ? "New Thread" : thread.name == "" ? " " : thread.name! },
-                                      set: { str in ChatThreadData.renameThread(str, for: thread, context: viewContext) }))
+                                      set: { str in ChatThreadData.renameThread(str, for: thread, byUser: true, context: viewContext) }))
             .font(.system(.headline))
 #endif
             

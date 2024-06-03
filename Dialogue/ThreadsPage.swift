@@ -155,7 +155,7 @@ struct ThreadsPage: View {
             Button("Cancel", role: .cancel) {}
             Button("Save") {
                 if let threadToRename {
-                    ChatThreadData.renameThread(renameText, for: threadToRename, context: viewContext)
+                    ChatThreadData.renameThread(renameText, for: threadToRename, byUser: true, context: viewContext)
                 }
             }
         }

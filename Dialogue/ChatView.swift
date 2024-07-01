@@ -18,6 +18,7 @@ struct ChatView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.chatFontSize) private var chatFontSize
     
     private var color: SwiftUI.Color { chat.fromUser ? SwiftUI.Color("User") : SwiftUI.Color("Server") }
     private var colorAccent: SwiftUI.Color { chat.fromUser ? SwiftUI.Color("UserAccent") : Color("ServerAccent") }
@@ -126,6 +127,9 @@ struct ChatView: View {
         Markdown(chat.text!)
             .markdownTextStyle() {
                 ForegroundColor(color.isDarkColor ? .white : .black)
+#if os(OSX)
+                FontSize(chatFontSize.wrappedValue)
+#endif
             }
         
             .markdownTextStyle(\.emphasis) {

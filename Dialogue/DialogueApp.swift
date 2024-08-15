@@ -27,6 +27,7 @@ struct DialogueApp: App {
                     Migrations.performModelMigrationGPT4oIfNeeded()
                 }
         } .commands {
+#if os(OSX)
             CommandGroup(replacing: .newItem, addition: {})
             CommandGroup(before: .toolbar) {
                 Button("Zoom In") {
@@ -51,6 +52,7 @@ struct DialogueApp: App {
                 }
                 Divider()
             }
+#endif
         }
     }
 }

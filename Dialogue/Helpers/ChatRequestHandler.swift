@@ -66,8 +66,8 @@ class ChatRequestHandler: ObservableObject {
         if let data {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 if let choices = json["choices"] as? [[String: Any]] {
-                    if let message = choices[0]["message"] as? [String: String] {
-                        if let text = message["content"] {
+                    if let message = choices[0]["message"] as? [String: Any] {
+                        if let text = message["content"] as? String {
                             if printDebug {
                                 print("Response: \(String(reflecting: text))")
                             }

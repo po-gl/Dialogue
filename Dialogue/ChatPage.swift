@@ -82,6 +82,7 @@ struct ChatPage: View {
             }
         } label: {
             Text(chatThread.name ?? "New Thread \(titleEmoji.randomElement()!)")
+                .frame(maxWidth: 250)
         }
         .tint(.primary)
     }

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ModelSettingsView: View {
     @AppStorage("maxTokens") var maxTokens: Double = 1300
-    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4o
+    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4_1
     @AppStorage("messageMemory") private var messageMemory: Double = 6
-    
+
     @Binding var isPresented: Bool
     
     var body: some View {
@@ -34,7 +34,7 @@ struct ModelSettingsView: View {
             ModelSetting()
             TokenSetting()
             MemorySetting()
-            
+
             HStack {
                 Spacer()
                 Button(action: { isPresented = false} ) {
@@ -70,11 +70,14 @@ struct ModelSettingsView: View {
     
     @ViewBuilder private func ModelSetting() -> some View {
         Picker("GPT Model", selection: $gptModel) {
-            Text("gpt-4o ✨").tag(GPTModel.gpt4o)
+            Text("gpt-o4-mini 🧠").tag(GPTModel.gpto4mini)
+            Text("gpt-4.1 ✨").tag(GPTModel.gpt4_1)
+            Text("gpt-4.1-mini ⚡️").tag(GPTModel.gpt4_1mini)
+            Text("gpt-4o 🌎").tag(GPTModel.gpt4o)
             Text("gpt-4-turbo").tag(GPTModel.gpt4_turbo)
             Text("gpt-3.5-turbo").tag(GPTModel.gpt3_5)
         }
-        .pickerStyle(SegmentedPickerStyle())
+        .pickerStyle(MenuPickerStyle())
     }
     
     @ViewBuilder private func TokenSetting() -> some View {
@@ -92,12 +95,12 @@ struct ModelSettingsView: View {
                 }
                 .padding(.bottom, 10)
                 .padding(.horizontal, 0)
-                Slider(value: $maxTokens, in: 150...2000, step: 50) {
+                Slider(value: $maxTokens, in: 500...10_000, step: 500) {
                     Text("Max tokens")
                 } minimumValueLabel: {
-                    Text("150")
+                    Text("500")
                 } maximumValueLabel: {
-                    Text("2000")
+                    Text("10,000")
                 }
                 .tint(Color("ServerAccent"))
             }
@@ -117,12 +120,12 @@ struct ModelSettingsView: View {
                 }
                 .padding(.bottom, 10)
                 .padding(.horizontal, 0)
-                Slider(value: $messageMemory, in: 2...12, step: 1) {
+                Slider(value: $messageMemory, in: 2...16, step: 1) {
                     Text("Max tokens")
                 } minimumValueLabel: {
                     Text("2")
                 } maximumValueLabel: {
-                    Text("12")
+                    Text("16")
                 }
                 .tint(Color("UserAccent"))
             }

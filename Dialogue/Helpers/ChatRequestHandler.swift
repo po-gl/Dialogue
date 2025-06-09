@@ -9,49 +9,58 @@ import SwiftUI
 import Combine
 
 enum GPTModel: String {
+    case gpto4mini = "o4-mini-2025-04-16"
+    case gpt4_1 = "gpt-4.1-2025-04-14"
+    case gpt4_1mini = "gpt-4.1-mini-2025-04-14"
     case gpt4o = "gpt-4o"
     case gpt4_turbo = "gpt-4-turbo"
     case gpt3_5 = "gpt-3.5-turbo"
 }
+
+let reasoningModels: [GPTModel] = [.gpto4mini]
 
 class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var session = URLSession.shared
     @Published var responseData: Data?
     @AppStorage("maxTokens") var maxTokens: Double = 1300
-    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4o
-    
-    
-    public func makeRequest(messages: [[String: String]], model: GPTModel) async -> Data? {
+    @AppStorage("gptModel") var gptModel: GPTModel = .gpt4_1
+
+    public func makeRequest(
+        messages: [[String: String]],
+        model: GPTModel) async -> Data? {
+        let isReasoningModel = reasoningModels.contains(model)
         let messages: [[String: String]] = messages
-        
+
         let apiKey = getApiKey("apikey.env")
-        let model = model.rawValue
-        let temperature = 0.9
+        let temperature = isReasoningModel ? 1.0 : 0.9
         let maxTokens = Int(self.maxTokens)
         let topP = 1
         let frequencyPenalty = 0.0
         let presencePenalty = 0.6
-        
-        let requestBody: [String: Any] = [
-            "model": model,
+
+        var requestBody: [String: Any] = [
+            "model": model.rawValue,
             "messages": messages,
             "temperature": temperature,
-            "max_tokens": maxTokens,
+            "max_completion_tokens": maxTokens,
             "top_p": topP,
             "frequency_penalty": frequencyPenalty,
-            "presence_penalty": presencePenalty,
         ]
-        
+
+        if !isReasoningModel {
+            // inputs that are incompatible with the reasoning models
+            requestBody["presence_penalty"] = presencePenalty
+        }
+
         let jsonData = try? JSONSerialization.data(withJSONObject: requestBody)
-        
+
         var request = URLRequest(url: URL(string: "https://api.openai.com/v1/chat/completions")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
-        
-        
+
         do {
             let (responseData, _) = try await session.data(for: request)
             return responseData
@@ -122,7 +131,7 @@ extension ChatRequestHandler {
 extension ChatRequestHandler {
     
     public func summarize(chats: [[String: String]]) async -> String {
-        let model: GPTModel = .gpt3_5
+        let model: GPTModel = .gpt4_1mini
         let preprompt = "You are an assistant that is an expert at summarizing conversations"
         let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
         let postprompt = "Give me the topic of the previous conversation in less than 8 words."
@@ -139,7 +148,7 @@ extension ChatRequestHandler {
 extension ChatRequestHandler {
     
     public func summarizeTitle(chats: [[String: String]]) async -> String {
-        let model: GPTModel = .gpt4o
+        let model: GPTModel = .gpt4_1mini
         let preprompt = "You are an assistant that is an expert at summarizing conversations into thread titles"
         let prepromptData = getMessageInDataFormat(role: "system", content: preprompt)
         let postprompt = "Give me the topic of the previous conversation in less than 4 words."

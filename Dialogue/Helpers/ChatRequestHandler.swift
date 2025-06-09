@@ -17,8 +17,6 @@ enum GPTModel: String {
     case gpt3_5 = "gpt-3.5-turbo"
 }
 
-let reasoningModels: [GPTModel] = [.gpto4mini]
-
 class ChatRequestHandler: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     var session = URLSession.shared
@@ -26,10 +24,12 @@ class ChatRequestHandler: ObservableObject {
     @AppStorage("maxTokens") var maxTokens: Double = 1300
     @AppStorage("gptModel") var gptModel: GPTModel = .gpt4_1
 
+    private static let reasoningModels: [GPTModel] = [.gpto4mini]
+
     public func makeRequest(
         messages: [[String: String]],
         model: GPTModel) async -> Data? {
-        let isReasoningModel = reasoningModels.contains(model)
+        let isReasoningModel = ChatRequestHandler.reasoningModels.contains(model)
         let messages: [[String: String]] = messages
 
         let apiKey = getApiKey("apikey.env")
